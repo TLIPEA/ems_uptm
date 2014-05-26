@@ -1,9 +1,9 @@
 # Sistema Manejador de Eventos de la UPTM #
 
-## Description ##
+## Descripción ##
 Sistema Manejador de Eventos de la UPTM (Universidad Politécnica Territorial de Mérida "Kléber Ramírez").
 
-## Requirements ##
+## Caracteristicas del Proyecto ##
 * [Lenguaje: PHP](http://php.net/)
 * [Framework: Codeigniter](http://ellislab.com/codeigniter)
 * [Base de Datos: MySQL](http://www.mysql.com/)
