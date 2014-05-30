@@ -15,7 +15,7 @@
 		<!-- Page-Level Demo Scripts - Dashboard - Use for reference -->
 		<script src="<?=base_url('backend/js/demo/dashboard-demo.js')?>"></script>
 
-	<?php elseif ($controller == 'Job' or $controller == 'Tag' or $controller == 'Category' or $controller == 'User'): ?>
+	<?php elseif ($controller == 'List'): ?>
 		
 		<script src="<?=base_url('backend/js/plugins/dataTables/jquery.dataTables.js')?>"></script>
 		<script src="<?=base_url('backend/js/plugins/dataTables/dataTables.bootstrap.js')?>"></script>

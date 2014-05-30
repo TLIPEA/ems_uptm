@@ -1,6 +1,6 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class State_Model extends CI_Model
+class User_Model extends CI_Model
 {
     public function __construct()
     {
@@ -24,7 +24,8 @@ class State_Model extends CI_Model
         }
     }
     
-    function get_all_users(){
+    function get_all_users()
+	{
         $query = $this->db->get('User');
         
         if($query->num_rows() > 0){
@@ -34,6 +35,24 @@ class State_Model extends CI_Model
             return $data;
         }
         else{
+            return 0;
+        }
+    }
+	
+	function get_all_users_with_participant()
+	{
+        $query = $this->db->join('Participant','Participant.Id = User.Participant_Id','INNER')->get('User');
+        
+        if($query->num_rows() > 0)
+		{
+            foreach($query->result() as $row)
+			{
+                $data[] = $row;
+            }
+            return $data;
+        }
+        else
+		{
             return 0;
         }
     }

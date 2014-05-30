@@ -16,7 +16,7 @@
 			<!-- Page-Level Plugin CSS - Dashboard -->
 			<link href="<?=base_url('backend/css/plugins/morris/morris-0.4.3.min.css')?>" rel="stylesheet">
 			<link href="<?=base_url('backend/css/plugins/timeline/timeline.css')?>" rel="stylesheet">
-		<?php elseif ($controller == 'Job' or $controller == 'Tag' or $controller == 'Category' or $controller == 'User'): ?>
+		<?php elseif ($controller == 'List'): ?>
 			<link href="<?=base_url('backend/css/plugins/dataTables/dataTables.bootstrap.css')?>" rel="stylesheet">
 		<?php elseif ($controller == 'New_Job' or $controller == 'New_Entry'): ?>
 			<link href="<?=base_url('backend/css/plugins/summernote/summernote.css')?>" rel="stylesheet">

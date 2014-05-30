@@ -87,9 +87,19 @@ class Backend extends CI_Controller {
 	public function logout()
     {
 		$this->session->unset_userdata('manager_ems_uptm');
-		session_destroy();
 		redirect('/backend/', 'refresh');
     }
+	
+	protected function load_view( $view, $data = '', $script = '')
+	{
+		$this->load->view('backend/base/header',$data);
+		$this->load->view('backend/'.$view);
+		$this->load->view('backend/base/footer');
+		if($script != '')
+		{
+			$this->load->view('backend/'.$script);
+		}
+	}
 	
 	protected function error_view($titleError,$msg)
 	{
