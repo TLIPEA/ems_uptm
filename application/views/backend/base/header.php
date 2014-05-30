@@ -66,25 +66,25 @@
 								<a href="<?=site_url('backend/index')?>"><i class="fa fa-home fa-fw"></i> Inicio</a>
 							</li>
 							<li>
-								<a href="<?=site_url('job/index')?>"><i class="fa fa-cogs fa-fw"></i> Administración<span class="fa arrow"></span></a>
+								<a href="<?=site_url('job/index')?>"><i class="fa fa-th fa-fw"></i> Administración<span class="fa arrow"></span></a>
 								<ul class="nav nav-second-level">
 									<li>
-										<a href="<?=site_url('job/index')?>">Cuentas</a>
+										<a href="<?=site_url('job/index')?>"><i class="fa fa-dollar fa-fw"></i> Cuentas</a>
 									</li>
 									<li>
-										<a href="<?=site_url('job/new_job')?>">Respaldo</a>
+										<a href="<?=site_url('job/new_job')?>"><i class="fa fa-download fa-fw"></i> Respaldo</a>
 									</li>
 								</ul>
 								<!-- /.nav-second-level -->
 							</li>
 							<li>
-								<a href="<?=site_url('job/index')?>"><i class="fa fa-thumb-tack fa-fw"></i> Eventos<span class="fa arrow"></span></a>
+								<a href="<?=site_url('job/index')?>"><i class="fa fa-calendar fa-fw"></i> Eventos<span class="fa arrow"></span></a>
 								<ul class="nav nav-second-level">
 									<li>
-										<a href="<?=site_url('job/index')?>">Eventos</a>
+										<a href="<?=site_url('job/index')?>"><i class="fa fa-thumb-tack fa-fw"></i> Eventos</a>
 									</li>
 									<li>
-										<a href="<?=site_url('job/new_job')?>">Preventas</a>
+										<a href="<?=site_url('job/new_job')?>"><i class="fa fa-clock-o fa-fw"></i> Preventas</a>
 									</li>
 								</ul>
 								<!-- /.nav-second-level -->
@@ -93,10 +93,10 @@
 								<a href="#"><i class="fa fa-users fa-fw"></i> Participantes<span class="fa arrow"></span></a>
 								<ul class="nav nav-second-level">
 									<li>
-										<a href="<?=site_url('blog/index')?>">Inscripción</a>
+										<a href="<?=site_url('blog/index')?>"><i class="fa fa-ticket fa-fw"></i>Inscripción</a>
 									</li>
 									<li>
-										<a href="<?=site_url('blog/new_entry')?>">Pagos</a>
+										<a href="<?=site_url('blog/new_entry')?>"><i class="fa fa-money fa-fw"></i>Pagos</a>
 									</li>
 								</ul>
 								<!-- /.nav-second-level -->
@@ -105,10 +105,10 @@
 								<a href="#"><i class="fa fa-picture-o fa-fw"></i> Certificados<span class="fa arrow"></span></a>
 								<ul class="nav nav-second-level">
 									<li>
-										<a href="<?=site_url('team/index')?>">Diseño</a>
+										<a href="<?=site_url('team/index')?>"><i class="fa fa-picture-o fa-fw"></i> Diseño</a>
 									</li>
 									<li>
-										<a href="<?=site_url('team/new_worker')?>">Impresión</a>
+										<a href="<?=site_url('team/new_worker')?>"><i class="fa fa-print fa-fw"></i> Impresión</a>
 									</li>
 								</ul>
 								<!-- /.nav-second-level -->
@@ -120,10 +120,10 @@
 								<a href="#"><i class="fa fa-user fa-fw"></i> Acceso<span class="fa arrow"></span></a>
 								<ul class="nav nav-second-level">
 									<li>
-										<a href="<?=site_url('user/index')?>">Usuarios</a>
+										<a href="<?=site_url('user/index')?>"><i class="fa fa-user fa-fw"></i> Usuarios</a>
 									</li>
 									<li>
-										<a href="<?=site_url('user/new_user')?>">Añadir Usuario</a>
+										<a href="<?=site_url('user/new_user')?>"><i class="fa fa-plus fa-fw"></i> Añadir Usuario</a>
 									</li>
 								</ul>
 							</li>
