@@ -530,6 +530,6 @@ INSERT INTO City (State_Id, Name) VALUES
 	(25, 'Islas Los Hermanos');
 	
 INSERT INTO Participant (DNI,Name,Last_Name,Email,Gender,Username,Password,Register_Date,City_Id) VALUES
-	('123456789','Typson','Sánzhez','styp152@gmail.com','Male','admin','7c4a8d09ca3762af61e59520943dc26494f8941b','2014-05-30',1);
+	('123456789','Typson','Sánchez','styp152@gmail.com','Male','admin','7c4a8d09ca3762af61e59520943dc26494f8941b','2014-05-30',1);
 	
 INSERT INTO User (Type, Participant_Id) VALUES ('Super Admin',1);
