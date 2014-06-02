@@ -72,22 +72,14 @@
             <li class="visible-lg"><a href="<?=site_url('home/index/Conference');?>">Jornadas</a></li>
             <li class="visible-lg"><a href="<?=site_url('home/index/Congress');?>">Congresos</a></li>
             <li class="visible-lg"><a href="<?=site_url('home/index/Diplomaed');?>">Diplomados</a></li>
-            <li class="active"><a href="<?=site_url('home/contact/');?>">Contacto</a></li>
+            <li><a href="<?=site_url('home/contact/');?>">Contacto</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-			  <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" title="Inicio de Sesion y Registro"><i class="fa fa-user" style="font-size: 20px;"></i></a>
+            <li class="active"><a href="javascript:void(0);" title="Inicio de Sesión y Registro"><i class="fa fa-user" style="font-size: 20px;"></i></a>
               <ul class="dropdown-menu login-menu">
-                <form role="form" class="form-horizontal" action="<?=site_url('frontend/login/');?>" method="POST">
-                    <div class="col-md-12 text-center form-login">
-                        <h4>Inicio de Sesión</h4>
-                        <input type="text" class="form-control" name="Username" placeholder="Usuario" required="" />
-                        <input type="password" class="form-control" name="Password" placeholder="Contraseña" required="" />
-                        <input type="submit" value="Ingresar" class="btn btn-info" />
-                        <hr>
-                        <h4><a href="<?=site_url('frontend/sign_in/');?>">Registrarse</a></h4>
-                    </div>
-                </form>
+				<div class="col-md-12 text-center form-login">
+					<h4><a href="<?=site_url('frontend/sign_in/');?>">Registrarse</a></h4>
+				</div>
 			  </ul>
 			</li>
           </ul>
@@ -99,5 +91,39 @@
         <div class="row" style="margin-top: 100px;">
             
         </div>
-		<?php include('contact.php');?>
+		
+		<ol class="breadcrumb">
+			<li><a href="<?=site_url('')?>">Inicio</a></li>
+			<li>Inicio de Sesión</li>
+		</ol>
+		
+		<div class="alert alert-danger alert-dismissable">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+			<strong>Oh oh!</strong> No pudimos iniciar sesión, verifica tus datos he intentalo de nuevo.
+		</div>
+		
+		<div class="page-header">
+		  <h3>Inicio de Sesión</h3>
+		</div>
+		
+		<div class="row">
+			<div class="col-xs-12 col-sm-8 col-sm-offset-2 text-center">
+				<form role="form" class="form-vertical" action="<?=site_url('frontend/login/');?>" method="POST">
+					<div class="form-group">
+						<input type="text" class="form-control" name="Username" placeholder="Usuario" required="" />
+						<input type="password" class="form-control" name="Password" placeholder="Contraseña" required="" />
+					</div>
+					<div class="form-group">
+						<input type="submit" value="Ingresar" class="btn btn-info" />
+					</div>
+					<hr>
+					<h4><a href="<?=site_url('frontend/sign_in/');?>">Registrarse</a></h4>
+				</form>
+			</div>
+		</div>
+		
+		
+		<hr>
+
+		<?php include('socialmedia.php');?>
 		<?php include('footer.php');?>

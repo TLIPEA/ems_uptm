@@ -64,21 +64,21 @@
                     <li><a href="<?=site_url('home/index/Diplomaed');?>">Diplomados</a></li>
                 </ul>
             </li>
-            <li class="visible-lg <?=($type=='Course')? 'active':''?>">
+            <li class="visible-lg <?=($type=='Curso')? 'active':''?>">
 			  <a href="<?=site_url('home/index/Course');?>">Cursos</a></li>
-            <li class="visible-lg <?=($type=='Practical%20Course')? 'active':''?>">
+            <li class="visible-lg <?=($type=='Taller')? 'active':''?>">
 			  <a href="<?=site_url('home/index/Practical Course');?>">Talleres</a></li>
-            <li class="visible-lg <?=($type=='Meeting')? 'active':''?>">
+            <li class="visible-lg <?=($type=='Encuentro')? 'active':''?>">
 			  <a href="<?=site_url('home/index/Meeting');?>">Encuentros</a></li>
-            <li class="visible-lg <?=($type=='Seminary')? 'active':''?>">
+            <li class="visible-lg <?=($type=='Seminario')? 'active':''?>">
 			  <a href="<?=site_url('home/index/Seminary');?>">Seminarios</a></li>
-            <li class="visible-lg <?=($type=='Conversational')? 'active':''?>">
+            <li class="visible-lg <?=($type=='Conversatorio')? 'active':''?>">
 			  <a href="<?=site_url('home/index/Conversational');?>">Conversatorios</a></li>
-            <li class="visible-lg <?=($type=='Conference')? 'active':''?>">
+            <li class="visible-lg <?=($type=='Jornada')? 'active':''?>">
 			  <a href="<?=site_url('home/index/Conference');?>">Jornadas</a></li>
-            <li class="visible-lg <?=($type=='Congress')? 'active':''?>">
+            <li class="visible-lg <?=($type=='Congreso')? 'active':''?>">
 			  <a href="<?=site_url('home/index/Congress');?>">Congresos</a></li>
-            <li class="visible-lg <?=($type=='Diplomaed')? 'active':''?>">
+            <li class="visible-lg <?=($type=='Diplomado')? 'active':''?>">
 			  <a href="<?=site_url('home/index/Diplomaed');?>">Diplomados</a></li>
             <li><a href="<?=site_url('home/contact/');?>">Contacto</a></li>
           </ul>
@@ -89,8 +89,8 @@
                 <form role="form" class="form-horizontal" action="<?=site_url('frontend/login/');?>" method="POST">
                     <div class="col-md-12 text-center form-login">
                         <h4>Inicio de Sesión</h4>
-                        <input type="text" class="form-control" name="Username" placeholder="Usuario" />
-                        <input type="password" class="form-control" name="Password" placeholder="Contraseña" />
+                        <input type="text" class="form-control" name="Username" placeholder="Usuario" required="" />
+                        <input type="password" class="form-control" name="Password" placeholder="Contraseña" required="" />
                         <input type="submit" value="Ingresar" class="btn btn-info" />
                         <hr>
                         <h4><a href="<?=site_url('frontend/sign_in/');?>">Registrarse</a></h4>
