@@ -18,8 +18,7 @@ class Participant_Model extends CI_Model
 			'Gender'        => $_data->post('Gender'),
 			'Username'      => $_data->post('Username'),
 			'Password'      => $this->encrypt->sha1($_data->post('Password')),
-			'Register_Date' => date("Y-m-d"),
-			'City_Id'       => $_data->post('City')
+			'City_Id'       => ($_data->post('City') == 0)? NULL : $_data->post('City')
         );
 		
         if($this->db->insert('Participant',$data))
@@ -32,7 +31,8 @@ class Participant_Model extends CI_Model
         }
     }
     
-    function get_all_participants(){
+    function get_all_participants()
+	{
         $query = $this->db->get('Participant');
         
         if($query->num_rows() > 0){

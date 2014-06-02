@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-include('frontend.php');
+include_once('frontend.php');
 
 class Home extends Frontend {
 	
@@ -13,16 +13,36 @@ class Home extends Frontend {
 	 public function index($type = '')
 	 {
 		  $data['title'] = 'EMS UPTM::Inicio';
-		  $data['type']  = $type;
 		  if($type == '')
 		  {
-			   $data['events'] = $this->Scheduled_Event_Model->get_all_scheduled_events_actives();
+			   $data['events_raw'] = $this->Scheduled_Event_Model->get_all_scheduled_events_actives();
 		  }
 		  else
 		  {
-			   $data['events'] = $this->Scheduled_Event_Model->get_all_scheduled_events_actives_by_type($type);
+			   $data['events_raw'] = $this->Scheduled_Event_Model->get_all_scheduled_events_actives_by_type($type);
+
 		  }
 		  
+		  if($data['events_raw'] != 0)
+		  {
+			   foreach($data['events_raw'] as $event)
+			   {
+					$event->Type = $this->type_event($event->Type);
+					$data['events'][] = $event;
+			   }
+		  }
+		  else
+		  {
+			   $data['events'] = $data['events_raw'];
+		  }
+		  
+		  if($type == ''){
+			   $data['type']  = $type;
+		  }
+		  else
+		  {
+			   $data['type']  = $this->type_event(urldecode($type));
+		  }
 		  if(!$this->session->userdata('public_ems_uptm'))
 		  {
 			   $this->load->view('frontend/base/index',$data);
