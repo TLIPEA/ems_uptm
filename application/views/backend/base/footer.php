@@ -90,11 +90,39 @@
             });
 	
         </script>   
-	<?php elseif ($controller == 'Edit_User'): ?>
-	<script type="text/javascript">
-	
-		$("#pass").click(function() {
-				location.href = "<?=site_url('user/password/'.$user[0]->Id)?>";
+	<?php elseif ($controller == 'New_User' or $controller == 'Edit_User'): ?>
+	<script>
+		$(document).ready(function(){
+			$("#Country").change(function() {
+                $("#Country option:selected").each(function() {
+                    country = $('#Country').val();
+                    $.post("<?=site_url('user/load_states')?>", {
+                        country : country
+                    }, function(data) {
+						if (data != "") {
+						    $("#State").html(data);
+                    }else{
+                        $("#State").html("<option value='0'>- Seleccione -</option>");
+                    }
+                        
+                    });
+                });
+            })
+			$("#State").change(function() {
+                $("#State option:selected").each(function() {
+                    state = $('#State').val();
+                    $.post("<?=site_url('user/load_cities')?>", {
+                        state : state
+                    }, function(data) {
+						if (data != "") {
+						    $("#City").html(data);
+                    }else{
+                        $("#City").html("<option value='0'>- Seleccione -</option>");
+                    }
+                        
+                    });
+                });
+            })
 		});
 	</script>
 	<?php endif;?>

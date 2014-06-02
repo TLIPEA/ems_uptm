@@ -23,6 +23,18 @@ class User_Model extends CI_Model
             return FALSE;
         }
     }
+	
+	function insert_user_array($data)
+    {
+        if($this->db->insert('User',$data))
+        {
+            return TRUE;
+        }
+        else
+        {
+            return FALSE;
+        }
+    }
     
     function get_all_users()
 	{
@@ -76,19 +88,35 @@ class User_Model extends CI_Model
         
         $data = array(
             'Type'           => $_data->post('Type'),
-			'Participant_Id' => $_data->post('Participant_Id'),
+			'Participant_Id' => $_data->post('Id'),
         );
         
-        if($this->db->where('Id',$_data->post('Id'))->update('User',$data)){
+        if($this->db->where('Id',$_data->post('User_Id'))->update('User',$data)){
             return TRUE;
         }else{
             return FALSE;
         }
     }
+
+	function update_user_array($_data){
+        
+        $data = array(
+            'Type'           => $_data->Type,
+			'Participant_Id' => $_data->Participant_Id
+        );
+        
+        if($this->db->where('Id',$_data->Id)->update('User',$data)){
+            return TRUE;
+        }else{
+            return FALSE;
+        }
+    }
+
+
     
     function delete_user($id){
         
-        if($this->db->where('Id',$id)->delete('User')){
+        if($this->db->where('Participant_Id',$id)->delete('User')){
             return TRUE;
         }else{
             return FALSE;

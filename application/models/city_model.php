@@ -53,6 +53,21 @@ class City_Model extends CI_Model
         }
     }
     
+	function get_by_id_state($_id)
+    {
+        $query = $this->db->where('State_Id',$_id)->get('City');
+        
+        if($query->num_rows() > 0){
+            foreach($query->result() as $row){
+                $data[] = $row;
+            }
+            return $data;
+        }
+        else{
+            return 0;
+        }
+    }
+	
     function update_city($_data){
         
         $data = array(

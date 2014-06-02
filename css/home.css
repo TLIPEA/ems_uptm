@@ -1,0 +1,25 @@
+.navbar {
+    margin-bottom: 100px;
+}
+.navbar-nav > li > a {
+    padding:30px 20px;
+}
+.login-menu {
+    min-width: 200px;
+}
+.form-login > input {
+    margin: 5px;
+}
+.theme-showcase {
+    margin-top: 83 px;
+}
+
+.page-header {
+    margin-top: 20px;
+}
+
+@media (max-width: 767px) {
+    .theme-showcase {
+        margin-top: 20 px;
+    }
+}

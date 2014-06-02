@@ -45,6 +45,40 @@ class Scheduled_Event_Model extends CI_Model
             return 0;
         }
     }
+	
+	function get_all_scheduled_events_actives()
+	{
+        $query = $this->db->select('Event.Name,Event.Purpose,Event.Type,Scheduled_Event.*')
+						->join('Event','Event.Id = Scheduled_Event.Event_Id','INNER')
+						->where('Status','Active')->get('Scheduled_Event');
+        
+        if($query->num_rows() > 0){
+            foreach($query->result() as $row){
+                $data[] = $row;
+            }
+            return $data;
+        }
+        else{
+            return 0;
+        }
+    }
+	
+	function get_all_scheduled_events_actives_by_type($type)
+	{
+		$query = $this->db->select('Event.Name,Event.Purpose,Event.Type,Scheduled_Event.*')
+						->join('Event','Event.Id = Scheduled_Event.Event_Id','INNER')
+						->where('Status','Active')->where('Type',$type)->get('Scheduled_Event');
+        
+        if($query->num_rows() > 0){
+            foreach($query->result() as $row){
+                $data[] = $row;
+            }
+            return $data;
+        }
+        else{
+            return 0;
+        }
+	}
     
     function get_by_id($_id)
     {

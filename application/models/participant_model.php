@@ -5,6 +5,7 @@ class Participant_Model extends CI_Model
     public function __construct()
     {
         parent::__construct();
+		$this->load->library('encrypt');
     }
     
     function insert_participant($_data)
@@ -14,11 +15,11 @@ class Participant_Model extends CI_Model
 			'Name'          => $_data->post('Name'),
 			'Last_Name'     => $_data->post('Last_Name'),
 			'Email'         => $_data->post('Email'),
-			'Genger'        => $_data->post('Genger'),
+			'Gender'        => $_data->post('Gender'),
 			'Username'      => $_data->post('Username'),
-			'Password'      => $_data->post('Password'),
-			'Register_Date' => $_data->post('Register_Date'),
-			'City_Id'       => $_data->post('City_Id')
+			'Password'      => $this->encrypt->sha1($_data->post('Password')),
+			'Register_Date' => date("Y-m-d"),
+			'City_Id'       => $_data->post('City')
         );
 		
         if($this->db->insert('Participant',$data))
@@ -59,19 +60,53 @@ class Participant_Model extends CI_Model
             return 0;
         }
     }
+
+	function get_by_id_with_user($_id)
+    {
+        $query = $this->db
+						->select('Participant.Id AS Id, Participant.DNI as DNI, Participant.Name AS Name, Last_Name, Email, Gender, Username, City_Id, City.Name AS City_Name, Type, State_Id, State.Name AS State_Name, Country_Id, User.Id AS User_Id, Country.Name AS Country_Name ')
+						->join('User','User.Participant_Id = Participant.Id','LEFT')
+						->join('City','City.Id = Participant.City_Id','INNER')
+						->join('State','State.Id = City.State_Id','INNER')
+						->join('Country','Country.Id = State.Country_Id','INNER')
+						->where('Participant.Id',$_id)
+						->get('Participant');
+        
+        if($query->num_rows() > 0){
+            foreach($query->result() as $row){
+                $data[] = $row;
+            }
+            return $data;
+        }
+        else{
+            return 0;
+        }
+    }
+	
+	function get_by_dni($_dni)
+    {
+        $query = $this->db->where('DNI',$_dni)->get('Participant');
+        
+        if($query->num_rows() > 0){
+            foreach($query->result() as $row){
+                $data[] = $row;
+            }
+            return $data;
+        }
+        else{
+            return 0;
+        }
+    }
+
     
     function update_participant($_data){
         
         $data = array(
-            'DNI'           => $_data->post('DNI'),
 			'Name'          => $_data->post('Name'),
 			'Last_Name'     => $_data->post('Last_Name'),
 			'Email'         => $_data->post('Email'),
 			'Gender'        => $_data->post('Gender'),
-			'Username'      => $_data->post('Username'),
-			'Password'      => $_data->post('Password'),
-			'Register_Date' => $_data->post('Register_Date'),
-			'City_Id'       => $_data->post('City_Id')
+			'City_Id'       => $_data->post('City')
         );
         
         if($this->db->where('Id',$_data->post('Id'))->update('Participant',$data)){

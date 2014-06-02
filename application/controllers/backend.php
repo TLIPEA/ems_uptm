@@ -3,13 +3,13 @@
 class Backend extends CI_Controller {
 	
 	 public function __construct()
-    {
+	 {
     	parent::__construct();
 		date_default_timezone_set('America/Caracas');
 		$this->load->library('session');
 		$this->load->library('encrypt');
 		$this->load->library('form_validation');
-    }
+	 }
 
 	public function index()
 	{
@@ -42,10 +42,10 @@ class Backend extends CI_Controller {
 	
 	protected function check_session()
 	{
-		if(!$this->session->userdata('manager_ems_uptm'))
-		{
-            redirect('/backend/','refresh');
-        }
+		  if(!$this->session->userdata('manager_ems_uptm'))
+		  {
+			   redirect('/backend/','refresh');
+		  }
 	}
 	
 	function check_login($password)

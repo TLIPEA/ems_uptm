@@ -69,7 +69,7 @@
 								<a href="<?=site_url('job/index')?>"><i class="fa fa-th fa-fw"></i> Administración<span class="fa arrow"></span></a>
 								<ul class="nav nav-second-level">
 									<li>
-										<a href="<?=site_url('job/index')?>"><i class="fa fa-dollar fa-fw"></i> Cuentas</a>
+										<a href="<?=site_url('job/index')?>"><i class="fa fa-building-o fa-fw"></i> Cuentas</a>
 									</li>
 									<li>
 										<a href="<?=site_url('job/new_job')?>"><i class="fa fa-download fa-fw"></i> Respaldo</a>
@@ -123,7 +123,7 @@
 										<a href="<?=site_url('user/index')?>"><i class="fa fa-user fa-fw"></i> Usuarios</a>
 									</li>
 									<li>
-										<a href="<?=site_url('user/new_user')?>"><i class="fa fa-plus fa-fw"></i> Añadir Usuario</a>
+										<a href="<?=site_url('user/search_participant')?>"><i class="fa fa-plus fa-fw"></i> Añadir Usuario</a>
 									</li>
 								</ul>
 							</li>

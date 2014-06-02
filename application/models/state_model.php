@@ -52,6 +52,21 @@ class State_Model extends CI_Model
             return 0;
         }
     }
+	
+	function get_by_id_country($_id)
+    {
+        $query = $this->db->where('Country_Id',$_id)->get('State');
+        
+        if($query->num_rows() > 0){
+            foreach($query->result() as $row){
+                $data[] = $row;
+            }
+            return $data;
+        }
+        else{
+            return 0;
+        }
+    }
     
     function update_state($_data){
         
