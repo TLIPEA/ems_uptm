@@ -47,8 +47,8 @@ CREATE TABLE IF NOT EXISTS Participant (
 	Gender ENUM('Male','Female') NOT NULL,
 	Username VARCHAR(15) NOT NULL,
 	Password VARCHAR(40) NOT NULL,
-	Register_Date DATE NOT NULL,
-	City_Id INT NOT NULL,
+	Register_Date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	City_Id INT NULL,
 	INDEX fk_participant_city (City_Id ASC),
 	CONSTRAINT fk_participant_city
 	FOREIGN KEY (City_Id) REFERENCES City(Id)
@@ -79,7 +79,7 @@ CREATE TABLE IF NOT EXISTS Event (
 	Name VARCHAR(200) NOT NULL,
 	Purpose TEXT,
 	/*Course = Curso, Seminary = Seminario, Diplomaed = Seminario, Meeting = Encuentros, Practical Course = Taller, Conference = Jornadas, Conversational = Conversatorio, Speech = Ponencia */
-	Type ENUM('Course','Seminary','Diplomaed','Congress Conversational','Meeting Conversational', 'Practical Course', 'Conference Conversational','Congress Cartel','Conference Cartel','Meeting Cartel','Congress Speech','Conference Speech',' Meeting Speech') NOT NULL
+	Type ENUM('Course','Practical Course','Meeting','Seminary','Conversational','Conference','Congress','Diplomaed') NOT NULL
 )
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
@@ -87,8 +87,8 @@ COLLATE = utf8_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS Scheduled_Event (
 	Id INT PRIMARY KEY AUTO_INCREMENT,
-	Start_Date DATE NOT NULL,
-	End_Date DATE NOT NULL,
+	Start_Date TIMESTAMP NOT NULL,
+	End_Date TIMESTAMP NOT NULL,
 	Mode ENUM('Online','Classroom') NOT NULL,
 	Quota INT NULL,
 	Status ENUM('Active','Off') NOT NULL,
@@ -142,8 +142,8 @@ COLLATE = utf8_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS Registration (
 	Id INT PRIMARY KEY AUTO_INCREMENT,
-	Status ENUM('Paid','Cancel','Free','Without Payment','Exempt','Collaborator','Organizer') NOT NULL,
-	Registration_Date DATE NOT NULL,
+	Status ENUM('Paid','Cancel','Free','Without Payment','Exempt','Collaborator','Organizer') NOT NULL DEFAULT 'Without Payment',
+	Registration_Date TIMESTAMP NOT NULL,
 	Sale_Id INT NOT NULL,
 	Participant_Id INT NOT NULL,
 	Scheduled_Event_Id INT NOT NULL,
@@ -247,8 +247,8 @@ COLLATE = utf8_unicode_ci;
 CREATE TABLE IF NOT EXISTS Activity (
 	Id INT PRIMARY KEY AUTO_INCREMENT,
 	Title VARCHAR(250) NOT NULL,
-	/*Course = Curso, Seminary = Seminario, Diplomaed = Seminario, Meeting = Encuentros, Practical Course = Taller, Conference = Jornadas, Conversational = Conversatorio, Oral Speech = Ponencia Oral */
-	Mode ENUM('Oral Speech','Practical Course','Seminary','Cartel','Conference','Conversational') NOT NULL,
+	/*'Oral Speech' = Ponencia ,'Practical Course' = Taller, 'Cartel' = Cartel, 'Conversational' = Conversatorio */
+	Mode ENUM('Oral Speech','Practical Course','Cartel','Conversational') NOT NULL,
 	Participation_Type ENUM('Online','Classroom') NOT NULL,
 	Keywords VARCHAR(150),
 	Summary VARCHAR(50),
@@ -323,7 +323,7 @@ CREATE TABLE IF NOT EXISTS Payment (
 	Amount DOUBLE NOT NULL,
 	Voucher_Number VARCHAR(30) NOT NULL,
 	Register_Date DATE NOT NULL,
-	Status ENUM('Validated','No Validated') NOT NULL,
+	Status ENUM('Validated','No Validated','Invalid') NOT NULL,
 	Registration_Id INT NOT NULL,
 	Account_Id INT NOT NULL,
 	INDEX fk_payment_registration (Registration_Id ASC),
