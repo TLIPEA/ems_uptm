@@ -21,6 +21,11 @@ class Frontend extends CI_Controller {
 		
 	}
 	
+	public function log_in()
+	{
+		
+	}
+	
 	public function login()
 	{
         $this->form_validation->set_rules('Username', 'Usuario'   , 'trim|required|xss_clean');
@@ -86,5 +91,30 @@ class Frontend extends CI_Controller {
 		{
 			$this->load->view('frontend/'.$script);
 		}
+	}
+	
+	public function sendmail($email,$name,$message,$subject)
+	{
+        $this->load->library('email');
+		
+		$configGmail = array(
+			'protocol' => 'smtp',
+			'smtp_host' => 'ssl://smtp.gmail.com',
+			'smtp_port' => 465,
+			'smtp_user' => 'info@sanchezsolutions.com.ve',
+			'smtp_pass' => '',
+			'mailtype' => 'html',
+			'charset' => 'utf-8',
+			'newline' => "\r\n",
+		);
+		
+		$this->email->initialize($configGmail);
+		
+		$this->email->from($email, 'Contacto: '.$name);
+		$this->email->to($email);
+		$this->email->subject($subject);               
+		$this->email->message($message);
+		
+		return $this->email->send();
 	}
 }
