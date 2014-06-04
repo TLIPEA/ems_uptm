@@ -44,8 +44,28 @@ class Registration_Model extends CI_Model
         }
     }
     
-    function get_all_registrations(){
+    function get_all_registrations()
+	{
         $query = $this->db->get('Registration');
+        
+        if($query->num_rows() > 0)
+		{
+            foreach($query->result() as $row)
+			{
+                $data[] = $row;
+            }
+            return $data;
+        }
+        else{
+            return 0;
+        }
+    }
+	
+	function get_all_registrations_by_participant($id){
+        $query = $this->db->select('Event.Name,Scheduled_Event.Start_Date, Scheduled_Event.End_Date,Registration.*')
+					->join('Scheduled_Event','Scheduled_Event.Id = Registration.Scheduled_Event_Id','INNER')
+					->join('Event','Event.Id = Scheduled_Event.Event_Id','INNER')
+					->where('Participant_Id',$id)->get('Registration');
         
         if($query->num_rows() > 0){
             foreach($query->result() as $row){

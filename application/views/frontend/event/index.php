@@ -27,7 +27,7 @@
 		<div class="col-sm-3">
 			<div class="panel panel-info">
 			  <div class="panel-heading">
-				<h3 class="panel-title"><?=$event->Type?></h3>
+				<h3 class="panel-title"><?=$event->Status?></h3>
 			  </div>
 			  <div class="panel-body text-center">
 				<?php $route = base_url('images/events/'.$event->Id.'.png');?>
@@ -38,6 +38,8 @@
 				<h5><?=date('g:i A',strtotime($event->Start_Date))?> a <?=date('g:i A',strtotime($event->End_Date))?></h5>
 			  </div>
 			  <div class="panel-footer">
+				<?php if():?>
+				<?php endif();?>
 				<a href="<?=site_url('event/view/'.$event->Id);?>"
 					class="btn btn-block btn-primary">Detalles</a>
 			  </div>

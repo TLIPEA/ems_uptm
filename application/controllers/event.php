@@ -219,7 +219,7 @@ class Event extends Frontend {
 		$data['title'] = 'Mis Eventos';
 		$data['type']  = 'Menu';
 		
-		$data['events'] = '';
+		$data['events'] = $this->Registration_Model->get_all_registrations_by_participant($this->session->userdata('public_ems_uptm')['Participant_Id']);
 		
 		$this->load_view('event/index',$data);
 	}

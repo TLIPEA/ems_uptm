@@ -277,6 +277,14 @@ class Frontend extends CI_Controller {
 		$data['Cartel']                          = 'Cartel';
 		$data['Primary']                         = 'Autor';
 		$data['Secondary']                       = 'CoAuthor';
+		$data['Paid']                            = 'Pagado';
+		$data['Cancel']                          = 'Cancelado';
+		$data['Free']                            = 'Gratis';
+		$data['Without Payment']                 = 'En Proceso';
+		$data['Exempt']                          = 'Exonerado';
+		$data['Collaborator']                    = 'Colaborador';
+		$data['Organizer']                       = 'Organizador';
+		$data['Faciliator']                      = 'Facilitador';
 		
 		return $data[$key];
 	}
