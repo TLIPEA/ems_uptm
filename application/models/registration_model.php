@@ -10,11 +10,28 @@ class Registration_Model extends CI_Model
     function insert_registration($_data)
     {
         $data = array(
-            'Status'             => $_data->post('Status'),
-			'Registration_Date'  => $_data->post('Registration_Date'),
-			'Sale_Id'            => $_data->post('Sale_Id'),
+			'Cost_Id'            => $_data->post('Cost_Id'),
 			'Participant_Id'     => $_data->post('Participant_Id'),
 			'Scheduled_Event_Id' => $_data->post('Scheduled_Event_Id')
+        );
+		
+        if($this->db->insert('Registration',$data))
+        {
+            return TRUE;
+        }
+        else
+        {
+            return FALSE;
+        }
+    }
+	
+	function insert_registration_facilitator($_data)
+    {
+        $data = array(
+			'Cost_Id'            => $_data->post('Cost_Id'),
+			'Participant_Id'     => $_data->post('Participant_Id'),
+			'Scheduled_Event_Id' => $_data->post('Scheduled_Event_Id'),
+			'Status'             => 'Facilitator',
         );
 		
         if($this->db->insert('Registration',$data))

@@ -46,12 +46,12 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand hidden-xs" href="<?=site_url('')?>"><img class="img-responsive" src="<?=base_url('images/logo/imagotipo.png')?>" alt="Logo del la Universidad" /></a>
+          <a class="navbar-brand hidden-xs" href="<?=site_url('')?>"><img class="img-responsive" src="<?=base_url('images/logo/imagotipo.png');?>" alt="Logo del la Universidad" /></a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li <?=($type=='')? 'class="active"':''?>><a href="<?=site_url('')?>">Inicio</a></li>
-            <li class="hidden-lg dropdown <?=($type!='' and $type!='Contact' and $type!='Menu')? 'active':''?>">
+            <li <?=($type=='')? 'class="active"':''?>><a href="<?=site_url('');?>">Inicio</a></li>
+            <li class="hidden-lg dropdown <?=($type!='')? 'active':''?>">
                 <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" title="Eventos Academicos">Eventos Academicos <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="<?=site_url('home/index/Course');?>">Cursos</a></li>
@@ -80,30 +80,24 @@
 			  <a href="<?=site_url('home/index/Congress');?>">Congresos</a></li>
             <li class="visible-lg <?=($type=='Diplomado')? 'active':''?>">
 			  <a href="<?=site_url('home/index/Diplomaed');?>">Diplomados</a></li>
-            <li <?=($type=='Contact')? 'class="active"':''?>>
-			  <a href="<?=site_url('home/contact/');?>">Contacto</a></li>
+            <li><a href="<?=site_url('home/contact/');?>">Contacto</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown <?=($type=='Menu')? 'active':''?>">
-                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" title="Menu de Usuario"> <i class="fa fa-gear" style="font-size: 20px;"></i></a>
-                <ul class="dropdown-menu">
-				  <li class="dropdown-header"><b class="fa fa-user"></b> <?=$name?></li>
-				  <li class="divider"></li>
-                  <li class="dropdown-header"><b class="fa fa-calendar"></b> Eventos</li>
-                  <li><a href="<?=site_url('event/registration')?>"><b class="fa fa-ticket"></b> Inscribirse</a></li>
-                  <li><a href="<?=site_url('event/my_events')?>"><b class="fa fa-calendar"></b> Mis Eventos</a></li>
-                  <li class="divider"></li>
-                  <li class="dropdown-header"><b class="fa fa-graduation-cap"></b> Postulaciones</li>
-                  <li><a href="<?=site_url('event/postulate')?>"><b class="fa fa-rocket"></b> Postularse</a></li>
-                  <li><a href="<?=site_url('event/applications')?>"><b class="fa fa-graduation-cap"></b> Mis Postulaciones</a></li>
-                  <li class="divider"></li>
-                  <li class="dropdown-header"><b class="fa fa-gears"></b> Configuraciones</li>
-                  <li><a href="<?=site_url('frontend/change_password')?>"><b class="fa fa-exchange"></b> Cambiar Clave</a></li>
-                  <li><a href="<?=site_url('frontend/update_data')?>"><b class="fa fa-refresh"></b> Actualizar Datos</a></li>
-                  <li class="divider"></li>
-                  <li><a href="<?=site_url('frontend/logout')?>"><b class="fa fa-power-off"></b> Cerrar Sesión</a></li>
-                </ul>
-            </li>
+            <li class="dropdown">
+			  <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" title="Inicio de Sesion y Registro"><i class="fa fa-user" style="font-size: 20px;"></i></a>
+              <ul class="dropdown-menu login-menu">
+                <form role="form" class="form-horizontal" action="<?=site_url('frontend/login/');?>" method="POST">
+                    <div class="col-md-12 text-center form-login">
+                        <h4>Inicio de Sesión</h4>
+                        <input type="text" class="form-control" name="Username" placeholder="Usuario" required="" />
+                        <input type="password" class="form-control" name="Password" placeholder="Contraseña" required="" />
+                        <input type="submit" value="Ingresar" class="btn btn-info" />
+                        <hr>
+                        <h4><a href="<?=site_url('frontend/sign_in/');?>">Registrarse</a></h4>
+                    </div>
+                </form>
+			  </ul>
+			</li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>

@@ -25,6 +25,32 @@ class Author_Model extends CI_Model
             return FALSE;
         }
     }
+	
+	function insert_coauthors($_data)
+    {
+		$count = 0;
+		foreach($_data->post('Id') as $id)
+		{
+			if($id!=0){
+				$data[] = array(
+					'Type'           => $_data->post('Type'),
+					'Activity_Id'    => $_data->post('Activity_Id'),
+					'Participant_Id' => $id,
+					'Institution'    => $_data->post('Institution')[$count],
+				);
+			}
+			$count++;
+		}
+        
+        if($this->db->insert_batch('Author',$data))
+        {
+            return TRUE;
+        }
+        else
+        {
+            return FALSE;
+        }
+    }
     
     function get_all_authors(){
         $query = $this->db->get('Author');
@@ -36,6 +62,25 @@ class Author_Model extends CI_Model
             return $data;
         }
         else{
+            return 0;
+        }
+    }
+	
+	function get_all_authors_by_activity($id)
+	{
+        $query = $this->db->join('Participant','Participant.Id = Author.Participant_Id','INNER')
+						->where('Activity_Id',$id)->get('Author');
+        
+        if($query->num_rows() > 0)
+		{
+            foreach($query->result() as $row)
+			{
+                $data[] = $row;
+            }
+            return $data;
+        }
+        else
+		{
             return 0;
         }
     }

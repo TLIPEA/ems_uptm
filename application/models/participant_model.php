@@ -30,6 +30,26 @@ class Participant_Model extends CI_Model
             return FALSE;
         }
     }
+	
+	function insert_participant_coauthor($_data)
+	{
+		$data = array(
+			'DNI'           => $_data['DNI'],
+			'Name'          => $_data['Name'],
+			'Last_Name'     => $_data['Last_Name'],
+			'Email'         => $_data['Email'],
+			'Gender'        => 0,
+		);
+		
+		if($this->db->insert('Participant',$data))
+        {
+            return TRUE;
+        }
+        else
+        {
+            return FALSE;
+        }
+	}
     
     function get_all_participants()
 	{
@@ -116,9 +136,40 @@ class Participant_Model extends CI_Model
         }
     }
 	
+	function update_status($_data){
+        
+        $data = array(
+			'Status'          => $_data['Status'],
+        );
+        
+        if($this->db->where('Id',$_data['Id'])->update('Participant',$data))
+		{
+            return TRUE;
+        }
+		else
+		{
+            return FALSE;
+        }
+    }
+	
 	function check_login($username)
 	{
 		$query = $this->db->join('User','User.Participant_Id = Participant.Id','INNER')->where('Username',$username)->get('Participant');
+        
+        if($query->num_rows() > 0){
+            foreach($query->result() as $row){
+                $data[] = $row;
+            }
+			return $data;
+        }
+        else{
+            return 0;
+        }
+	}
+	
+	function check_login_participant($username)
+	{
+		$query = $this->db->where('Username',$username)->get('Participant');
         
         if($query->num_rows() > 0){
             foreach($query->result() as $row){

@@ -42,8 +42,6 @@ class Frontend extends CI_Controller {
             $this->form_validation->set_message('valid_email'  ,'El %s no posee una estructura Válida');
             $this->form_validation->set_message('matches'      ,'No coincide el campo %s');
             $this->form_validation->set_message('min_length'   ,'%s debe cumplir con una longitud minima de caracteres');
-            $this->form_validation->set_message('max_length'   ,'%s debe cumplir con una longitud maxima de caracteres');
-            $this->form_validation->set_message('alpha'        ,'%s debe contener unicamente caracteres alfabeticos para el Registro');
 			
 			if ($this->form_validation->run()==FALSE)
             {
@@ -55,17 +53,17 @@ class Frontend extends CI_Controller {
 				if($this->Participant_Model->insert_participant($this->input))
 				{
 					$name    = $this->input->post('Name').' '.$this->input->post('Last_Name');
-					$mensaje     = "<br><br>Saludos {$name}, <br><br>";
-					$mensaje    .= "Éste es un mensaje automático para notificarte que tu registro en el Sistema de Eventos de la UPTM Kléber Ramirez<br><br>";
-					$mensaje    .= "Tu datos de acceso son:<br><br>";
-					$mensaje    .= "Usuario = {$this->input->post('Username')}<br>";
-					$mensaje    .= "Clave   = {$this->input->post('Password')}<br><br>";
-					$mensaje    .= "Debes Visitar ".site_url('frontend/verify')."/{$this->db->insert_id()}/{$this->input->post('Username')} para validar tu registro en nuestro sistema<br><br>";
-					$mensaje    .= "Para participar en cualquiera de nuestro eventos academicos debes ir a la sección de Inscripción y escoger el evento de tu agrado y realizar la serie de pasos para formalizar tu inscripción.<br><br>";
-					$mensaje    .= "Si tu no realizaste conmunicate con nosotros para solventar cualquier inconveniente.<br><br>";
-					$mensaje    .= "--<br>";
-					$mensaje    .= "Atte:<br>";
-					$mensaje    .= "UPTM Kleber Ramirez.<br>";
+					$message     = "<br><br>Saludos {$name}, <br><br>";
+					$message    .= "Éste es un mensaje automático para notificarte que tu registro en el Sistema de Eventos de la UPTM Kléber Ramirez<br><br>";
+					$message    .= "Tu datos de acceso son:<br><br>";
+					$message    .= "Usuario = {$this->input->post('Username')}<br>";
+					$message    .= "Clave   = {$this->input->post('Password')}<br><br>";
+					$message    .= "Debes Visitar ".site_url('frontend/verify')."/{$this->db->insert_id()}/{$this->input->post('Username')} para validar tu registro en nuestro sistema<br><br>";
+					$message    .= "Para participar en cualquiera de nuestro eventos academicos debes ir a la sección de Inscripción y escoger el evento de tu agrado y realizar la serie de pasos para formalizar tu inscripción.<br><br>";
+					$message    .= "Si tu no realizaste conmunicate con nosotros para solventar cualquier inconveniente.<br><br>";
+					$message    .= "--<br>";
+					$message    .= "Atte:<br>";
+					$message    .= "UPTM Kleber Ramirez.<br>";
 					
 					$subject = 'Registro Exitoso en el Sistema de Eventos de la UPTM';
 					if($this->send_mail($this->input->post('Email'),$name,$message,$subject))
@@ -106,16 +104,16 @@ class Frontend extends CI_Controller {
 	
 	protected function check_session()
 	{
-		  if(!$this->session->userdata('public_ems_uptm'))
-		  {
-			   redirect('/home/','refresh');
-		  }
+		if(!$this->session->userdata('public_ems_uptm'))
+		{
+			redirect('/home/','refresh');
+		}
 	}
 	
 	function check_login($password)
     {
         $username = $this->input->post('Username');
-		$user     =  $this->Participant_Model->check_login($username);
+		$user     =  $this->Participant_Model->check_login_participant($username);
       
         if($user != 0)
 		{
@@ -150,6 +148,16 @@ class Frontend extends CI_Controller {
 		redirect('/home/', 'refresh');
     }
 	
+	public function change_password()
+	{
+		$this->check_session();
+	}
+	
+	public function update_data()
+	{
+		$this->check_session();
+	}
+	
 	protected function error_view($titleError,$msg)
 	{
 		$this->message_view($titleError,$msg,2);
@@ -176,6 +184,51 @@ class Frontend extends CI_Controller {
 		{
 			$this->load->view('frontend/'.$script);
 		}
+	}
+	
+	public function verify($code,$username)
+	{
+		if(!($code == 0 and $username == 0)){
+            
+            $data = $this->Participant_Model->check_login_participant($username);
+            
+            if($data == 0)
+			{
+				$this->error_view('Error!','Algo va mal, Estas intentando validar un registro con las credenciales erroneas');
+            }
+			else
+			{
+                if($data[0]->Status == 'Active')
+				{
+					$this->error_view('Proceso ya Realizado!','Algo va mal, Tu cuenta ya se encuentra activa');
+                }
+				else
+				{
+                    if($data[0]->Code == $code){
+                        
+                        if($this->Participant_Model->update_status(array('Id' => $data[0]->Id, 'Status' => 'Activate')))
+						{
+							$this->success_view('Exito!','Tu cuenta ya se encuentra activa, ahora puedes iniciar sesión');
+                        }
+						else
+						{
+							$this->error_view('Error!','Algo va mal, Estas intentando validar un registro con las credenciales erroneas');
+                        }
+                        
+                    }
+					else
+					{
+                        $this->error_view('Error!','Algo va mal, Estas intentando validar un registro con las credenciales erroneas');
+                    }
+                }
+            }
+            
+            
+        }else{
+            $datos = array('titleError'=>'Error!', 'mensaje'=>'4Estas intentando validar un registro con las credenciales erroneas'.$codigo.$usuario, 'tipoError'=>1);
+            
+        }
+        (new Home())->index();
 	}
 	
 	public function send_mail($email,$name,$message,$subject)
@@ -205,14 +258,25 @@ class Frontend extends CI_Controller {
 	
 	public function type_event($key)
 	{
-		$data['Course']           = 'Curso';
-		$data['Practical Course'] = 'Taller';
-		$data['Meeting']          = 'Encuentro';
-		$data['Seminary']         = 'Seminario';
-		$data['Conversational']   = 'Conversatorio';
-		$data['Conference']       = 'Jornada';
-		$data['Congress']         = 'Congreso';
-		$data['Diplomaed']        = 'Diplomado';
+		$data['Course']                          = 'Curso';
+		$data['Practical Course']                = 'Taller';
+		$data['Meeting']                         = 'Encuentro';
+		$data['Seminary']                        = 'Seminario';
+		$data['Conversational']                  = 'Conversatorio';
+		$data['Conference']                      = 'Jornada';
+		$data['Congress']                        = 'Congreso';
+		$data['Diplomaed']                       = 'Diplomado';
+		$data['Student']                         = 'Estudiantes';
+		$data['Speaker']                         = 'Ponentes';
+		$data['Professionals & General Public']  = 'Profesionales y Publico en General';
+		$data['Proposal']                        = 'Propuesta';
+		$data['Accepted']                        = 'Aceptada';
+		$data['Amend']                           = 'Con Correcciones';
+		$data['Rejected']                        = 'No Aceptada';
+		$data['Oral Speech']                     = 'Ponencia';
+		$data['Cartel']                          = 'Cartel';
+		$data['Primary']                         = 'Autor';
+		$data['Secondary']                       = 'CoAuthor';
 		
 		return $data[$key];
 	}

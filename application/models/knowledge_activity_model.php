@@ -24,16 +24,39 @@ class Knowledge_Activity_Model extends CI_Model
         }
     }
     
-    function get_all_knowledge_activities(){
+    function get_all_knowledge_activities()
+	{
         $query = $this->db->get('Knowledge_Activity');
         
-        if($query->num_rows() > 0){
-            foreach($query->result() as $row){
+        if($query->num_rows() > 0)
+		{
+            foreach($query->result() as $row)
+			{
                 $data[] = $row;
             }
             return $data;
         }
-        else{
+        else
+		{
+            return 0;
+        }
+    }
+	
+	function get_all_knowledge_activities_with_knowledge_by_activity($id)
+	{
+        $query = $this->db->join('Knowledge','Knowledge.Id = Knowledge_Activity.Knowledge_Id','INNER')
+						->where('Activity_Id',$id)->get('Knowledge_Activity');
+        
+        if($query->num_rows() > 0)
+		{
+            foreach($query->result() as $row)
+			{
+                $data[] = $row;
+            }
+            return $data;
+        }
+        else
+		{
             return 0;
         }
     }

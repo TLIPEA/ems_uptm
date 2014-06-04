@@ -69,8 +69,30 @@ class Scheduled_Event_Model extends CI_Model
 						->join('Event','Event.Id = Scheduled_Event.Event_Id','INNER')
 						->where('Status','Active')->where('Type',$type)->get('Scheduled_Event');
         
-        if($query->num_rows() > 0){
-            foreach($query->result() as $row){
+        if($query->num_rows() > 0)
+		{
+            foreach($query->result() as $row)
+			{
+                $data[] = $row;
+            }
+            return $data;
+        }
+        else
+		{
+            return 0;
+        }
+	}
+	
+	function get_all_scheduled_events_actives_by_type_with_applications_change()
+	{
+		$query = $this->db->select('Event.Name,Event.Purpose,Event.Type,Scheduled_Event.*')
+						->join('Event','Event.Id = Scheduled_Event.Event_Id','INNER')
+						->where('Status','Active')->where('Event.Type = \'Meeting\' OR Event.Type = \'Conference\' OR Event.Type = \'Congress\' ')->get('Scheduled_Event');
+        
+        if($query->num_rows() > 0)
+		{
+            foreach($query->result() as $row)
+			{
                 $data[] = $row;
             }
             return $data;
@@ -82,7 +104,8 @@ class Scheduled_Event_Model extends CI_Model
     
     function get_by_id($_id)
     {
-        $query = $this->db->where('Id',$_id)->get('Scheduled_Event');
+        $query = $this->db->join('Event','Event.Id = Scheduled_Event.Event_Id','INNER')
+						->where('Scheduled_Event.Id',$_id)->get('Scheduled_Event',1);
         
         if($query->num_rows() > 0){
             foreach($query->result() as $row){

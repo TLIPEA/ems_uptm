@@ -123,24 +123,39 @@
 											<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><strong>Error!</strong> ',
 											'.</div>'); ?>
 				<form role="form" class="form-vertical" action="<?=site_url('frontend/sign_in/2');?>" method="POST">
-					<?php echo form_error('Name','<div class="alert alert-danger alert-dismissable">
+					<?php echo form_error('DNI','<div class="alert alert-danger alert-dismissable">
 											<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><strong>Error!</strong> ',
 											'.</div>'); ?>
 					<div class="form-group">
 						<input type="text" class="form-control" name="DNI" placeholder="Cedula" required="" />
 					</div>
+					<?php echo form_error('Name','<div class="alert alert-danger alert-dismissable">
+											<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><strong>Error!</strong> ',
+											'.</div>'); ?>
 					<div class="form-group">
 						<input type="text" class="form-control" name="Name" placeholder="Nombre" required="" />
 					</div>
+					<?php echo form_error('Last_Name','<div class="alert alert-danger alert-dismissable">
+											<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><strong>Error!</strong> ',
+											'.</div>'); ?>
 					<div class="form-group">
 						<input type="text" class="form-control" name="Last_Name" placeholder="Apellido" required="" />
 					</div>
+					<?php echo form_error('Email','<div class="alert alert-danger alert-dismissable">
+											<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><strong>Error!</strong> ',
+											'.</div>'); ?>
 					<div class="form-group">
 						<input type="email" class="form-control" name="Email" placeholder="Correo Electronico" required="" />
 					</div>
+					<?php echo form_error('Username','<div class="alert alert-danger alert-dismissable">
+											<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><strong>Error!</strong> ',
+											'.</div>'); ?>
 					<div class="form-group">
 						<input type="text" class="form-control" name="Username" placeholder="Usuario" required="" />
 					</div>
+					<?php echo form_error('Password','<div class="alert alert-danger alert-dismissable">
+											<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><strong>Error!</strong> ',
+											'.</div>'); ?>
 					<div class="form-group">
 						<input type="password" class="form-control" name="Password" placeholder="Contraseña" required="" />
 					</div>

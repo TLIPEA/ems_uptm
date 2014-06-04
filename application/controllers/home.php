@@ -36,13 +36,15 @@ class Home extends Frontend {
 			   $data['events'] = $data['events_raw'];
 		  }
 		  
-		  if($type == ''){
+		  if($type == '')
+		  {
 			   $data['type']  = $type;
 		  }
 		  else
 		  {
 			   $data['type']  = $this->type_event(urldecode($type));
 		  }
+		  
 		  if(!$this->session->userdata('public_ems_uptm'))
 		  {
 			   $this->load->view('frontend/base/index',$data);
@@ -65,6 +67,7 @@ class Home extends Frontend {
 		  }
 		  else
 		  {
+			   $data['type'] = 'Contact';
 			   $data['name'] = $this->session->userdata('public_ems_uptm')['Name']
 							  .' '.$this->session->userdata('public_ems_uptm')['Last_Name'];
 			   $this->load_view('base/contact',$data);

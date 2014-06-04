@@ -28,16 +28,58 @@ class Sale_Model extends CI_Model
         }
     }
     
-    function get_all_sales(){
+    function get_all_sales()
+	{
         $query = $this->db->get('Sale');
         
-        if($query->num_rows() > 0){
-            foreach($query->result() as $row){
+        if($query->num_rows() > 0)
+		{
+            foreach($query->result() as $row)
+			{
                 $data[] = $row;
             }
             return $data;
         }
-        else{
+        else
+		{
+            return 0;
+        }
+    }
+	
+	function get_all_sales_with_cost_by_scheduled_event($id)
+	{
+        $query = $this->db->where('Scheduled_Event_Id',$id)
+						->join('Cost','Cost.Sale_Id = Sale.Id','INNER')->get('Sale');
+        
+        if($query->num_rows() > 0)
+		{
+            foreach($query->result() as $row)
+			{
+                $data[] = $row;
+            }
+            return $data;
+        }
+        else
+		{
+            return 0;
+        }
+    }
+	
+	function get_sale_active_with_cost_by_scheduled_event($id)
+	{
+        $query = $this->db->where('Scheduled_Event_Id',$id)->where('Status','Active')
+						->join('Cost','Cost.Sale_Id = Sale.Id','INNER')->get('Sale');
+        
+        if($query->num_rows() > 0)
+		{
+            foreach($query->result() as $row)
+			{
+                $data[] = $row;
+            }
+            return $data;
+        }
+        else
+		{
             return 0;
         }
     }

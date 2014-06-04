@@ -1,8 +1,7 @@
 <ol class="breadcrumb">
 	<li><a href="<?=site_url('')?>">Inicio</a></li>
-	<?php if($type!=''):?>
-	<li><?=($type)?><?=($type=='Taller')? 'e':''?>s</li>
-	<?php endif;?>
+	<li>Eventos</li>
+	<li>Mis Eventos</li>
 </ol>
 
 <?php if(isset($typeError)):?>
@@ -11,12 +10,14 @@
 		<strong><?=($typeError != 0 )? $titleError : '';?></strong> <?=$msg?>.
 	</div>
 <?php endif;?>
-
-<?php $count = 0;?>
-<?php if($events!=0):?>
-	<div class="page-header">
-	  <h2>Proximos Eventos</h2>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="page-header">
+			<h2><?=$title?></h2>
+		</div>
 	</div>
+	<?php $count = 0;?>
+	<?php if($events!=0):?>
 	<?php foreach($events as $event):?>
 	
 		<?php if($count == 0 or $count%4 == 0):?>
@@ -50,14 +51,15 @@
 		<hr>
 		<?php endif;?>
 	<?php endforeach;?>
-	<?php if($count%4 != 0):?>
-		</div>
-		<hr>
-	<?php endif;?>
-<?php else:?>
+		<?php if($count%4 != 0):?>
+			</div>
+			<hr>
+		<?php endif;?>
+	<?php else:?>
 	<h2>No hay Eventos Disponibles</h2>
-	
 	<hr>
 <?php endif;?>
+</div>
 
-<?php include('socialmedia.php');?>
+<hr>
+<?php $this->load->view('frontend/base/socialmedia.php');?>

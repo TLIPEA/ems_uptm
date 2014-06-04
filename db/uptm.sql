@@ -49,6 +49,8 @@ CREATE TABLE IF NOT EXISTS Participant (
 	Password VARCHAR(40) NOT NULL,
 	Register_Date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	City_Id INT NULL,
+    Status ENUM('Active','Block','Inactive','Not Checked') NOT NULL DEFAULT 'Not Checked',
+    Code VARCHAR(40) NOT NULL,
 	INDEX fk_participant_city (City_Id ASC),
 	CONSTRAINT fk_participant_city
 	FOREIGN KEY (City_Id) REFERENCES City(Id)
@@ -87,8 +89,8 @@ COLLATE = utf8_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS Scheduled_Event (
 	Id INT PRIMARY KEY AUTO_INCREMENT,
-	Start_Date TIMESTAMP NOT NULL,
-	End_Date TIMESTAMP NOT NULL,
+	Start_Date TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
+	End_Date TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
 	Mode ENUM('Online','Classroom') NOT NULL,
 	Quota INT NULL,
 	Status ENUM('Active','Off') NOT NULL,
@@ -142,14 +144,14 @@ COLLATE = utf8_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS Registration (
 	Id INT PRIMARY KEY AUTO_INCREMENT,
-	Status ENUM('Paid','Cancel','Free','Without Payment','Exempt','Collaborator','Organizer') NOT NULL DEFAULT 'Without Payment',
+	Status ENUM('Paid','Cancel','Free','Without Payment','Exempt','Collaborator','Organizer','Facilitator') NOT NULL DEFAULT 'Without Payment',
 	Registration_Date TIMESTAMP NOT NULL,
-	Sale_Id INT NOT NULL,
+	Cost_Id INT NOT NULL,
 	Participant_Id INT NOT NULL,
 	Scheduled_Event_Id INT NOT NULL,
-	INDEX fk_registration_sale (Sale_Id ASC),
-	CONSTRAINT fk_registration_sale
-	FOREIGN KEY (Sale_Id) REFERENCES Sale(Id)
+	INDEX fk_registration_cost (Cost_Id ASC),
+	CONSTRAINT fk_registration_cost
+	FOREIGN KEY (Cost_Id) REFERENCES Cost(Id)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
 	INDEX fk_registration_participant (Participant_Id ASC),
@@ -253,6 +255,7 @@ CREATE TABLE IF NOT EXISTS Activity (
 	Keywords VARCHAR(150),
 	Summary VARCHAR(50),
 	Summary_Words TEXT,
+    Status ENUM(  'Proposal',  'Accepted',  'Amend',  'Rejected' ) NOT NULL DEFAULT  'Proposal',
 	Scheduled_Event_Id INT NOT NULL,
 	INDEX fk_activity_scheduled_event (Scheduled_Event_Id ASC),
 	CONSTRAINT fk_activity_scheduled_event

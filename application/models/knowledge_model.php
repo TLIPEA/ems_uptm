@@ -25,8 +25,25 @@ class Knowledge_Model extends CI_Model
         }
     }
     
-    function get_all_knowledges(){
+    function get_all_knowledges()
+	{
         $query = $this->db->get('Knowledge');
+        
+        if($query->num_rows() > 0){
+            foreach($query->result() as $row){
+                $data[] = $row;
+            }
+            return $data;
+        }
+        else{
+            return 0;
+        }
+    }
+	
+	function get_all_knowledges_by_scheduled_event($id)
+	{
+        $query = $this->db->where('Scheduled_Event_Id',$id)->order_by('Order','ASC')
+						->get('Knowledge');
         
         if($query->num_rows() > 0){
             foreach($query->result() as $row){
