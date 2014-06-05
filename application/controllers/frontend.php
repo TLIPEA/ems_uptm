@@ -284,7 +284,11 @@ class Frontend extends CI_Controller {
 		$data['Exempt']                          = 'Exonerado';
 		$data['Collaborator']                    = 'Colaborador';
 		$data['Organizer']                       = 'Organizador';
-		$data['Faciliator']                      = 'Facilitador';
+		$data['Facilitator']                     = 'Facilitador';
+		$data['Validated']                       = 'Validado';
+		$data['No Validated']                    = 'Sin Validar';
+		$data['Invalid']                         = 'Invalido';
+		$data['Off']                             = 'Desactivado';
 		
 		return $data[$key];
 	}

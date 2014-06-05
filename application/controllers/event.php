@@ -15,6 +15,7 @@ class Event extends Frontend {
 		$this->load->model('Knowledge_Model');
 		$this->load->model('Knowledge_Activity_Model');
 		$this->load->model('Author_Model');
+		$this->load->model('Payment_Model');
 	}
 	
 	public function index()
@@ -218,10 +219,68 @@ class Event extends Frontend {
 		$this->check_session();
 		$data['title'] = 'Mis Eventos';
 		$data['type']  = 'Menu';
+		$data['name']  = $this->session->userdata('public_ems_uptm')['Name']
+								  .' '.$this->session->userdata('public_ems_uptm')['Last_Name'];
 		
-		$data['events'] = $this->Registration_Model->get_all_registrations_by_participant($this->session->userdata('public_ems_uptm')['Participant_Id']);
+		$data['events_raw'] = $this->Registration_Model->get_all_registrations_by_participant($this->session->userdata('public_ems_uptm')['Participant_Id']);
+		
+			if($data['events_raw']!=0)
+			{
+				foreach($data['events_raw'] as $event)
+				{
+					$event->Status      = $this->type_event($event->Status);
+					$data['events'][] = $event;
+				}
+			}
 		
 		$this->load_view('event/index',$data);
+	}
+	
+	public function admin($id = '')
+	{
+		$this->check_session();
+		if($id=='')
+		{
+			redirect('event/my_events','refresh');
+		}
+		else
+		{
+			$data['event'] = $this->Registration_Model->get_registration_with_cost_by_participant($id,$this->session->userdata('public_ems_uptm')['Participant_Id']);
+			
+			if($data['event']!=0)
+			{
+				$data['event']            = $data['event'][0];
+				$data['event']->Cost_Type = $this->type_event($data['event']->Cost_Type);
+				
+				$data['knowledges']       = $this->Knowledge_Model->get_all_knowledges_by_scheduled_event($data['event']->Scheduled_Event_Id);
+				
+				$data['payments_raw']     = $this->Payment_Model->get_all_payments_by_registration($data['event']->Id);
+				if($data['payments_raw']!=0)
+				{
+					foreach($data['payments_raw'] as $payment)
+					{
+						$payment->Status    = $this->type_event($payment->Status);
+						$data['payments'][] = $payment;
+					}
+				}
+				else
+				{
+					$data['payments'] = 0;
+				}
+				
+				$data['title']            = $data['event']->Name;
+				$data['type']             = $this->type_event($data['event']->Type);
+				
+				$data['name']             = $this->session->userdata('public_ems_uptm')['Name']
+										.' '.$this->session->userdata('public_ems_uptm')['Last_Name'];
+				$this->load_view('event/admin',$data);
+			}
+			else
+			{
+				$this->admin();
+			}
+		}
+		
 	}
 	
 	public function postulate($phase = 1,$id = '',$_data = '')

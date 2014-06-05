@@ -8,7 +8,7 @@
 
 <div class="row">
 	<div class="col-xs-12 col-sm-4 col-md-4">
-		<?php $route = base_url('images/events/'.$event->Id.'.png');?>
+		<?php $route = base_url('images/events/'.$event->Scheduled_Event_Id.'.png');?>
 		<img class="img img-responsive img-thumbnail" src="<?=$route?>"
 				alt="Logo del Evento" title="<?=$event->Name?>" />
 	</div>
@@ -21,18 +21,20 @@
 		<h5><?=$event->Hours?> Horas Academicas</h5>
 	</div>
 	<div class="col-xs-12 col-sm-3 col-md-2">
+		<?php if($event->Status != 'Paid' OR $event->Status != 'Free' OR $event->Status != 'Exempt'):?>
 		<div class="row">
 			<div class="col-xs-12 pull-right">
-			  <a href="<?=site_url('event/registration/1/'.$event->Id)?>" class="btn btn-sm btn-block btn-lg btn-appnet-inversed">
-				<i class="fa fa-ticket"></i> Inscribirse
+			  <a href="<?=site_url('event/pay/1/'.$event->Scheduled_Event_Id)?>" class="btn btn-sm btn-block btn-lg btn-appnet-inversed">
+				<i class="fa fa-money"></i> Pagar
 			  </a>
 			</div>
 		</div>
 		<br>
+		<?php endif;?>
 		<?php if($event->Type=='Meeting' or $event->Type=='Conference' or $event->Type=='Congress'):?>
 		<div class="row">
 			<div class="col-xs-12 pull-right">
-			  <a href="<?=site_url('event/postulate/1/'.$event->Id)?>" class="btn btn-sm btn-block btn-lg btn-vimeo-inversed">
+			  <a href="<?=site_url('event/postulate/1/'.$event->Scheduled_Event_Id)?>" class="btn btn-sm btn-block btn-lg btn-vimeo-inversed">
 				<i class="fa fa-rocket"></i> Postularse
 			  </a>
 			</div>
@@ -40,12 +42,20 @@
 		<br>
 		<div class="row">
 			<div class="col-xs-12 pull-right">
-			  <a href="<?=site_url('event/applications/'.$event->Id)?>" class="btn btn-sm btn-block btn-lg btn-gm-inversed">
+			  <a href="<?=site_url('event/applications/'.$event->Scheduled_Event_Id)?>" class="btn btn-sm btn-block btn-lg btn-gm-inversed">
 				<i class="fa fa-graduation-cap"></i> Postulaciones
 			  </a>
 			</div>
 		</div>
+		<br>
 		<?php endif;?>
+		<div class="row">
+			<div class="col-xs-12 pull-right">
+			  <a href="<?=site_url('event/remove_registration/'.$event->Scheduled_Event_Id)?>" class="btn btn-sm btn-block btn-lg btn-googleplus-inversed <?=($payments==0)?'':'disabled'?>" title="Solo se puede eliminar una Inscripción cuando no se tienen pagos registrados">
+				<i class="fa fa-trash"></i> Eliminar Inscripción
+			  </a>
+			</div>
+		</div>
 	</div>	
 </div>
 	
@@ -76,35 +86,73 @@
 	  <div class="page-header">
 		<h2>Costos</h2>
 	  </div>
-	  <?php $pivot = 0;?>
-	  <?php if(isset($costs)):?>
-	  <?php foreach($costs as $cost):?>
-		<?php if($cost->Sale_Id != $pivot):?>
-			<?php if($pivot!=0):?>
-				</table>
-			</div>
-			<?php endif;?>
-			<?php $pivot = $cost->Sale_Id?>
-			<div class="table-responsive">
-				<h4>Valido del <?=date('d-m-Y',strtotime($cost->Start_Date))?> al
-					<?=date('d-m-Y',strtotime($cost->End_Date))?></h4>
-				<table class="table table-hover">
-					<tr>
-						<td><?=$cost->Type?></td>
-						<td><?=$cost->Amount?></td>
-					</tr>
-		<?php else:?>
-					<tr>
-						<td><?=$cost->Type?></td>
-						<td><?=$cost->Amount?></td>
-					</tr>
-		<?php endif;?>
-	  <?php endforeach;?>
-				</table>
-			</div>
-	  <?php endif;?>
+	  <div class="table-responsive">
+		<h4>Valido del <?=date('d-m-Y',strtotime($event->Sale_Start_Date))?> al <?=date('d-m-Y',strtotime($event->Sale_End_Date))?></h4>
+		<table class="table table-hover">
+		  <tr>
+			<td>Categoria</td>
+			<td><?=$event->Cost_Type?></td>
+		  </tr>
+		  <tr>
+			<td>Total a Pagar</td>
+			<td><?=$event->Amount?> Bs</td>
+		  </tr>
+		  <tr>
+			<td>Pagado</td>
+			<td><?=($event->Total_Pay=='')?0:$event->Total_Pay?> Bs</td>
+		  </tr>
+		  <tr>
+			<td>Resta</td>
+			<td><?=$event->Amount-$event->Total_Pay?> Bs</td>
+		  </tr>
+		  <tr>
+			<td>Pagos Validados</td>
+			<td><?=$event->Payment_Validated?></td>
+		  </tr>
+		  <tr>
+			<td>Pagos Sin Validar</td>
+			<td><?=$event->Payment_No_Validated?></td>
+		  </tr>
+		  <tr>
+			<td>Pagos Invalidos</td>
+			<td><?=$event->Payment_Invalid?></td>
+		  </tr>
+		</table>
+	  </div>
 	</div>
 </div>
+<hr>
+
+<div class="row">
+	<div class="page-header">
+	  <h2>Pagos Registrados</h2>
+	</div>
+	<?php if($payments!=0):?>
+	<div class="table-responsive">
+	  <table class="table table-hover">
+		<tr>
+			<th>Banco</th>
+			<th>N° Confirmación</th>
+			<th>Monto</th>
+			<th>Fecha</th>
+			<th>Estatus</th>
+		</tr>
+		<?php foreach($payments as $payment):?>
+		<tr>
+		  <td><?=$payment->Bank?></td>
+		  <td><?=$payment->Voucher_Number?></td>
+		  <td><?=$payment->Amount?> Bs</td>
+		  <td><?=date('d-m-Y',strtotime($payment->Payment_Date))?></td>
+		  <td><?=$payment->Status?></td>
+		</tr>
+		<?php endforeach;?>
+	  </table>
+	</div>
+	<?php else:?>
+	<h3>No hay Pagos Registrados</h3>
+	<?php endif;?>
+</div>
+
 <hr>
 <div class="row">
 	<div class="col-xs-4 col-sm-4 col-md-4">

@@ -1,6 +1,6 @@
 <ol class="breadcrumb">
 	<li><a href="<?=site_url('')?>">Inicio</a></li>
-	<?=(isset($event)?'<li><a href="'.site_url('home/index/'.$event->Type).'">'.$type.'</a></li>':'<li>Eventos</li>')?>
+	<?=(isset($event)?'<li><a href="'.site_url('home/index/'.$event->Type).'">'.$type.'s</a></li>':'<li>Eventos</li>')?>
 	<?=(isset($event)?'<li><a href="'.site_url('event/view/'.$event->Id).'">'.$event->Name.'</a></li>':'')?>
 	<li><?=(isset($event)?'':'Mis ')?>Postulaciones</li>
 </ol>
@@ -19,7 +19,7 @@
 					<th>Titulo</th>
 					<th>Tipo</th>
 					<th>Palabras Clave</th>
-					<th>Rol</th>
+					<?=(isset($event)?'':'<th>Rol</th>')?>
 					<th>Estatus</th>
 					<th></th>
 				</tr>

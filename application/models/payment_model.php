@@ -29,16 +29,40 @@ class Payment_Model extends CI_Model
         }
     }
     
-    function get_all_payments(){
+    function get_all_payments()
+	{
         $query = $this->db->get('Payment');
         
-        if($query->num_rows() > 0){
-            foreach($query->result() as $row){
+        if($query->num_rows() > 0)
+		{
+            foreach($query->result() as $row)
+			{
                 $data[] = $row;
             }
             return $data;
         }
-        else{
+        else
+		{
+            return 0;
+        }
+    }
+	
+	function get_all_payments_by_registration($id)
+	{
+        $query = $this->db->select('Account.Bank,Payment.*')
+						->join('Account','Account.Id = Payment.Account_Id','INNER')
+						->where('Registration_Id',$id)->get('Payment');
+        
+        if($query->num_rows() > 0)
+		{
+            foreach($query->result() as $row)
+			{
+                $data[] = $row;
+            }
+            return $data;
+        }
+        else
+		{
             return 0;
         }
     }

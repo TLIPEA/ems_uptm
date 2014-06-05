@@ -66,10 +66,10 @@
 								<a href="<?=site_url('backend/index')?>"><i class="fa fa-home fa-fw"></i> Inicio</a>
 							</li>
 							<li>
-								<a href="<?=site_url('job/index')?>"><i class="fa fa-th fa-fw"></i> Administración<span class="fa arrow"></span></a>
+								<a href="<?=site_url('admin/accounts_index')?>"><i class="fa fa-th fa-fw"></i> Administración<span class="fa arrow"></span></a>
 								<ul class="nav nav-second-level">
 									<li>
-										<a href="<?=site_url('job/index')?>"><i class="fa fa-building-o fa-fw"></i> Cuentas</a>
+										<a href="<?=site_url('admin/accounts_index')?>"><i class="fa fa-building-o fa-fw"></i> Cuentas</a>
 									</li>
 									<li>
 										<a href="<?=site_url('job/new_job')?>"><i class="fa fa-download fa-fw"></i> Respaldo</a>

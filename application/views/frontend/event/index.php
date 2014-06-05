@@ -30,7 +30,7 @@
 				<h3 class="panel-title"><?=$event->Status?></h3>
 			  </div>
 			  <div class="panel-body text-center">
-				<?php $route = base_url('images/events/'.$event->Id.'.png');?>
+				<?php $route = base_url('images/events/'.$event->Scheduled_Event_Id.'.png');?>
 				<img class="img img-responsive img-thumbnail" src="<?=$route?>"
 						alt="Logo del Evento" title="<?=$event->Name?>" />
 				<h4><?=$event->Name?></h4>
@@ -38,9 +38,7 @@
 				<h5><?=date('g:i A',strtotime($event->Start_Date))?> a <?=date('g:i A',strtotime($event->End_Date))?></h5>
 			  </div>
 			  <div class="panel-footer">
-				<?php if():?>
-				<?php endif();?>
-				<a href="<?=site_url('event/view/'.$event->Id);?>"
+				<a href="<?=site_url('event/admin/'.$event->Scheduled_Event_Id);?>"
 					class="btn btn-block btn-primary">Detalles</a>
 			  </div>
 			</div>
