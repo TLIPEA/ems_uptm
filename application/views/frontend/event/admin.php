@@ -51,7 +51,7 @@
 		<?php endif;?>
 		<div class="row">
 			<div class="col-xs-12 pull-right">
-			  <a href="<?=site_url('event/remove_registration/'.$event->Scheduled_Event_Id)?>" class="btn btn-sm btn-block btn-lg btn-googleplus-inversed <?=($payments==0)?'':'disabled'?>" title="Solo se puede eliminar una Inscripción cuando no se tienen pagos registrados">
+			  <a href="<?=site_url('event/remove_registration/'.$event->Id)?>" class="btn btn-sm btn-block btn-lg btn-googleplus-inversed <?=($payments==0)?'':'disabled'?>" title="Solo se puede eliminar una Inscripción cuando no se tienen pagos registrados">
 				<i class="fa fa-trash"></i> Eliminar Inscripción
 			  </a>
 			</div>

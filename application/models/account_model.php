@@ -56,6 +56,24 @@ class Account_Model extends CI_Model
             return 0;
         }
     }
+	
+	function get_by_scheduled_event_id($_id)
+    {
+        $query = $this->db->select('Account.*,Scheduled_Event.Id')
+						->join('Scheduled_Event_Account','Scheduled_Event_Account.Account_Id = Account.Id','INNER')
+						->join('Scheduled_Event','Scheduled_Event_Account.Scheduled_Event_Id = Scheduled_Event.Id','INNER')
+						->where('Scheduled_Event.Id',$_id)->get('Account');
+        
+        if($query->num_rows() > 0){
+            foreach($query->result() as $row){
+                $data[] = $row;
+            }
+            return $data;
+        }
+        else{
+            return 0;
+        }
+    }
     
     function update_account($_data){
         

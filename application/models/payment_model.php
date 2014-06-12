@@ -13,8 +13,6 @@ class Payment_Model extends CI_Model
             'Payment_Date'    => $_data->post('Payment_Date'),
 			'Amount'          => $_data->post('Amount'),
 			'Voucher_Number'  => $_data->post('Voucher_Number'),
-			'Register_Date'   => $_data->post('Register_Date'),
-			'Status'          => $_data->post('Status'),
 			'Registration_Id' => $_data->post('Registration_Id'),
 			'Account_Id'      => $_data->post('Account_Id')
         );

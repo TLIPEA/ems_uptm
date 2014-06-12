@@ -16,6 +16,7 @@ class Event extends Frontend {
 		$this->load->model('Knowledge_Activity_Model');
 		$this->load->model('Author_Model');
 		$this->load->model('Payment_Model');
+		$this->load->model('Account_Model');
 	}
 	
 	public function index()
@@ -281,6 +282,69 @@ class Event extends Frontend {
 			}
 		}
 		
+	}
+	
+	public function pay($phase = 1, $id)
+	{
+		$data['title'] = 'Registrar Pago';
+		$data['type']  = 'Menu';
+		$this->check_session();
+		
+		if($phase == 1)
+		{
+			$data['name']     = $this->session->userdata('public_ems_uptm')['Name']
+								  .' '.$this->session->userdata('public_ems_uptm')['Last_Name'];
+			$data['event']    = $this->Registration_Model->get_registration_with_cost_by_participant($id,$this->session->userdata('public_ems_uptm')['Participant_Id']);
+			
+			if(!($data['event']!=0))
+			{
+				$this->error_view('No puedes Acceder al Área de Pago','Debiado a que el evento no existe');
+				$this->admin($id);
+			}
+			
+			$data['accounts'] = $this->Account_Model->get_by_scheduled_event_id($data['event'][0]->Scheduled_Event_Id);
+			
+			if(!($data['accounts']!=0))
+			{
+				$this->error_view('No puedes Acceder al Área de Pago','Debiado a que este evento no cuenta con una cuenta en la cual registrar pagos');
+				$this->admin($id);
+			}
+			
+			if($data['event'][0]->Status == 'Paid' OR $data['event'][0]->Status == 'Free' OR $data['event'][0]->Status == 'Exempt')
+			{
+				$this->error_view('No puedes Acceder al Área de Pago','Inferimos que ya pagaste o no debes realizar ningun pago');
+				$this->admin($id);
+			}
+			
+			$this->load_view('event/pay',$data,'event/script_pay');
+		}
+		else
+		{
+			$this->form_validation->set_rules('Account_Id','Seleccionar Evento','trim|required|xss_clean');
+			$this->form_validation->set_rules('Payment_Date','Seleccionar Evento','trim|required|xss_clean');
+			$this->form_validation->set_rules('Voucher_Number','Seleccionar Evento','trim|required|xss_clean');
+			$this->form_validation->set_rules('Amount','Seleccionar Evento','trim|required|xss_clean');
+			
+			$this->form_validation->set_message('required', '%s es necesario para realizar la Postulación');
+			
+			if ($this->form_validation->run()==FALSE)
+			{
+				$this->error_view('Error al Realizar el Pago','Algo va mal, intentalo de nuevo, si el error persiste comunicate con soporte');
+				$this->pay(1,$id);
+			}
+			else
+			{
+				if($this->Payment_Model->insert_payment($this->input))
+				{
+					$this->success_view('Exito al Registrar','Tu pago sera aprobado en las proximas 48 horas');
+				}
+				else
+				{
+					$this->error_view('Error al Registrar el Pago','Algo va mal, intentalo de nuevo, si el error persiste comunicate con soporte');
+				}
+				$this->admin($id);
+			}
+		}
 	}
 	
 	public function postulate($phase = 1,$id = '',$_data = '')
@@ -645,6 +709,19 @@ class Event extends Frontend {
 				$this->load->view('frontend/event/script_applications');
 			}
 		}
+	}
+	
+	public function remove_registration($_id)
+	{
+		if($this->Registration_Model->delete_registration($_id))
+		{
+			$this->success_view('Exito al Eliminar Inscripción','Solo puedes realizar esta operación si no haz realizado ningun pago');
+		}
+		else
+		{
+			$this->error_view('Error al Eliminar Inscripción','Algo va mal, intentalo de nuevo.');
+		}
+		$this->my_events();
 	}
 	
 	public function load_cost_by_scheduled_event()
