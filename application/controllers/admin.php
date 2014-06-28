@@ -37,86 +37,32 @@ class Admin extends Backend {
 			$this->form_validation->set_rules('DNI', 'Cedula / Rif', 'trim|required|xss_clean');
 			$this->form_validation->set_rules('Type', 'Tipo de Cuenta', 'trim|required|xss_clean');
 			$this->form_validation->set_rules('Bank', 'Banco', 'trim|required|xss_clean');
-			$this->form_validation->set_rules('Gender', 'Sexo', 'trim|required|xss_clean');
-			$this->form_validation->set_rules('Country', 'País', 'trim|required|xss_clean');
-			$this->form_validation->set_rules('State', 'Estado', 'trim|required|xss_clean');
-			$this->form_validation->set_rules('City', 'Ciudad', 'trim|required|xss_clean');
-			$this->form_validation->set_rules('Username', 'Usuario', 'trim|required|xss_clean|is_unique[Participant.Username]');
-			$this->form_validation->set_rules('Password', 'Contraseña', 'trim|required|xss_clean|min_length[8]|max_length[15]|matches[Pass]');
-			$this->form_validation->set_rules('Pass', 'Confirme su Contraseña', 'trim|required|xss_clean');
-			$this->form_validation->set_rules('Type', 'Tipo de Usuario', 'trim|required|xss_clean');
+			$this->form_validation->set_rules('Number', 'Número', 'trim|required|xss_clean');
+			$this->form_validation->set_rules('Status', 'Estatus', 'trim|required|xss_clean');
 			
 			$this->form_validation->set_message('required', '%s es requerido');
-			$this->form_validation->set_message('valid_email', '%s no es válido');
-			$this->form_validation->set_message('is_unique', 'El %s no se encuentra disponible');
-			$this->form_validation->set_message('min_length', 'La %s debe tener al menos 8 caracteres.');
-			$this->form_validation->set_message('max_length', 'La %s debe tener al como máximo 15 caracteres.');
-			$this->form_validation->set_message('matches', 'La contraseñas no coincides.');
 			
 			if ($this->form_validation->run() == FALSE)
 			{
-				$this->new_user(1,$dni);
+				$this->new_account(1);
 			}
 			else
 			{
-				if ($this->Participant_Model->insert_participant($this->input))
+				if ($this->Account_Model->insert_account($this->input))
 				{
-					if ($this->User_Model->insert_user_array(array('Type'=>$this->input->post('Type'),'Participant_Id' => $this->db->insert_id())))
-					{
-						 $this->success_view('Éxito','El nuevo usuario se ha guardado');
-						 $this->index();
-					}
-					else
-					{
-						 $this->Participant_Model->delete_participant($this->db->insert_id());
-						 $this->error_view('Error','Oh oh. Algo malo ha pasado con el nuevo usuario');
-						 $this->new_user(1);
-					}
+					$this->success_view('Éxito','La nueva cuenta se ha guardado');
+					$this->accounts_index();
 				}
 				else
 				{
-					$this->error_view('Error','Oh oh. Algo malo ha pasado con el nuevo usuario');
-					$this->new_user(1);
+					$this->error_view('Error','Oh oh. Algo malo ha pasado con la nueva cuenta');
+					$this->new_account(1);
 				}
 			}
 		}
 	}
 	
-	public function load_states()
-	{
-		$options = "";
-        if($this->input->post('country'))
-        {
-            $country = $this->input->post('country');
-            $states = $this->State_Model->get_by_id_country($country);
-			?><option value="">- Seleccione -</option><?php
-            foreach($states as $state)
-            {
-            ?>
-                <option value="<?=$state->Id?>"><?=$state->Name?></option>
-            <?php
-            }
-        }
-	}
-	
-	public function load_cities()
-	{
-		$options = "";
-        if($this->input->post('state'))
-        {
-            $state = $this->input->post('state');
-            $cities = $this->City_Model->get_by_id_state($state);
-			?><option value="">- Seleccione -</option><?php
-            foreach($cities as $city)
-            {
-            ?>
-                <option value="<?=$city->Id?>"><?=$city->Name?></option>
-            <?php
-            }
-        }
-	}
-	
-	function edit($id,$phase = 1)
+	function edit_account($id,$phase = 1)
 	{
 		$this->check_session();
 		$head['controller'] = 'Edit_User';
@@ -200,24 +146,8 @@ class Admin extends Backend {
 		  redirect('/user/index','refresh');
 		}
 	}
-
-	function delete($id)
-	{
-		$this->check_session();
-		
-		if ($this->User_Model->delete_user($id))
-		{
-			$this->success_view('Éxito','El usuario se ha eliminado');
-			$this->index();
-		}
-		else
-		{
-			$this->error_view('Error','Oh oh. Algo malo ha pasado con el usuario');
-			$this->index();
-		}
-	}
 	
-	function view($id)
+	function view_account($id)
 	{
 		$this->check_session();
 		$head['controller'] = 'View_User';
@@ -234,14 +164,32 @@ class Admin extends Backend {
 		}
 	}
 	
-	function password($id)
+	function backup()
 	{
 		$this->check_session();
-		$head['controller'] = 'Pass_User';
-		$data['user'] = $this->User_Model->get_by_id($id);
-		$this->load->view('backend/base/header',$head);
-		$this->load->view('backend/user/pass',$data);
-		$this->load->view('backend/base/footer');	
+        $this->load->helper('file');
+		$this->load->helper('download');
+		$this->load->dbutil();
+		
+		$prefs = array(
+				'ignore'      => array(),                                  // List of tables to omit from the backup
+				'format'      => 'gzip',                                   // gzip, zip, txt
+				'filename'    => 'mybackup_'.date('Y_m_d_H_i_s',time()).'.sql',
+																 // File name - NEEDED ONLY WITH ZIP FILES
+				'add_drop'    => FALSE,                          // Whether to add DROP TABLE statements to backup file
+				'add_insert'  => TRUE,                                     // Whether to add INSERT data to backup file
+				'newline'     => "\n"                                      // Newline character used in backup file
+			  );
+		$backup =& $this->dbutil->backup($prefs);
+		
+		if(force_download('repaldo'.date('Y_m_d_H_i_s',time()).'.gzip', $backup))
+		{}
+		else
+		{
+			$this->error_view('Error','Oh oh. Algo malo ha pasado con el respaldo');
+			(new Backend)->index();
+		}
+        
 	}
 
 }

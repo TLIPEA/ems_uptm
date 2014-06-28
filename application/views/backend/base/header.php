@@ -72,7 +72,7 @@
 										<a href="<?=site_url('admin/accounts_index')?>"><i class="fa fa-building-o fa-fw"></i> Cuentas</a>
 									</li>
 									<li>
-										<a href="<?=site_url('job/new_job')?>"><i class="fa fa-download fa-fw"></i> Respaldo</a>
+										<a href="<?=site_url('admin/backup')?>"><i class="fa fa-download fa-fw"></i> Respaldo</a>
 									</li>
 								</ul>
 								<!-- /.nav-second-level -->
