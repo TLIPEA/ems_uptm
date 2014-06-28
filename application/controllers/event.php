@@ -677,6 +677,10 @@ class Event extends Frontend {
 					$data['activitys'][] = $activity;
 				}
 			}
+			else
+			{
+				$data['activitys'] = 0;
+			}
 			
 			$data['name'] = $this->session->userdata('public_ems_uptm')['Name']
 							  .' '.$this->session->userdata('public_ems_uptm')['Last_Name'];

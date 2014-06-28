@@ -37,7 +37,7 @@
 						<b class="fa fa-search" title="Ver Resumen" onclick="load_summary(<?=$activity->Id?>)"></b>
 						<b class="fa fa-graduation-cap" title="Áreas del Saber" onclick="load_knowledges(<?=$activity->Id?>)"></b>
 						<b class="fa fa-university" title="Ver Autores" onclick="load_coauthors(<?=$activity->Id?>)"></b>
-						<?php if($activity->Status=='Aceptada'):?><a href="<?=site_url('event/pay/3/'.$activity->Scheduled_Event_Id)?>" class="btn fa fa-money" title="Pagar"></a><?php endif;?>
+						<?php if($this->session->userdata('public_ems_uptm')):if($activity->Status=='Aceptada'):?><a href="<?=site_url('event/pay/3/'.$activity->Scheduled_Event_Id)?>" class="btn fa fa-money" title="Pagar"></a><?php endif;endif;?>
 					</td>
 				</tr>
 				<?php endforeach;?>
