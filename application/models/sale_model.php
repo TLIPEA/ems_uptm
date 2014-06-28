@@ -48,7 +48,7 @@ class Sale_Model extends CI_Model
 	
 	function get_all_sales_with_cost_by_scheduled_event($id)
 	{
-        $query = $this->db->where('Scheduled_Event_Id',$id)
+        $query = $this->db->where('Scheduled_Event_Id',$id)->order_by('Start_Date','ASC')
 						->join('Cost','Cost.Sale_Id = Sale.Id','INNER')->get('Sale');
         
         if($query->num_rows() > 0)
