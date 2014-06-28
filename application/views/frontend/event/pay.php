@@ -15,7 +15,11 @@ else
 <ol class="breadcrumb">
 	<li><a href="<?=site_url('')?>">Inicio</a></li>
 	<li>Eventos</li>
+	<?php if(isset($event)):?>
 	<li><a href="<?=site_url('event/admin/'.$event[0]->Scheduled_Event_Id)?>"><?=$event[0]->Name?></a></li>
+	<?php else:?>
+	<li><a href="<?=site_url('event/applications/')?>">Postulaciones</a></li>
+	<?php endif;?>
 	<li>Pago</li>
 </ol>
 
@@ -31,10 +35,12 @@ else
 		<div class="page-header">
 			<h2><?=$title?></h2>
 		</div>
-		<form role="form" action="<?=site_url('event/pay/2/'.$event[0]->Scheduled_Event_Id)?>" method="POST" class="form-horizontal">
+		<?php if(isset($event)){$id = $event[0]->Scheduled_Event_Id;}?>
+		<form role="form" action="<?=site_url('event/pay/2/'.$id)?>" method="POST" class="form-horizontal">
 			<?php echo form_error('Account_Id','<div class="alert alert-danger alert-dismissable">
 									<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><strong>Error!</strong> ','.</div>'); ?>
-			<input type="hidden" name="Registration_Id" value="<?=$event[0]->Id?>" />
+			<?php if(isset($event)){$Registration_Id = $event[0]->Id;}?>
+			<input type="hidden" name="Registration_Id" value="<?=$Registration_Id?>" />
 			<div class="form-group">
 				<label class="col-sm-2 hidden-xs" for="">Banco</label>
 				<div class="col-sm-10">

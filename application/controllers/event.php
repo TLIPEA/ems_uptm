@@ -288,12 +288,13 @@ class Event extends Frontend {
 	{
 		$data['title'] = 'Registrar Pago';
 		$data['type']  = 'Menu';
+		$data['name']  = $this->session->userdata('public_ems_uptm')['Name']
+								  .' '.$this->session->userdata('public_ems_uptm')['Last_Name'];
 		$this->check_session();
 		
 		if($phase == 1)
 		{
-			$data['name']     = $this->session->userdata('public_ems_uptm')['Name']
-								  .' '.$this->session->userdata('public_ems_uptm')['Last_Name'];
+			
 			$data['event']    = $this->Registration_Model->get_registration_with_cost_by_participant($id,$this->session->userdata('public_ems_uptm')['Participant_Id']);
 			
 			if(!($data['event']!=0))
@@ -318,7 +319,7 @@ class Event extends Frontend {
 			
 			$this->load_view('event/pay',$data,'event/script_pay');
 		}
-		else
+		if($phase == 2)
 		{
 			$this->form_validation->set_rules('Account_Id','Seleccionar Evento','trim|required|xss_clean');
 			$this->form_validation->set_rules('Payment_Date','Seleccionar Evento','trim|required|xss_clean');
@@ -344,6 +345,13 @@ class Event extends Frontend {
 				}
 				$this->admin($id);
 			}
+		}
+		if($phase == 3)
+		{
+			$data['accounts']        = $this->Account_Model->get_by_scheduled_event_id($id);
+			$data['id']              = $id;
+			$data['Registration_Id'] = $this->Registration_Model->get_registration_id_by_participant($id,$this->session->userdata('public_ems_uptm')['Participant_Id'])[0]->Id;
+			$this->load_view('event/pay',$data,'event/script_pay');
 		}
 	}
 	
