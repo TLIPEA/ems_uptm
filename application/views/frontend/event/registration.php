@@ -7,7 +7,7 @@ if(isset($costs))
 		foreach($costs as $cost)
 		{
 			if($cost->Type!='Ponentes')
-			$options[$cost->Id] = $cost->Type.' - '.(($event->Amount==0)?'Exonerado':$event->Amount.'Bs');
+			$options[$cost->Id] = $cost->Type.' - '.(($cost->Amount==0)?'Exonerado':$cost->Amount.'Bs');
 		}
 	}
 	else
