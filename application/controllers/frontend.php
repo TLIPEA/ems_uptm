@@ -129,6 +129,11 @@ class Frontend extends CI_Controller {
 					'Participant_Id'  => $user[0]->Id
 				);
 				$this->session->set_userdata('public_ems_uptm', $sess_array);
+				?>
+				<script type="text/javascript">
+					alert('Has Iniciado Sesión Exitosamente');
+				</script>
+				<?php
 				redirect('/home/','refresh');	
 			}
 			else

@@ -95,6 +95,9 @@
 			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
 			<strong>Oh oh!</strong> No pudimos iniciar sesión, verifica tus datos he intentalo de nuevo.
 		</div>
+		<p>
+		  <strong>Si es la primera vez</strong> que vas a iniciar sesión asegurate de que ya haz activado tu cuenta, si no lo haz hecho chequea tu correo electronico para encontrar el link de validación.
+		</p>
 		
 		<div class="page-header">
 		  <h3>Inicio de Sesión</h3>

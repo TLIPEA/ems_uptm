@@ -185,7 +185,8 @@ class Participant_Model extends CI_Model
 	
 	function check_login_participant($username)
 	{
-		$query = $this->db->where('Username',$username)->get('Participant');
+		$query = $this->db->where('Username',$username)->where('Status','Active')
+							->get('Participant');
         
         if($query->num_rows() > 0){
             foreach($query->result() as $row){
