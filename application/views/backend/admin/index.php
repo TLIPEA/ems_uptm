@@ -28,11 +28,11 @@
 						<table class="table table-striped table-bordered table-hover" id="dataTables-example">
 							<thead>
 								<tr>
-									<th width="8%">Acciones</th>
 									<th>Banco</th>
 									<th>Número</th>
 									<th>Titular</th>
 									<th>Tipo</th>
+									<th width="8%"></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -43,9 +43,6 @@
 									<?php else: ?>
 										<tr class="even gradeC">
 									<?php endif; ?>
-											<td class="text-center">
-												<a class="text-success" href="<?=site_url('admin/account_view/'.$row->Id)?>"><i class="fa fa-search-plus" data-toggle="tooltip" data-placement="bottom" title="Ver"></i></a> &nbsp;<a class="text-primary" title="Editar" href="<?=site_url('admin/account_edit/'.$row->Id.'/1')?>" ><i class="fa fa-pencil-square-o"></i></a> &nbsp;<a class="text-danger" href="<?=site_url('admin/account_event/'.$row->Id)?>"><i class="fa fa-calendar" data-toggle="tooltip" data-placement="bottom" title="Ver"></i></a>
-											</td>    
 											<td><?=$row->Bank?></td>
 											<td><?=$row->Number?></td>
 											<td><?=$row->Holder?></td>
@@ -65,6 +62,18 @@
 												?>
 												<?=$type?>
 											</td>
+											<td class="text-center">
+												<div class="btn-group">
+													<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" title="¿Que Acción desea realizar?">
+														<i class="fa fa-hand-o-up"></i>
+													</button>
+													<ul class="dropdown-menu text-center" role="menu"  style="min-width:40px;">
+													  <li><a href="<?=site_url('admin/account_view/'.$row->Id)?>" title="Ver"><i class="fa fa-search-plus text-success"></i></a></li>
+													  <li><a href="<?=site_url('admin/account_edit/'.$row->Id.'/1')?>" title="Editar"><i class="fa fa-pencil-square-o text-warning"></i></a></li>
+													  <li><a href="<?=site_url('admin/account_event/'.$row->Id)?>" title="Asociar Cuenta"><i class="fa fa-exchange text-info"></i></a></li>
+													</ul>
+												</div>
+											</td>    
                                         </tr>
 											<?php $band++; ?>
 										<?php endforeach; ?>

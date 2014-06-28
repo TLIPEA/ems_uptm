@@ -11,6 +11,7 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             Nueva Cuenta Bancaria
+							<div class="pull-right"><a class="btn btn-warning btn-xs" href="<?=site_url('admin/accounts_index')?>">Cuentas</a></div>
                         </div>
                         <div class="panel-body">
                             <div class="row">
@@ -35,14 +36,15 @@
                                             <label class="col-md-2">Cédula / Rif</label>
 											<div class="col-md-10">
 												<input class="form-control" name="DNI" id="DNI" value="<?=set_value('DNI')?>" maxlength="50" required="">
+												<p class="help-block">La Cedula debe tener formato V-18964136 y en caso de RIF G-20007733-6 sin puntos.</p>
 											</div>
                                         </div>
 										<div class="form-group">
                                             <label class="col-md-2">Tipo</label>
 											<div class="col-md-10">
 												<?php $options = array(''=>'- Seleccione -','Savings Account'=>'Cuenta de Ahorros', 'Checking Account'=>'Cuenta Corriente'); ?>
-												<?php $settings = 'class = "form-control"'; ?>
-												<?=form_dropdown('Type', $options,'',$settings);?>
+												<?php $settings = 'class = "form-control" required=""'; ?>
+												<?=form_dropdown('Type', $options,set_value('Type'),$settings);?>
 											</div>
                                         </div>
 										<div class="form-group">
@@ -85,8 +87,8 @@
 																		'Mibanco Banco de Desarrollo' => 'Mibanco Banco de Desarrollo',
 																		'Sofitasa' => 'Sofitasa'
 																	   );?>
-												<?php $settings = 'class = "form-control"'; ?>
-												<?=form_dropdown('Bank', $options,'',$settings);?>
+												<?php $settings = 'class = "form-control" required=""'; ?>
+												<?=form_dropdown('Bank', $options,set_value('Bank'),$settings);?>
 											</div>
                                         </div>
 										<div class="form-group">
@@ -99,8 +101,8 @@
                                             <label class="col-md-2">Estatus</label>
 											<div class="col-md-10">
 												<?php $options = array(''=>'- Seleccione -','Active'=>'Cuenta Activa', 'Off'=>'Cuenta Desactiva'); ?>
-												<?php $settings = 'class = "form-control"'; ?>
-												<?=form_dropdown('Status', $options,'',$settings);?>
+												<?php $settings = 'class = "form-control" required=""'; ?>
+												<?=form_dropdown('Status', $options,set_value('Status'),$settings);?>
 											</div>
                                         </div>
 										<div class="col-md-1 pull-right text-center">
