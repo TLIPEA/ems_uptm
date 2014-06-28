@@ -28,13 +28,13 @@
 										<div class="form-group">
                                             <label class="col-md-2">Cédula</label>
 											<div class="col-md-10">
-												<input class="form-control" name="DNI" id="DNI" value="<?=$user[0]->DNI?>" maxlength="50" required="" disabled>
+												<input class="form-control" name="DNI" id="DNI" value="<?=$user[0]->DNI?>" maxlength="50" required="" readonly="readonly">
 											</div>
                                         </div>
 										<div class="form-group">
                                             <label class="col-md-2">Usuario</label>
 											<div class="col-md-10">
-												<input class="form-control" name="Username" id="Username" value="<?=$user[0]->Username?>" maxlength="50" required="" disabled>
+												<input class="form-control" name="Username" id="Username" value="<?=$user[0]->Username?>" maxlength="50" required="" <?=($user[0]->Username == '') ? '' : 'readonly="readonly"'?>>
 											</div>
                                         </div>
                                         <div class="form-group">

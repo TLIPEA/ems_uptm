@@ -15,7 +15,7 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-12">
-									<?=form_open('user/new_user/2', array('role'=>'form','autocomplet'=>'off','class'=>'form-horizontal'))?>
+									<?=form_open('user/new_user/2/'.$dni, array('role'=>'form','autocomplet'=>'off','class'=>'form-horizontal'))?>
 									<?=validation_errors('<div class="alert-danger input-sm"><p><strong>','</strong> </div><br />')?>
 									<?php if(isset($typeError)):?>
 									    <div class="col-md-12">
@@ -28,7 +28,7 @@
 										<div class="form-group">
                                             <label class="col-md-2">Cédula</label>
 											<div class="col-md-10">
-												<input class="form-control" name="DNI" id="DNI" value="<?=$dni?>" maxlength="50" required="" disabled>
+												<input class="form-control" name="DNI" id="DNI" value="<?=$dni?>" maxlength="50" required="" readonly="readonly">
 											</div>
                                         </div>
                                         <div class="form-group">

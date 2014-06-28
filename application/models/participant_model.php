@@ -86,9 +86,9 @@ class Participant_Model extends CI_Model
         $query = $this->db
 						->select('Participant.Id AS Id, Participant.DNI as DNI, Participant.Name AS Name, Last_Name, Email, Gender, Username, City_Id, City.Name AS City_Name, Type, State_Id, State.Name AS State_Name, Country_Id, User.Id AS User_Id, Country.Name AS Country_Name ')
 						->join('User','User.Participant_Id = Participant.Id','LEFT')
-						->join('City','City.Id = Participant.City_Id','INNER')
-						->join('State','State.Id = City.State_Id','INNER')
-						->join('Country','Country.Id = State.Country_Id','INNER')
+						->join('City','City.Id = Participant.City_Id','LEFT')
+						->join('State','State.Id = City.State_Id','LEFT')
+						->join('Country','Country.Id = State.Country_Id','LEFT')
 						->where('Participant.Id',$_id)
 						->get('Participant');
         
@@ -122,6 +122,24 @@ class Participant_Model extends CI_Model
     function update_participant($_data){
         
         $data = array(
+			'Name'          => $_data->post('Name'),
+			'Last_Name'     => $_data->post('Last_Name'),
+			'Email'         => $_data->post('Email'),
+			'Gender'        => $_data->post('Gender'),
+			'City_Id'       => $_data->post('City')
+        );
+        
+        if($this->db->where('Id',$_data->post('Id'))->update('Participant',$data)){
+            return TRUE;
+        }else{
+            return FALSE;
+        }
+    }
+	
+	function update_full_participant($_data){
+        
+        $data = array(
+			'Username'      => $_data->post('Username'),
 			'Name'          => $_data->post('Name'),
 			'Last_Name'     => $_data->post('Last_Name'),
 			'Email'         => $_data->post('Email'),
