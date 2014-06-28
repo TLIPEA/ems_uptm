@@ -8,6 +8,11 @@
 <div class="row">
 	<div class="col-xs-12">
 		<div class="page-header">
+			<?php if(isset($event)):?>
+			<a href="<?=site_url('event/postulate/1/'.$event->Id)?>" class="btn btn-sm btn-lg btn-vimeo-inversed pull-right">
+				<i class="fa fa-rocket"></i> Postularse
+			</a>
+			<?php endif;?>
 			<h2><?=$title?></h2>
 		</div>
 		<?php if($activitys!=0):?>
@@ -37,7 +42,17 @@
 						<b class="fa fa-search" title="Ver Resumen" onclick="load_summary(<?=$activity->Id?>)"></b>
 						<b class="fa fa-graduation-cap" title="Áreas del Saber" onclick="load_knowledges(<?=$activity->Id?>)"></b>
 						<b class="fa fa-university" title="Ver Autores" onclick="load_coauthors(<?=$activity->Id?>)"></b>
-						<?php if($this->session->userdata('public_ems_uptm')):if($activity->Status=='Aceptada'):?><a href="<?=site_url('event/pay/3/'.$activity->Scheduled_Event_Id)?>" class="btn fa fa-money" title="Pagar"></a><?php endif;endif;?>
+						<?php if($this->session->userdata('public_ems_uptm')):
+								if($activity->Status=='Aceptada'):
+									if($this->Registration_Model->get_registration_with_cost_by_activity($activity->Id)!=0):
+										if(!($this->Registration_Model->get_payment_status_by_activity($activity->Id)!=0)):?>
+						<a href="<?=site_url('event/pay/3/'.$activity->Scheduled_Event_Id)?>" class="btn btn-success fa fa-money" title="Pagar"></a>
+						<?php 			else:?>
+						<b class="fa fa-check" title="<?=($this->Registration_Model->get_payment_status_by_activity($activity->Id)[0]->Amount == 0)? 'Exonerado': 'Pagado'?>"></b>
+						<?php 			endif;
+									endif;
+								endif;
+							endif;?>				
 					</td>
 				</tr>
 				<?php endforeach;?>

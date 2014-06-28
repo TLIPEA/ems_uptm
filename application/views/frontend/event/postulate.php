@@ -32,7 +32,7 @@ if(isset($costs))
 		foreach($costs as $cost)
 		{
 			if($cost->Type=='Ponentes')
-			$options[$cost->Id] = $cost->Type.' - '.$cost->Amount;
+			$options[$cost->Id] = $cost->Type.' - '.(($cost->Amount==0)?'Exonerado':$cost->Amount.'Bs');
 		}
 	}
 	else
@@ -175,9 +175,9 @@ else
 			<?php echo form_error('Institution','<div class="alert alert-danger alert-dismissable">
 									<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><strong>Error!</strong> ','.</div>'); ?>
 			<div class="form-group">
-				<label class="col-sm-2 hidden-xs" for="">Institución</label>
+				<label class="col-sm-2 hidden-xs" for="">Institución y/o Comunidad</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" name="Institution" placeholder="Institución" required="" />
+					<input type="text" class="form-control" name="Institution" placeholder="Institución y/o Comunidad" required="" />
 				</div>
 			</div>
 			<?php if(!isset($name)):?>

@@ -429,12 +429,12 @@ class Event extends Frontend {
 			}
 			else
 			{
-				if($this->Registration_Model->insert_registration_facilitator($this->input))
+				if($this->Activity_Model->insert_activity($this->input))
 				{
-					if($this->Activity_Model->insert_activity($this->input))
+					$_POST['Activity_Id'] = $this->db->insert_id();
+					
+					if($this->Registration_Model->insert_registration_facilitator($this->input))
 					{
-						$_POST['Activity_Id'] = $this->db->insert_id();
-						
 						if($this->Knowledge_Activity_Model->insert_knowledge_activity($this->input))
 						{
 							$_POST['Type']        = 'Primary';
@@ -457,14 +457,14 @@ class Event extends Frontend {
 					}
 					else
 					{
-						$this->error_view('Error al Registrar la Actividad','Algo va mal, intentalo de nuevo, si el error persiste comunicate con soporte');
+						$this->error_view('Error al Registrar la Postulación','Algo va mal, intentalo de nuevo, si el error persiste comunicate con soporte');
 						$this->postulate(1,$id);
 					}
 				}
 				else
 				{
-					$this->error_view('Error al Registrar la Postulación','Algo va mal, intentalo de nuevo, si el error persiste comunicate con soporte');
-					$this->postulate(1,$id);
+					$this->error_view('Error al Registrar la Actividad','Algo va mal, intentalo de nuevo, si el error persiste comunicate con soporte');
+						$this->postulate(1,$id);
 				}
 			}
 		}
@@ -524,12 +524,13 @@ class Event extends Frontend {
 					else
 					{
 						$_POST['Participant_Id'] = $this->db->insert_id();
-						if($this->Registration_Model->insert_registration_facilitator($this->input))
+						
+						if($this->Activity_Model->insert_activity($this->input))
 						{
-							if($this->Activity_Model->insert_activity($this->input))
-							{
-								$_POST['Activity_Id'] = $this->db->insert_id();
+							$_POST['Activity_Id'] = $this->db->insert_id();
 								
+							if($this->Registration_Model->insert_registration_facilitator($this->input))
+							{
 								if($this->Knowledge_Activity_Model->insert_knowledge_activity($this->input))
 								{
 									$_POST['Type']        = 'Primary';
@@ -552,13 +553,13 @@ class Event extends Frontend {
 							}
 							else
 							{
-								$this->error_view('Error al Registrar la Actividad','Algo va mal, intentalo de nuevo, si el error persiste comunicate con soporte');
+								$this->error_view('Error al Registrar la Postulación','Algo va mal, intentalo de nuevo, si el error persiste comunicate con soporte');
 								$this->postulate(1,$id);
 							}
 						}
 						else
 						{
-							$this->error_view('Error al Registrar la Postulación','Algo va mal, intentalo de nuevo, si el error persiste comunicate con soporte');
+							$this->error_view('Error al Registrar la Actividad','Algo va mal, intentalo de nuevo, si el error persiste comunicate con soporte');
 							$this->postulate(1,$id);
 						}
 					}

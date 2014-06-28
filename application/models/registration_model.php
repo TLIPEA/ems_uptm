@@ -32,6 +32,7 @@ class Registration_Model extends CI_Model
 			'Participant_Id'     => $_data->post('Participant_Id'),
 			'Scheduled_Event_Id' => $_data->post('Scheduled_Event_Id'),
 			'Status'             => 'Facilitator',
+			'Activity_Id'        => $_data->post('Activity_Id'),
         );
 		
         if($this->db->insert('Registration',$data))
@@ -92,6 +93,63 @@ class Registration_Model extends CI_Model
 					->where('Registration.Status <>','Facilitator')->where('Registration.Status <>','Organizer')
 					->where('Registration.Status <>','Collaborator')->where('Registration.Status <>','Cancel')
 					->where('Registration.Scheduled_Event_Id',$Scheduled_Event_Id)->where('Participant_Id',$Participant_Id)->get('Registration');
+        
+        if($query->num_rows() > 0)
+		{
+            foreach($query->result() as $row)
+			{
+                $data[] = $row;
+            }
+            return $data;
+        }
+        else
+		{
+            return 0;
+        }
+    }
+	
+	function get_registration_with_cost_by_activity($Activity_Id)
+	{
+        $query = $this->db->select('Registration.*,Cost.Amount, Cost.Type AS Cost_Type,Sale.Start_Date AS Sale_Start_Date, Sale.End_Date AS Sale_End_Date')
+					->join('Scheduled_Event','Scheduled_Event.Id = Registration.Scheduled_Event_Id','INNER')
+					->join('Event','Event.Id = Scheduled_Event.Event_Id','INNER')
+					->join('Cost','Cost.Id = Registration.Cost_Id','INNER')
+					->join('Sale','Sale.Id = Cost.Sale_Id','INNER')
+					->where('Cost.Type','Speaker')
+					->where('Registration.Status <>','Paid')->where('Registration.Status <>','Organizer')
+					->where('Registration.Status <>','Exempt')->where('Registration.Status <>','Collaborator')
+					->where('Registration.Status <>','Free')->where('Registration.Status <>','Cancel')
+					->where('Registration.Activity_Id',$Activity_Id)
+					->get('Registration');
+        
+        if($query->num_rows() > 0)
+		{
+            foreach($query->result() as $row)
+			{
+                $data[] = $row;
+            }
+            return $data;
+        }
+        else
+		{
+            return 0;
+        }
+    }
+	
+	function get_payment_status_by_activity($Activity_Id)
+	{
+        $query = $this->db->select('Cost.Amount')
+					->join('Scheduled_Event','Scheduled_Event.Id = Registration.Scheduled_Event_Id','INNER')
+					->join('Event','Event.Id = Scheduled_Event.Event_Id','INNER')
+					->join('Cost','Cost.Id = Registration.Cost_Id','INNER')
+					->join('Sale','Sale.Id = Cost.Sale_Id','INNER')
+					->where('Cost.Type','Speaker')
+					->where('Cost.Amount','(SELECT SUM(Amount) FROM Payment WHERE Registration_Id = Registration.Id AND Status = \'Validated\')')
+					->where('Registration.Status <>','Paid')->where('Registration.Status <>','Organizer')
+					->where('Registration.Status <>','Exempt')->where('Registration.Status <>','Collaborator')
+					->where('Registration.Status <>','Free')->where('Registration.Status <>','Cancel')
+					->where('Registration.Activity_Id',$Activity_Id)
+					->get('Registration');
         
         if($query->num_rows() > 0)
 		{

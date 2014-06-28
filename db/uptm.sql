@@ -149,6 +149,7 @@ CREATE TABLE IF NOT EXISTS Registration (
 	Cost_Id INT NOT NULL,
 	Participant_Id INT NOT NULL,
 	Scheduled_Event_Id INT NOT NULL,
+    Activity_Id Int NULL DEFAULT NULL,
 	INDEX fk_registration_cost (Cost_Id ASC),
 	CONSTRAINT fk_registration_cost
 	FOREIGN KEY (Cost_Id) REFERENCES Cost(Id)
@@ -162,6 +163,11 @@ CREATE TABLE IF NOT EXISTS Registration (
 	INDEX fk_registration_scheduled_event (Scheduled_Event_Id ASC),
 	CONSTRAINT fk_registration_scheduled_event
 	FOREIGN KEY (Scheduled_Event_Id) REFERENCES Scheduled_Event(Id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+    INDEX fk_registration_activity (Activity_Id ASC),
+    CONSTRAINT fk_registration_activity
+	FOREIGN KEY (Activity_Id) REFERENCES Activity(Id)
     ON DELETE CASCADE
     ON UPDATE CASCADE
 )

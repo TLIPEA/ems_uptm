@@ -67,9 +67,9 @@
 				<?php echo form_error('Institution[]','<div class="alert alert-danger alert-dismissable">
 									<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><strong>Error!</strong> ','.</div>'); ?>
 				<div class="form-group">
-					<label class="col-sm-2 hidden-xs" for="">Institución</label>
+					<label class="col-sm-2 hidden-xs" for="">Institución y/o Comunidad</label>
 					<div class="col-sm-10">
-						<input type="text" class="form-control" name="Institution[]" placeholder="Institución" required="" value="" />
+						<input type="text" class="form-control" name="Institution[]" placeholder="Institución y/o Comunidad" required="" value="" />
 					</div>
 				</div>
 			<?php $count++;?>

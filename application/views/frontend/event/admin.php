@@ -95,8 +95,9 @@
 		  </tr>
 		  <tr>
 			<td>Total a Pagar</td>
-			<td><?=$event->Amount?> Bs</td>
+			<td><?php if($event->Amount==0):?> Exonerado <?php else:?> <?=$event->Amount?> Bs<?php endif;?></td>
 		  </tr>
+		  <?php if($event->Amount!=0):?>
 		  <tr>
 			<td>Pagado</td>
 			<td><?=($event->Total_Pay=='')?0:$event->Total_Pay?> Bs</td>
@@ -117,6 +118,7 @@
 			<td>Pagos Invalidos</td>
 			<td><?=$event->Payment_Invalid?></td>
 		  </tr>
+		  <?php endif;?>
 		</table>
 	  </div>
 	</div>
