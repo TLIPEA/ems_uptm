@@ -91,12 +91,12 @@
 				<table class="table table-hover">
 					<tr>
 						<td><?=$cost->Type?></td>
-						<td><?=$cost->Amount?></td>
+						<td class="text-right"><?=($cost->Amount==0)?'Exonerado':$cost->Amount?></td>
 					</tr>
 		<?php else:?>
 					<tr>
 						<td><?=$cost->Type?></td>
-						<td><?=$cost->Amount?></td>
+						<td class="text-right"><?=($cost->Amount==0)?'Exonerado':$cost->Amount?></td>
 					</tr>
 		<?php endif;?>
 	  <?php endforeach;?>
