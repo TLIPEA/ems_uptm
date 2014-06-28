@@ -50,7 +50,8 @@ class Scheduled_Event_Model extends CI_Model
 	{
         $query = $this->db->select('Event.Name,Event.Purpose,Event.Type,Scheduled_Event.*')
 						->join('Event','Event.Id = Scheduled_Event.Event_Id','INNER')
-						->where('Status','Active')->get('Scheduled_Event');
+						->where('Status','Active')->where('Start_Date >= CURRENT_TIMESTAMP')
+						->order_by('Start_Date','ASC')->get('Scheduled_Event');
         
         if($query->num_rows() > 0){
             foreach($query->result() as $row){
@@ -67,7 +68,8 @@ class Scheduled_Event_Model extends CI_Model
 	{
 		$query = $this->db->select('Event.Name,Event.Purpose,Event.Type,Scheduled_Event.*')
 						->join('Event','Event.Id = Scheduled_Event.Event_Id','INNER')
-						->where('Status','Active')->where('Type',$type)->get('Scheduled_Event');
+						->where('Status','Active')->where('Type',$type)->where('Start_Date >= CURRENT_TIMESTAMP')
+						->order_by('Start_Date','ASC')->get('Scheduled_Event');
         
         if($query->num_rows() > 0)
 		{
