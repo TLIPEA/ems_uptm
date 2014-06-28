@@ -106,6 +106,25 @@ class Registration_Model extends CI_Model
             return 0;
         }
     }
+	
+	function get_registration_id_by_participant($Scheduled_Event_Id,$Participant_Id)
+	{
+		$query = $this->db->select('Id')->where('Participant_Id',$Participant_Id)
+				->where('Scheduled_Event_Id',$Scheduled_Event_Id)->get('Registration');
+				
+		if($query->num_rows() > 0)
+		{
+            foreach($query->result() as $row)
+			{
+                $data[] = $row;
+            }
+            return $data;
+        }
+        else
+		{
+            return 0;
+        }
+	}
     
     function get_by_id($_id)
     {

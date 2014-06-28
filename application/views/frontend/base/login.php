@@ -51,7 +51,7 @@
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li><a href="<?=site_url('');?>">Inicio</a></li>
-            <li class="hidden-lg dropdown">
+            <li class="dropdown">
                 <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" title="Eventos Academicos">Eventos Academicos <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="<?=site_url('home/index/Course');?>">Cursos</a></li>
@@ -64,14 +64,6 @@
                     <li><a href="<?=site_url('home/index/Diplomaed');?>">Diplomados</a></li>
                 </ul>
             </li>
-            <li class="visible-lg"><a href="<?=site_url('home/index/Course');?>">Cursos</a></li>
-            <li class="visible-lg"><a href="<?=site_url('home/index/Practical Course');?>">Talleres</a></li>
-            <li class="visible-lg"><a href="<?=site_url('home/index/Meeting');?>">Encuentros</a></li>
-            <li class="visible-lg"><a href="<?=site_url('home/index/Seminary');?>">Seminarios</a></li>
-            <li class="visible-lg"><a href="<?=site_url('home/index/Conversational');?>">Conversatorios</a></li>
-            <li class="visible-lg"><a href="<?=site_url('home/index/Conference');?>">Jornadas</a></li>
-            <li class="visible-lg"><a href="<?=site_url('home/index/Congress');?>">Congresos</a></li>
-            <li class="visible-lg"><a href="<?=site_url('home/index/Diplomaed');?>">Diplomados</a></li>
             <li><a href="<?=site_url('home/contact/');?>">Contacto</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
@@ -79,6 +71,8 @@
               <ul class="dropdown-menu login-menu">
 				<div class="col-md-12 text-center form-login">
 					<h4><a href="<?=site_url('frontend/sign_in/');?>">Registrarse</a></h4>
+					<hr>
+					<h4><a href="<?=site_url('frontend/recovery/');?>">Recuperar Clave</a></h4>
 				</div>
 			  </ul>
 			</li>
@@ -118,6 +112,8 @@
 					</div>
 					<hr>
 					<h4><a href="<?=site_url('frontend/sign_in/');?>">Registrarse</a></h4>
+					<hr>
+					<h4><a href="<?=site_url('frontend/recovery/');?>">Recuperar Clave</a></h4>
 				</form>
 			</div>
 		</div>

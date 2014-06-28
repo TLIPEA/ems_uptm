@@ -51,7 +51,7 @@
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li <?=($type=='')? 'class="active"':''?>><a href="<?=site_url('');?>">Inicio</a></li>
-            <li class="hidden-lg dropdown <?=($type!='')? 'active':''?>">
+            <li class="dropdown <?=($type!='')? 'active':''?>">
                 <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" title="Eventos Academicos">Eventos Academicos <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="<?=site_url('home/index/Course');?>">Cursos</a></li>
@@ -64,22 +64,6 @@
                     <li><a href="<?=site_url('home/index/Diplomaed');?>">Diplomados</a></li>
                 </ul>
             </li>
-            <li class="visible-lg <?=($type=='Curso')? 'active':''?>">
-			  <a href="<?=site_url('home/index/Course');?>">Cursos</a></li>
-            <li class="visible-lg <?=($type=='Taller')? 'active':''?>">
-			  <a href="<?=site_url('home/index/Practical Course');?>">Talleres</a></li>
-            <li class="visible-lg <?=($type=='Encuentro')? 'active':''?>">
-			  <a href="<?=site_url('home/index/Meeting');?>">Encuentros</a></li>
-            <li class="visible-lg <?=($type=='Seminario')? 'active':''?>">
-			  <a href="<?=site_url('home/index/Seminary');?>">Seminarios</a></li>
-            <li class="visible-lg <?=($type=='Conversatorio')? 'active':''?>">
-			  <a href="<?=site_url('home/index/Conversational');?>">Conversatorios</a></li>
-            <li class="visible-lg <?=($type=='Jornada')? 'active':''?>">
-			  <a href="<?=site_url('home/index/Conference');?>">Jornadas</a></li>
-            <li class="visible-lg <?=($type=='Congreso')? 'active':''?>">
-			  <a href="<?=site_url('home/index/Congress');?>">Congresos</a></li>
-            <li class="visible-lg <?=($type=='Diplomado')? 'active':''?>">
-			  <a href="<?=site_url('home/index/Diplomaed');?>">Diplomados</a></li>
             <li><a href="<?=site_url('home/contact/');?>">Contacto</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
@@ -94,6 +78,8 @@
                         <input type="submit" value="Ingresar" class="btn btn-info" />
                         <hr>
                         <h4><a href="<?=site_url('frontend/sign_in/');?>">Registrarse</a></h4>
+						<hr>
+						<h4><a href="<?=site_url('frontend/recovery/');?>">Recuperar Clave</a></h4>
                     </div>
                 </form>
 			  </ul>

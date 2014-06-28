@@ -152,6 +152,22 @@ class Participant_Model extends CI_Model
         }
     }
 	
+	function update_user_password($_data)
+	{
+		$data = array(
+			'Password'      => $this->encrypt->sha1($_data->post('Password')),
+		);
+		
+		if($this->db->where('Id',$_data->post('Participant_Id'))->update('Participant',$data))
+		{
+            return TRUE;
+        }
+		else
+		{
+            return FALSE;
+        }
+	}
+	
 	function check_login($username)
 	{
 		$query = $this->db->join('User','User.Participant_Id = Participant.Id','INNER')->where('Username',$username)->get('Participant');
