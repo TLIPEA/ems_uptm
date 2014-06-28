@@ -237,23 +237,25 @@ class Frontend extends CI_Controller {
 	{
 		if(!($code == 0 and $username == 0)){
             
-            $data = $this->Participant_Model->check_login_participant($username);
+            $data = $this->Participant_Model->verify($code,$username);
             
+			echo $this->db->last_query();
+			
             if($data == 0)
 			{
-				$this->error_view('Error!','Algo va mal, Estas intentando validar un registro con las credenciales erroneas');
+				$this->error_view('1Error!','Algo va mal, Estas intentando validar un registro con las credenciales erroneas');
             }
 			else
 			{
                 if($data[0]->Status == 'Active')
 				{
-					$this->error_view('Proceso ya Realizado!','Algo va mal, Tu cuenta ya se encuentra activa');
+					$this->success_view('Proceso ya Realizado!','Todo Ok, Tu cuenta ya se encuentra activa');
                 }
 				else
 				{
-                    if($data[0]->Code == $code){
+                    if($data[0]->Id == $code){
                         
-                        if($this->Participant_Model->update_status(array('Id' => $data[0]->Id, 'Status' => 'Activate')))
+                        if($this->Participant_Model->update_status(array('Id' => $data[0]->Id, 'Status' => 'Active')))
 						{
 							$this->success_view('Exito!','Tu cuenta ya se encuentra activa, ahora puedes iniciar sesión');
                         }
@@ -272,7 +274,7 @@ class Frontend extends CI_Controller {
             
             
         }else{
-            $datos = array('titleError'=>'Error!', 'mensaje'=>'4Estas intentando validar un registro con las credenciales erroneas'.$codigo.$usuario, 'tipoError'=>1);
+            $this->error_view('Error!','Algo va mal, Estas intentando validar un registro con las credenciales erroneas');
             
         }
         (new Home())->index();

@@ -197,6 +197,21 @@ class Participant_Model extends CI_Model
             return 0;
         }
 	}
+	
+	function verify($code,$username)
+	{
+		$query = $this->db->where('Username',$username)->where('Id',$code)->get('Participant');
+        
+        if($query->num_rows() > 0){
+            foreach($query->result() as $row){
+                $data[] = $row;
+            }
+			return $data;
+        }
+        else{
+            return 0;
+        }
+	}
     
     /**
      * TODO: Al eliminar se debe eliminar las referencias a Register, Author primero.

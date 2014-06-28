@@ -93,7 +93,8 @@ else
 			<div class="form-group">
 				<label class="col-sm-2 hidden-xs" for="">Cedula</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" name="DNI" placeholder="Cedula" required="" />
+					<input type="text" class="form-control" name="DNI" placeholder="Cedula: V-18964136" required="" value="<?=set_value('DNI')?>" />
+					<p class="help-block">El formato de la Cedula es V-18964136 Sin Puntos.</p>
 				</div>
 			</div>
 			<?php echo form_error('Name','<div class="alert alert-danger alert-dismissable">
@@ -102,7 +103,7 @@ else
 			<div class="form-group">
 				<label class="col-sm-2 hidden-xs" for="">Nombre</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" name="Name" placeholder="Nombre" required="" />
+					<input type="text" class="form-control" name="Name" placeholder="Nombre" required="" value="<?=set_value('Name')?>" />
 				</div>
 			</div>
 			<?php echo form_error('Last_Name','<div class="alert alert-danger alert-dismissable">
@@ -111,7 +112,7 @@ else
 			<div class="form-group">
 				<label class="col-sm-2 hidden-xs" for="">Apellido</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" name="Last_Name" placeholder="Apellido" required="" />
+					<input type="text" class="form-control" name="Last_Name" placeholder="Apellido" required="" value="<?=set_value('Last_Name')?>" />
 				</div>
 			</div>
 			<?php echo form_error('Email','<div class="alert alert-danger alert-dismissable">
@@ -120,7 +121,7 @@ else
 			<div class="form-group">
 				<label class="col-sm-2 hidden-xs" for="">Correo Electronico</label>
 				<div class="col-sm-10">
-					<input type="email" class="form-control" name="Email" placeholder="Correo Electronico" required="" />
+					<input type="email" class="form-control" name="Email" placeholder="Correo Electronico" required="" value="<?=set_value('Email')?>" />
 				</div>
 			</div>
 			<?php echo form_error('Username','<div class="alert alert-danger alert-dismissable">
@@ -129,7 +130,7 @@ else
 			<div class="form-group">
 				<label class="col-sm-2 hidden-xs" for="">Usuario</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" name="Username" placeholder="Usuario" required="" />
+					<input type="text" class="form-control" name="Username" placeholder="Usuario" required="" value="<?=set_value('Username')?>" />
 				</div>
 			</div>
 			<?php echo form_error('Password','<div class="alert alert-danger alert-dismissable">
@@ -139,12 +140,14 @@ else
 				<label class="col-sm-2 hidden-xs" for="">Contraseña</label>
 				<div class="col-sm-10">
 					<input type="password" class="form-control" name="Password" placeholder="Contraseña" required="" />
+					<p class="help-block">La contraseña debe tener un minimo de 6 caracteres.</p>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-2 hidden-xs" for="">Repetir Contraseña</label>
 				<div class="col-sm-10">
 					<input type="password" class="form-control" name="Password2" placeholder="Repetir Contraseña" required="" />
+					<p class="help-block">Debe incluir nuevamente la contraseña para evitar errores de tipeo.</p>
 				</div>
 			</div>
 			<?php else:?>
