@@ -33,7 +33,9 @@ class Scheduled_Event_Model extends CI_Model
     }
     
     function get_all_scheduled_events(){
-        $query = $this->db->get('Scheduled_Event');
+        $query = $this->db->select('Event.Name,Event.Purpose,Event.Type,Scheduled_Event.*')
+						->join('Event','Event.Id = Scheduled_Event.Event_Id','INNER')
+						->order_by('Start_Date','DESC')->get('Scheduled_Event');
         
         if($query->num_rows() > 0){
             foreach($query->result() as $row){
@@ -106,7 +108,8 @@ class Scheduled_Event_Model extends CI_Model
     
     function get_by_id($_id)
     {
-        $query = $this->db->join('Event','Event.Id = Scheduled_Event.Event_Id','INNER')
+        $query = $this->db->select('Event.Name,Event.Purpose,Event.Type,Scheduled_Event.*')
+						->join('Event','Event.Id = Scheduled_Event.Event_Id','INNER')
 						->where('Scheduled_Event.Id',$_id)->get('Scheduled_Event',1);
         
         if($query->num_rows() > 0){
@@ -130,8 +133,6 @@ class Scheduled_Event_Model extends CI_Model
 			'Status'                      => $_data->post('Status'),
 			'Slogan'                      => $_data->post('Slogan'),
 			'Hours'                       => $_data->post('Hours'),
-			'Extending_summary_date'      => $_data->post('Extending_summary_date'),
-			'Extending_final_report_date' => $_data->post('Extending_final_report_date'),
 			'Event_Id'                    => $_data->post('Event_Id')
         );
         

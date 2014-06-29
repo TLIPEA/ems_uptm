@@ -70,6 +70,21 @@ class Knowledge_Model extends CI_Model
             return 0;
         }
     }
+	
+	function get_count_by_scheduled_event($id)
+    {
+        $query = $this->db->select('COUNT(*) AS Orden')->where('Scheduled_Event_Id',$id)->get('Knowledge');
+        
+        if($query->num_rows() > 0){
+            foreach($query->result() as $row){
+                $data[] = $row;
+            }
+            return $data;
+        }
+        else{
+            return 0;
+        }
+    }
     
     function update_knowledge($_data){
         

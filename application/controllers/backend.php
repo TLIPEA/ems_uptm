@@ -118,3 +118,73 @@ class Backend extends CI_Controller {
 	}
 
 }
+
+function typeEvent($type)
+{
+	switch($type)
+	{
+		case 'Course':
+			return 'Curso';
+			break;
+		case 'Practical Course':
+			return 'Taller';
+			break;
+		case 'Meeting':
+			return 'Encuentro';
+			break;
+		case 'Seminary':
+			return 'Seminario';
+			break;
+		case 'Conversational':
+			return 'Conversatorio';
+			break;
+		case 'Conference':
+			return 'Jornada';
+			break;
+		case 'Congress':
+			return 'Congreso';
+			break;
+		case 'Diplomaed':
+			return 'Diplomado';
+			break;
+		default:
+			return '';
+	}
+}
+
+function translate($key)
+{
+	$data['Course']                          = 'Curso';
+	$data['Practical Course']                = 'Taller';
+	$data['Meeting']                         = 'Encuentro';
+	$data['Seminary']                        = 'Seminario';
+	$data['Conversational']                  = 'Conversatorio';
+	$data['Conference']                      = 'Jornada';
+	$data['Congress']                        = 'Congreso';
+	$data['Diplomaed']                       = 'Diplomado';
+	$data['Student']                         = 'Estudiantes';
+	$data['Speaker']                         = 'Ponentes';
+	$data['Professionals & General Public']  = 'Profesionales y Publico en General';
+	$data['Proposal']                        = 'Propuesta';
+	$data['Accepted']                        = 'Aceptada';
+	$data['Amend']                           = 'Con Correcciones';
+	$data['Rejected']                        = 'No Aceptada';
+	$data['Oral Speech']                     = 'Ponencia';
+	$data['Cartel']                          = 'Cartel';
+	$data['Primary']                         = 'Autor';
+	$data['Secondary']                       = 'CoAuthor';
+	$data['Paid']                            = 'Pagado';
+	$data['Cancel']                          = 'Cancelado';
+	$data['Free']                            = 'Gratis';
+	$data['Without Payment']                 = 'En Proceso';
+	$data['Exempt']                          = 'Exonerado';
+	$data['Collaborator']                    = 'Colaborador';
+	$data['Organizer']                       = 'Organizador';
+	$data['Facilitator']                     = 'Facilitador';
+	$data['Validated']                       = 'Validado';
+	$data['No Validated']                    = 'Sin Validar';
+	$data['Invalid']                         = 'Invalido';
+	$data['Off']                             = 'Desactivado';
+	
+	return $data[$key];
+}

@@ -142,6 +142,28 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS Activity (
+	Id INT PRIMARY KEY AUTO_INCREMENT,
+	Title VARCHAR(250) NOT NULL,
+	/*'Oral Speech' = Ponencia ,'Practical Course' = Taller, 'Cartel' = Cartel, 'Conversational' = Conversatorio */
+	Mode ENUM('Oral Speech','Practical Course','Cartel','Conversational') NOT NULL,
+	Participation_Type ENUM('Online','Classroom') NOT NULL,
+	Keywords VARCHAR(150),
+	Summary VARCHAR(50),
+	Summary_Words TEXT,
+    Status ENUM(  'Proposal',  'Accepted',  'Amend',  'Rejected' ) NOT NULL DEFAULT  'Proposal',
+	Scheduled_Event_Id INT NOT NULL,
+	INDEX fk_activity_scheduled_event (Scheduled_Event_Id ASC),
+	CONSTRAINT fk_activity_scheduled_event
+	FOREIGN KEY (Scheduled_Event_Id) REFERENCES Scheduled_Event(Id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
+
+
 CREATE TABLE IF NOT EXISTS Registration (
 	Id INT PRIMARY KEY AUTO_INCREMENT,
 	Status ENUM('Paid','Cancel','Free','Without Payment','Exempt','Collaborator','Organizer','Facilitator') NOT NULL DEFAULT 'Without Payment',
@@ -149,7 +171,7 @@ CREATE TABLE IF NOT EXISTS Registration (
 	Cost_Id INT NOT NULL,
 	Participant_Id INT NOT NULL,
 	Scheduled_Event_Id INT NOT NULL,
-    Activity_Id Int NULL DEFAULT NULL,
+    Activity_Id INT NULL DEFAULT NULL,
 	INDEX fk_registration_cost (Cost_Id ASC),
 	CONSTRAINT fk_registration_cost
 	FOREIGN KEY (Cost_Id) REFERENCES Cost(Id)
@@ -244,27 +266,6 @@ CREATE TABLE IF NOT EXISTS Planning (
 	Scheduled_Event_Id INT NOT NULL,
 	INDEX fk_planning_scheduled_event (Scheduled_Event_Id ASC),
 	CONSTRAINT fk_planning_scheduled_event
-	FOREIGN KEY (Scheduled_Event_Id) REFERENCES Scheduled_Event(Id)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE
-)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_unicode_ci;
-
-CREATE TABLE IF NOT EXISTS Activity (
-	Id INT PRIMARY KEY AUTO_INCREMENT,
-	Title VARCHAR(250) NOT NULL,
-	/*'Oral Speech' = Ponencia ,'Practical Course' = Taller, 'Cartel' = Cartel, 'Conversational' = Conversatorio */
-	Mode ENUM('Oral Speech','Practical Course','Cartel','Conversational') NOT NULL,
-	Participation_Type ENUM('Online','Classroom') NOT NULL,
-	Keywords VARCHAR(150),
-	Summary VARCHAR(50),
-	Summary_Words TEXT,
-    Status ENUM(  'Proposal',  'Accepted',  'Amend',  'Rejected' ) NOT NULL DEFAULT  'Proposal',
-	Scheduled_Event_Id INT NOT NULL,
-	INDEX fk_activity_scheduled_event (Scheduled_Event_Id ASC),
-	CONSTRAINT fk_activity_scheduled_event
 	FOREIGN KEY (Scheduled_Event_Id) REFERENCES Scheduled_Event(Id)
     ON DELETE CASCADE
     ON UPDATE CASCADE

@@ -38,6 +38,20 @@ class Place_Model extends CI_Model
             return 0;
         }
     }
+	
+	function get_all_places_by_scheduled_event($id){
+        $query = $this->db->where('Scheduled_Event_Id',$id)->get('Place');
+        
+        if($query->num_rows() > 0){
+            foreach($query->result() as $row){
+                $data[] = $row;
+            }
+            return $data;
+        }
+        else{
+            return 0;
+        }
+    }
     
     function get_by_id($_id)
     {

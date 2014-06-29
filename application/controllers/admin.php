@@ -27,9 +27,7 @@ class Admin extends Backend {
 		
 		if ($phase == 1)
 		{
-		    $this->load->view('backend/base/header',$head);
-			$this->load->view('backend/admin/new_account');
-			$this->load->view('backend/base/footer');
+			$this->load_view('admin/new_account',$head);
 		}
 		else
 		{

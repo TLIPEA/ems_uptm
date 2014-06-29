@@ -34,11 +34,11 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="<?=site_url('backend/index')?>">Sistema Manejador de Eventos de la Universidad Politécnica Territorial de Mérida "Kléber Ramírez"</a>
+					<a class="navbar-brand" href="<?=site_url('backend/index')?>"><span class="hidden-xs">Sistema Manejador de Eventos de la Universidad Politécnica Territorial de Mérida "Kléber Ramírez"</span> <span class="visible-xs">EMS UPTM</span></a>
 				</div>
 				<!-- /.navbar-header -->
 	
-				<ul class="nav navbar-top-links navbar-right">
+				<ul class="nav navbar-top-links navbar-right pull-right">
 					<!-- /.dropdown -->
 					<li class="dropdown">
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -78,13 +78,16 @@
 								<!-- /.nav-second-level -->
 							</li>
 							<li>
-								<a href="<?=site_url('job/index')?>"><i class="fa fa-calendar fa-fw"></i> Eventos<span class="fa arrow"></span></a>
+								<a href="<?=site_url('events/index')?>"><i class="fa fa-calendar fa-fw"></i> Eventos<span class="fa arrow"></span></a>
 								<ul class="nav nav-second-level">
 									<li>
-										<a href="<?=site_url('job/index')?>"><i class="fa fa-thumb-tack fa-fw"></i> Eventos</a>
+										<a href="<?=site_url('events/index')?>"><i class="fa fa-thumb-tack fa-fw"></i> Eventos</a>
 									</li>
 									<li>
-										<a href="<?=site_url('job/new_job')?>"><i class="fa fa-clock-o fa-fw"></i> Preventas</a>
+										<a href="<?=site_url('sale/index')?>"><i class="fa fa-clock-o fa-fw"></i> Preventas</a>
+									</li>
+									<li>
+										<a href="<?=site_url('events/applications')?>"><i class="fa fa-rocket fa-fw"></i> Ponentes</a>
 									</li>
 								</ul>
 								<!-- /.nav-second-level -->
@@ -93,10 +96,10 @@
 								<a href="#"><i class="fa fa-users fa-fw"></i> Participantes<span class="fa arrow"></span></a>
 								<ul class="nav nav-second-level">
 									<li>
-										<a href="<?=site_url('blog/index')?>"><i class="fa fa-ticket fa-fw"></i>Inscripción</a>
+										<a href="<?=site_url('registration/index')?>"><i class="fa fa-ticket fa-fw"></i>Inscripción</a>
 									</li>
 									<li>
-										<a href="<?=site_url('blog/new_entry')?>"><i class="fa fa-money fa-fw"></i>Pagos</a>
+										<a href="<?=site_url('payment/index')?>"><i class="fa fa-money fa-fw"></i>Pagos</a>
 									</li>
 								</ul>
 								<!-- /.nav-second-level -->
@@ -105,16 +108,16 @@
 								<a href="#"><i class="fa fa-picture-o fa-fw"></i> Certificados<span class="fa arrow"></span></a>
 								<ul class="nav nav-second-level">
 									<li>
-										<a href="<?=site_url('team/index')?>"><i class="fa fa-picture-o fa-fw"></i> Diseño</a>
+										<a href="<?=site_url('certified/design')?>"><i class="fa fa-picture-o fa-fw"></i> Diseño</a>
 									</li>
 									<li>
-										<a href="<?=site_url('team/new_worker')?>"><i class="fa fa-print fa-fw"></i> Impresión</a>
+										<a href="<?=site_url('certified/print')?>"><i class="fa fa-print fa-fw"></i> Impresión</a>
 									</li>
 								</ul>
 								<!-- /.nav-second-level -->
 							</li>							
 							<li>
-								<a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Reportes</span></a>
+								<a href="<?=site_url('reports')?>"><i class="fa fa-bar-chart-o fa-fw"></i> Reportes</span></a>
 							</li>
 							<li>
 								<a href="#"><i class="fa fa-user fa-fw"></i> Acceso<span class="fa arrow"></span></a>
