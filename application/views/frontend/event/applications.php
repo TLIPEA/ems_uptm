@@ -15,6 +15,7 @@
 			<?php endif;?>
 			<h2><?=$title?></h2>
 		</div>
+		<?php if(isset($activitys)):?>
 		<?php if($activitys!=0):?>
 		<div class="table-responsive">
 			<table class="table table-hover">
@@ -58,6 +59,9 @@
 				<?php endforeach;?>
 			</table>
 		</div>
+		<?php else:?>
+		<h1 class="text-center">No Hay Postulaciones Registradas</h1>
+		<?php endif;?>
 		<?php else:?>
 		<h1 class="text-center">No Hay Postulaciones Registradas</h1>
 		<?php endif;?>

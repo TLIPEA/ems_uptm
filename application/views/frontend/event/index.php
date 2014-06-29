@@ -17,6 +17,7 @@
 		</div>
 	</div>
 	<?php $count = 0;?>
+	<?php if(isset($events)):?>
 	<?php if($events!=0):?>
 	<?php foreach($events as $event):?>
 	
@@ -56,8 +57,10 @@
 			<hr>
 		<?php endif;?>
 	<?php else:?>
-	<h2>No hay Eventos Disponibles</h2>
-	<hr>
+	<h2 class="text-center">No hay Eventos Disponibles</h2>
+<?php endif;?>
+<?php else:?>
+<h2 class="text-center">No hay Eventos Disponibles</h2>
 <?php endif;?>
 </div>
 

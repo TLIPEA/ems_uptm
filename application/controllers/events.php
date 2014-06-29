@@ -509,4 +509,153 @@ class Events extends Backend {
 		}
 		
 	}
+	
+	public function places($id = '')
+	{
+		$this->check_session();
+		$data['controller'] = 'List';
+		
+		if($id=='')
+		{
+			$this->error_view('Error','Oh oh. Algo malo ha pasado con la carga del evento');
+			$this->index();
+		}
+		
+		$data['event'] = $this->Scheduled_Event_Model->get_by_id($id);
+		
+		if($data['event']!=0)
+		{
+			$data['rows'] = $this->Place_Model->get_all_places_by_scheduled_event($id);
+			$this->load_view('event/places',$data);
+		}
+		else
+		{
+			$this->error_view('Error','Oh oh. Algo malo ha pasado con la carga de la data del evento');
+			$this->index();
+		}
+	}
+	
+	public function new_place($id = '',$phase = 1)
+	{
+		$this->check_session();
+		$data['controller'] = 'New_Place';
+		
+		if ($phase == 1)
+		{
+			if($id=='')
+			{
+				$this->error_view('Error','Oh oh. Algo malo ha pasado con la carga del evento');
+				$this->index();
+			}
+			
+			$data['event'] = $this->Scheduled_Event_Model->get_by_id($id);
+		
+			if($data['event']!=0)
+			{
+				$this->load_view('event/new_place',$data);
+			}
+			else
+			{
+				$this->error_view('Error','Oh oh. Algo malo ha pasado con la carga de la data del evento');
+				$this->index();
+			}
+		}
+		else
+		{
+			$this->form_validation->set_rules('Name' , 'Nombre', 'trim|required|xss_clean');
+            $this->form_validation->set_rules('Description' , 'Referencia', 'trim|required|xss_clean');
+			
+			$this->form_validation->set_message('required', '%s es requerido');
+			
+			if ($this->form_validation->run() == FALSE)
+			{
+				$this->new_place($id,1);
+			}
+			else
+			{
+				if($this->Place_Model->insert_place($this->input))
+				{
+					$this->success_view('Éxito','La actividad se ha guardado correctamente');
+					$this->places($id);
+				}
+				else
+				{
+					$this->error_view('Error','Oh oh. Algo malo ha pasado con el guardado de l actividad');
+					$this->new_place($id,1);
+				}
+			}
+		}
+	}
+	
+	public function edit_place($id = '',$phase = 1)
+	{
+		$this->check_session();
+		$data['controller'] = 'Edit_Place';
+		
+		if ($phase == 1)
+		{
+			$data['place'] = $this->Place_Model->get_by_id($id);
+		
+			if($data['place']!=0)
+			{
+				$data['event'] = $this->Scheduled_Event_Model->get_by_id($data['place'][0]->Scheduled_Event_Id);
+				$this->load_view('event/edit_place',$data);
+			}
+			else
+			{
+				$this->error_view('Error','Oh oh. Algo malo ha pasado con la carga de la data de la actividad');
+				$this->index();
+			}
+		}
+		else
+		{
+			$this->form_validation->set_rules('Name' , 'Nombre', 'trim|required|xss_clean');
+            $this->form_validation->set_rules('Description' , 'Referencia', 'trim|required|xss_clean');
+			
+			$this->form_validation->set_message('required', '%s es requerido');
+			
+			if ($this->form_validation->run() == FALSE)
+			{
+				$this->edit_place($id,1);
+			}
+			else
+			{
+				if($this->Place_Model->update_place($this->input))
+				{
+					$this->success_view('Éxito','La actividad se ha actualizado correctamente');
+					$this->places($this->input->post('Scheduled_Event_Id'));
+				}
+				else
+				{
+					$this->error_view('Error','Oh oh. Algo malo ha pasado con el actualizar de la actividad');
+					$this->edit_place($id,1);
+				}
+			}
+		}
+	}
+	
+	public function delete_place($id)
+	{
+		$this->check_session();
+		$data['place'] = $this->Place_Model->get_by_id($id);
+		
+		if($data['place']!=0)
+		{
+			if($this->Place_Model->delete_place($id))
+			{
+				$this->success_view('Éxito','La actividad se ha eliminado correctamente');
+			}
+			else
+			{
+				$this->error_view('Error','Oh oh. Algo malo ha pasado con la eliminación de la actividad');
+			}
+			$this->places($data['place'][0]->Scheduled_Event_Id);
+		}
+		else
+		{
+			$this->error_view('Error','Oh oh. Algo malo ha pasado con la data que nos suministrate');
+			$this->index();
+		}
+		
+	}
 }

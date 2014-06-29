@@ -62,6 +62,50 @@ class Registration_Model extends CI_Model
         }
     }
 	
+	function get_all_registrations_with_participant()
+	{
+        $query = $this->db->select('Registration.*,Participant.*,Event.Name AS Event')
+					->join('Participant','Participant.Id = Registration.Participant_Id','INNER')
+					->join('Scheduled_Event','Scheduled_Event.Id = Registration.Scheduled_Event_Id','INNER')
+					->join('Event','Event.Id = Scheduled_Event.Event_Id','INNER')
+					->where('Registration.Status <>','Facilitator')
+					->get('Registration');
+        
+        if($query->num_rows() > 0)
+		{
+            foreach($query->result() as $row)
+			{
+                $data[] = $row;
+            }
+            return $data;
+        }
+        else{
+            return 0;
+        }
+    }
+	
+	function get_all_registrations_with_participant_by_scheduled_event($id)
+	{
+        $query = $this->db->select('Registration.*,Participant.*')
+					->join('Participant','Participant.Id = Registration.Participant_Id','INNER')
+					->join('Scheduled_Event','Scheduled_Event.Id = Registration.Scheduled_Event_Id','INNER')
+					->join('Event','Event.Id = Scheduled_Event.Event_Id','INNER')
+					->where('Registration.Scheduled_Event_Id',$id)
+					->get('Registration');
+        
+        if($query->num_rows() > 0)
+		{
+            foreach($query->result() as $row)
+			{
+                $data[] = $row;
+            }
+            return $data;
+        }
+        else{
+            return 0;
+        }
+    }
+	
 	function get_all_registrations_by_participant($id)
 	{
         $query = $this->db->select('Event.Name,Scheduled_Event.Start_Date, Scheduled_Event.End_Date,Registration.*')

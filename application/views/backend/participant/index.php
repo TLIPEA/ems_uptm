@@ -10,7 +10,10 @@
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Todos las Inscripciones
+                    Inscripciones <?=(isset($event))? ' en '.$event[0]->Name:''?>
+					<div class="pull-right">
+						<a title="Añadir Nueva Inscripción" class="btn btn-info btn-xs" href="<?=site_url('registration/search')?>"> <i class="fa fa-plus"></i> Añadir Nueva Inscripción</a>
+					</div>
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
@@ -27,24 +30,28 @@
 						<table class="table table-striped table-bordered table-hover" id="dataTables-example">
 							<thead>
 								<tr>
-									<th width="15%">Acciones</th>
-									<th>Cedula</th>
+									<th width="10%">Cedula</th>
 									<th>Nombre</th>
 									<th>Apellido</th>
-									<th>Genero</th>
-									<th>Usuario</th>
-									<th>Ciudad</th>
+									<?=(!isset($event))? '<th>Evento</th>' :''?>
+									<th>Acciones</th>
 								</tr>
 							</thead>
 							<tbody>
 								<?php $band = 2 ?>
 								<?php foreach($rows as $row): ?>
+									<?php print_r($row);?>
+									<br />
 									<?php if ($band % 2 == 0): ?>
 										<tr class="odd gradeX">
 									<?php else: ?>
 										<tr class="even gradeC">
 									<?php endif; ?>
-									<td class="text-center">
+											<td><?=$row->DNI?></td>
+											<td><?=$row->Name?></td>
+											<td><?=$row->Last_Name?></td>
+											<?php if(!isset($event)):?><td><?=$row->Event?></td><?php endif;?>
+											<td class="text-center">
 										<a class="text-success" href="<?=site_url('user/view/'.$row->Id)?>"><i class="fa fa-search-plus" data-toggle="tooltip" data-placement="bottom" title="Ver"></i></a> &nbsp;&nbsp;<a class="text-primary" title="Editar" href="<?=site_url('user/edit/'.$row->Id.'/1')?>" ><i class="fa fa-pencil-square-o"></i></a> <button class="btn-link btn-danger" style="color: #d2322d;" data-toggle="modal" title="Eliminar" data-target="#myModal<?=$band?>">
 						<i class="fa fa-times-circle"></i>
 					</button>
@@ -72,13 +79,7 @@
                                 <!-- /.modal-dialog -->
                             </div>
                             <!-- /.modal -->
-											
-											
-											
-											</td>    
-											<td><?=$row->Username?></td>
-											<td><?=$row->Name?></td>
-											<td><?=$row->Last_Name?></td>
+											</td>
                                         </tr>
 											<?php $band++; ?>
 										<?php endforeach; ?>
@@ -86,7 +87,7 @@
                                 </table>
                             </div>
 							<?php else: ?>
-								<div class="text-danger">No hay usuarios.</div>
+								<div class="text-danger">No hay Inscritos.</div>
 							<?php endif; ?>
                             <!-- /.table-responsive -->
                         </div>

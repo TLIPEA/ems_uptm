@@ -38,9 +38,16 @@
 												<i class="fa fa-user text-info" title="Presencial"></i>
 												<?php endif;?></label>
 											<div class="col-md-7">
-												<span class="form-control-static text-primary"><?=typeEvent($event[0]->Type).' '.$event[0]->Name?></span>
+												<span class="form-control-static text-primary"><?=$event[0]->Name?></span>
 											</div>
                                         </div>
+										<div class="form-group">
+                                            <label class="col-md-5">Tipo de Evento</label>
+											<div class="col-md-7">
+												<span class="form-control-static text-primary"><?=typeEvent($event[0]->Type)?></span>
+											</div>
+                                        </div>
+										
 										<div class="form-group">
                                             <label class="col-md-5">Fecha Inicio</label>
 											<div class="col-md-7">
@@ -95,14 +102,17 @@
                                 <!-- /.col-lg-6 (nested) -->
 								<div class="form-group col-md-12 col-xs-12">
 									<hr>
-									<label for="Slogan" class="col-md-5">Slogan</label>
-									<div class="col-md-7">
-										<span class="form-control-static text-primary"><?=$event[0]->Slogan?></span>
+									<div class="col-md-12">
+												<label for="Slogan" class="col-md-5">Slogan</label>
+												<div class="col-md-7">
+													<span class="form-control-static text-primary"><?=$event[0]->Slogan?></span>
+												</div>
 									</div>
-									
 									<div class="page-header">
-										<hr>
-										<div class="pull-right"><a title="Administrar Lugares" class="btn btn-md" href="<?=site_url('events/place/'.$event[0]->Id)?>" style="background: #ff3333;color: #FFF;"><i class="fa fa-map-marker"></i></a></div>
+									    <hr>
+										<div class="pull-right">
+												<a title="Administrar Lugares" class="btn btn-md" href="<?=site_url('events/places/'.$event[0]->Id)?>" style="background: #ff3333;color: #FFF;"><i class="fa fa-map-marker"></i></a>
+										</div>
 										<h4>Lugar</h4>
 									</div>
 									<?php if($places != 0):?>
@@ -114,8 +124,8 @@
 											</tr>
 											<?php foreach($places as $place):?>
 											<tr>
-												<td><?=$plan->Name?></td>
-												<td><?=$plan->Description?></td>
+												<td><?=$place->Name?></td>
+												<td><?=$place->Description?></td>
 											</tr>
 											<?php endforeach;?>
 										</table>
@@ -140,7 +150,7 @@
 											<?php foreach($planning as $plan):?>
 											<tr>
 												<td><?=$plan->Description?></td>
-												<td><?=date('d/m/Y',strtotime($plan-Start_Date))?></td>
+												<td><?=date('d/m/Y',strtotime($plan->Start_Date))?></td>
 												<td><?=date('d/m/Y',strtotime($plan->End_Date))?></td>
 											</tr>
 											<?php endforeach;?>
