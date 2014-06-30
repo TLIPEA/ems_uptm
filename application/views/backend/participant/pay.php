@@ -9,7 +9,7 @@ if($participants!=0)
 }
 else
 {
-	$options2[] = 'No hay Participantes disponibles';
+	$options[] = 'No hay Participantes disponibles';
 }
 if($accounts!=0)
 {

@@ -53,7 +53,7 @@ class Payment extends Backend {
 		if(!($data['event']!=0))
 		{
 			$this->error_view('Error','Debes Seleccionar un evento valido');
-			$this->search();
+			$this->index();
 		}
 		
 		$data['accounts'] = $this->Account_Model->get_by_scheduled_event_id($data['event'][0]->Id);
