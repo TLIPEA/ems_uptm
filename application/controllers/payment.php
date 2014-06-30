@@ -73,6 +73,7 @@ class Payment extends Backend {
 		}
 		else
 		{
+			print_r($_POST);
 			if($this->input->post('Account_Id')==0)
 			{
 				$this->error_view('Error al Realizar el Pago','Algo va mal, intentalo de nuevo, si el error persiste comunicate con soporte');

@@ -20,10 +20,6 @@
 							</button>
 							<ul class="dropdown-menu pull-right" role="menu">
 								<li>
-									<a title="Añadir Nuevo Ponente" href="<?=site_url('events/new_application')?>"> <i class="fa fa-plus text-info"></i> Añadir Nuevo Ponente</a>
-								</li>
-								<li class="divider"></li>
-								<li>
 									<a title="Ir a los Detalles del Evento" href="<?=site_url('events/view/'.$event[0]->Id)?>"> <i class="fa fa-reply text-info"></i> Regresar</a>
 								</li>
 							</ul>
