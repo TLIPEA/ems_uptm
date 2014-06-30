@@ -71,8 +71,12 @@ class Payment extends Backend {
 			$data['participants'] = $this->Registration_Model->get_all_registrations_with_participant_by_scheduled_event($Scheduled_Event_Id);
 			if(!($data['participants']!=0))
 			{
-				$this->error_view('Error','No se Pueden registrar pagos porque no posee Participantes Inscritos');
-				$this->index($id);
+				?>
+				<script type="text/javascript">
+					alert('Error, No se Pueden registrar pagos porque no posee Participantes Inscritos');
+				</script>
+				<?php
+				redirect('/payment/index','refresh');
 			}
 			$this->load_view('participant/pay',$data);
 		}

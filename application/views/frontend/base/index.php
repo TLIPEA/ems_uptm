@@ -108,5 +108,9 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="<?=base_url('js/jquery.min.js')?>"></script>
     <script src="<?=base_url('js/bootstrap.min.js')?>"></script>
+	
+	<!-- Go to www.addthis.com/dashboard to customize your tools -->
+	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4e4714765dc976ab"></script>
+
   </body>
 </html>
