@@ -183,8 +183,6 @@ class Sale extends Backend {
 		}
 		else
 		{
-			print_r($_POST);
-			
 			if($this->input->post('General')!=0 or $this->input->post('Speaker')!=0 or $this->input->post('Student')!=0)
 			{
 			//******************************* Insertar *******************************
@@ -272,7 +270,6 @@ class Sale extends Backend {
 				}
 				
 			}
-			echo $this->db->last_query().'<br>';
 			//******************************* Insertar *******************************
 			if($this->input->post('Student')!=0 and $this->input->post('Student_Id')==0)
 			{
@@ -315,8 +312,7 @@ class Sale extends Backend {
 				}
 				
 			}
-			echo $this->db->last_query().'<br>';
-			//redirect('/sale/costs/'.$id,'refresh');
+			redirect('/sale/costs/'.$id,'refresh');
 			}
 			else
 			{
