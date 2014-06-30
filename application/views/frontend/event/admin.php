@@ -165,7 +165,7 @@
 <hr>
 <div class="row">
   <div class="col-xs-3 col-sm-3 col-md-3">
-	  <a href="" class="btn btn-sm btn-block btn-lg btn-facebook-inversed">
+	  <a href="https://www.facebook.com/pages/UPTM-Universidad-Polit%C3%A9cnica-Territorial-de-M%C3%A9rida-Kl%C3%A9ber-Ram%C3%ADrez/353865214710431" class="btn btn-sm btn-block btn-lg btn-facebook-inversed">
 		<i class="fa fa-facebook"></i> <span class="hidden-xs">Facebook</span>
 	  </a>
   </div>
