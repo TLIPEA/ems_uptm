@@ -16,137 +16,78 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-12">
-									<?=form_open_multipart('events/new_event/2', array('role'=>'form','autocomplet'=>'off','class'=>'form-horizontal'))?>
+									<?=form_open('events/new_event/2', array('role'=>'form','autocomplet'=>'off','class'=>'form-horizontal'))?>
 									<?=validation_errors('<div class="alert-danger input-sm"><p><strong>','</strong> </div><br />')?>
 									<?php if(isset($typeError)):?>
-									    <div class="col-md-12">
-									        <div class="alert alert-<?=($typeError == 1 )? 'success' : 'danger';?> <?=($typeError == 0 )? 'hide' : '';?> alert-dismissable">
-												<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-												<strong><?=($typeError != 0 )? $titleError : '';?></strong> <?=$msg?>.
-									        </div>
-									    </div>
+									<div class="col-md-12">
+									<div class="alert alert-<?=($typeError == 1 )? 'success' : 'danger';?> <?=($typeError == 0 )? 'hide' : '';?> alert-dismissable">
+											<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+											<strong><?=($typeError != 0 )? $titleError : '';?></strong> <?=$msg?>.
+												</div>
+									</div>
 									<?php endif;?>
-										<?php echo form_error('Type','<div class="alert alert-danger alert-dismissable">
-											<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-											<strong>Error!</strong>','.</div>'); ?>
-										<div class="form-group">
-                                            <label class="col-md-2">Tipo Evento</label>
-											<div class="col-md-10">
-												<?php $options = array(''=>'- Seleccione -','Course'=>'Curso', 'Practical Course'=>'Taller','Meeting'=>'Encuentro', 'Seminary'=>'Seminario', 'Conversational'=>'Conversatorio', 'Conference'=>'Jornada', 'Congress'=>'Congreso', 'Diplomaed'=>'Diplomado'); ?>
-												<?php $settings = 'class = "form-control" required=""'; ?>
-												<?=form_dropdown('Type', $options,set_value('Type'),$settings);?>
-											</div>
-                                        </div>
-										<?php echo form_error('Name','<div class="alert alert-danger alert-dismissable">
-											<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-											<strong>Error!</strong>','.</div>'); ?>
-										<div class="form-group">
-										  <label for="Name" class="col-md-2">Nombre</label>
-											<div class="col-md-10">
-												<?=form_input(array('name'=>'Name','id'=>'Name',
-														'class'=>'form-control','required'=>'',
-														'value'=>set_value('Name')));?>
-											</div>
+									<?php echo form_error('DNI','<div class="alert alert-danger alert-dismissable">
+										<button type="button" class="close" data-dismiss="alert" aria-hidden="true"> ×</button><strong>Error!</strong> ','.</div>'); ?>
+									<div class="form-group">
+										<label class="col-sm-2 hidden-xs" for="">Cedula</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" name="DNI" placeholder="Cedula: V-18964136" required="" value="<?=set_value('DNI')?>" />
+											<p class="help-block">El formato de la Cedula es V-18964136 Sin Puntos.</p>
 										</div>
-										<?php echo form_error('Purpose','<div class="alert alert-danger alert-dismissable">
-											<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-											<strong>Error!</strong>','.</div>'); ?>
-										<div class="form-group">
-										  <label for="Purpose" class="col-md-2">Propuesta</label>
-											<div class="col-md-10">
-												<?=form_textarea(array('name' => 'Purpose', 
-												   'id'   => 'Purpose', 
-												   'class'=> 'form-control',
-												   'value'=> set_value('Purpose')))?>
-											</div>
+									</div>
+									<?php echo form_error('Name','<div class="alert alert-danger alert-dismissable">
+															<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><strong>Error!</strong> ',
+															'.</div>'); ?>
+									<div class="form-group">
+										<label class="col-sm-2 hidden-xs" for="">Nombre</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" name="Name" placeholder="Nombre" required="" value="<?=set_value('Name')?>" />
 										</div>
-										<?php echo form_error('File','<div class="alert alert-danger alert-dismissable">
-											<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-											<strong>Error!</strong>','.</div>'); ?>
-										<div class="form-group">
-										  <label for="File" class="col-md-2">Imagen</label>
-											<div class="col-md-10">
-												<?=form_upload(array('name'=>'File','id'=>'File',
-														'class'=>'form-control','required'=>'',
-														'value'=>set_value('File')));?>
-											</div>
+									</div>
+									<?php echo form_error('Last_Name','<div class="alert alert-danger alert-dismissable">
+															<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><strong>Error!</strong> ',
+															'.</div>'); ?>
+									<div class="form-group">
+										<label class="col-sm-2 hidden-xs" for="">Apellido</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" name="Last_Name" placeholder="Apellido" required="" value="<?=set_value('Last_Name')?>" />
 										</div>
-										<?php echo form_error('Start_Date','<div class="alert alert-danger alert-dismissable">
-											<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-											<strong>Error!</strong>','.</div>'); ?>
-										<div class="form-group">
-										  <label for="Start_Date" class="col-md-2">Fecha/Hora Inicio</label>
-											<div class="col-md-10">
-												<input type="text" class="form-control" data-date-format="YYYY-MM-DD hh:mm:00 A" id="Start_Date" name="Start_Date" placeholder="Fecha y Hora de Inicio" readonly="readonly" required="" value="<?=set_value('Start_Date')?>">
-											</div>
+									</div>
+									<?php echo form_error('Email','<div class="alert alert-danger alert-dismissable">
+															<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><strong>Error!</strong> ',
+															'.</div>'); ?>
+									<div class="form-group">
+										<label class="col-sm-2 hidden-xs" for="">Correo Electronico</label>
+										<div class="col-sm-10">
+											<input type="email" class="form-control" name="Email" placeholder="Correo Electronico" required="" value="<?=set_value('Email')?>" />
 										</div>
-										<?php echo form_error('End_Date','<div class="alert alert-danger alert-dismissable">
-											<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-											<strong>Error!</strong>','.</div>'); ?>
-										<div class="form-group">
-										  <label for="End_Date" class="col-md-2">Fecha/Hora Fin</label>
-											<div class="col-md-10">
-												<input type="text" class="form-control" data-date-format="YYYY-MM-DD hh:mm:00 A" id="End_Date" name="End_Date" placeholder="Fecha y Hora de Fin" readonly="readonly" required="" value="<?=set_value('End_Date')?>">
-											</div>
+									</div>
+									<?php echo form_error('Username','<div class="alert alert-danger alert-dismissable">
+															<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><strong>Error!</strong> ',
+															'.</div>'); ?>
+									<div class="form-group">
+										<label class="col-sm-2 hidden-xs" for="">Usuario</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" name="Username" placeholder="Usuario" required="" value="<?=set_value('Username')?>" />
 										</div>
-										<?php echo form_error('Mode','<div class="alert alert-danger alert-dismissable">
-											<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-											<strong>Error!</strong>','.</div>'); ?>
-										<div class="form-group">
-                                            <label for="Mode" class="col-md-2">Modo del Evento</label>
-											<div class="col-md-10">
-												<label class="radio-inline col-md-3">
-												    <input type="radio" name="Mode" id="Mode1" value="Classroom" <?=set_value('Mode')=='Classroom' ? 'checked=""':''?>>Presencial
-												</label>
-												<label class="radio-inline col-md-3">
-												    <input type="radio" name="Mode" id="Mode2" value="Online" <?=set_value('Mode')=='Online' ? 'checked=""':''?>>En Linea
-												</label>
-											</div>
-                                        </div>
-										<?php echo form_error('Quota','<div class="alert alert-danger alert-dismissable">
-											<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-											<strong>Error!</strong>','.</div>'); ?>
-										<div class="form-group">
-										  <label for="Quota" class="col-md-2">Capacidad</label>
-											<div class="col-md-10">
-												<input type="number" class="form-control" name="Quota" placeholder="Capacidad Maxima del Evento" required="" value="<?=set_value('Quota')?>">
-											</div>
+									</div>
+									<?php echo form_error('Password','<div class="alert alert-danger alert-dismissable">
+															<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><strong>Error!</strong> ',
+															'.</div>'); ?>
+									<div class="form-group">
+										<label class="col-sm-2 hidden-xs" for="">Contraseña</label>
+										<div class="col-sm-10">
+											<input type="password" class="form-control" name="Password" placeholder="Contraseña" required="" />
+											<p class="help-block">La contraseña debe tener un minimo de 6 caracteres.</p>
 										</div>
-										<?php echo form_error('Status','<div class="alert alert-danger alert-dismissable">
-											<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-											<strong>Error!</strong>','.</div>'); ?>
-										<div class="form-group">
-                                            <label for="Status" class="col-md-2">Estatus del Evento</label>
-											<div class="col-md-10">
-												<label class="radio-inline col-md-3">
-												    <input type="radio" name="Status" id="Status1" value="Active" <?=set_value('Status')=='Active' ? 'checked=""':''?>>Activo
-												</label>
-												<label class="radio-inline col-md-3">
-												    <input type="radio" name="Mode" id="Status2" value="Off" <?=set_value('Status')=='Off' ? 'checked=""':''?>> Inactivo
-												</label>
-											</div>
-                                        </div>
-										<?php echo form_error('Slogan','<div class="alert alert-danger alert-dismissable">
-											<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-											<strong>Error!</strong>','.</div>'); ?>
-										<div class="form-group">
-										  <label for="Slogan" class="col-md-2">Slogan</label>
-											<div class="col-md-10">
-												<?=form_textarea(array('name' => 'Slogan', 
-												   'id'   => 'Slogan', 
-												   'class'=> 'form-control',
-												   'value'=> set_value('Slogan')))?>
-											</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-2 hidden-xs" for="">Repetir Contraseña</label>
+										<div class="col-sm-10">
+											<input type="password" class="form-control" name="Password2" placeholder="Repetir Contraseña" required="" />
+											<p class="help-block">Debe incluir nuevamente la contraseña para evitar errores de tipeo.</p>
 										</div>
-										<?php echo form_error('Hours','<div class="alert alert-danger alert-dismissable">
-											<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-											<strong>Error!</strong>','.</div>'); ?>
-										<div class="form-group">
-										  <label for="Hours" class="col-md-2">Horas</label>
-											<div class="col-md-10">
-												<input type="number" class="form-control" name="Hours" placeholder="Horas del Evento" required="" value="<?=set_value('Hours')?>">
-											</div>
-										</div>
+									</div>
 										<div class="col-md-1 pull-right text-center">
 											<button type="reset" class="btn btn-info ">Limpiar</button>
 										</div>

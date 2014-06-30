@@ -40,8 +40,6 @@
 							<tbody>
 								<?php $band = 2 ?>
 								<?php foreach($rows as $row): ?>
-									<?php print_r($row);?>
-									<br />
 									<?php if ($band % 2 == 0): ?>
 										<tr class="odd gradeX">
 									<?php else: ?>
@@ -52,7 +50,9 @@
 											<td><?=$row->Last_Name?></td>
 											<?php if(!isset($event)):?><td><?=$row->Event?></td><?php endif;?>
 											<td class="text-center">
-										<a class="text-success" href="<?=site_url('user/view/'.$row->Id)?>"><i class="fa fa-search-plus" data-toggle="tooltip" data-placement="bottom" title="Ver"></i></a> &nbsp;&nbsp;<a class="text-primary" title="Editar" href="<?=site_url('user/edit/'.$row->Id.'/1')?>" ><i class="fa fa-pencil-square-o"></i></a> <button class="btn-link btn-danger" style="color: #d2322d;" data-toggle="modal" title="Eliminar" data-target="#myModal<?=$band?>">
+										<a class="text-success" href="<?=site_url('registration/view/'.$row->Id)?>"><i class="fa fa-search-plus" data-toggle="tooltip" data-placement="bottom" title="Ver"></i></a> &nbsp;&nbsp;
+										<a class="text-primary" title="Editar" href="<?=site_url('registration/edit/'.$row->Id.'/1')?>" ><i class="fa fa-pencil-square-o"></i></a>
+										<button class="btn-link btn-danger" style="color: #d2322d;" data-toggle="modal" title="Eliminar" data-target="#myModal<?=$band?>">
 						<i class="fa fa-times-circle"></i>
 					</button>
                             <!-- Modal -->
@@ -64,9 +64,9 @@
                                             <h4 class="modal-title text-danger" id="myModalLabel">Advertencia</h4>
                                         </div>
                                         <div class="modal-body">
-                                            ¿Desea eliminar el usuario <strong class="text-danger"><?=$row->Username?></strong> ?<br />Al ser eliminado no podrá acceder al sistema.
+                                            ¿Desea eliminar la inscripción de <strong class="text-danger"><?=$row->Name.' '.$row->Last_Name?></strong> <?php if(!isset($event)):?> en <strong class="text-danger"><?=$row->Event?></strong><?php endif;?> ?<br />
                                         </div>
-										<form method="post" accept-charset="utf-8" action="<?=site_url('user/delete/'.$row->Id)?>">
+										<form method="post" accept-charset="utf-8" action="<?=site_url('registration/delete/'.$row->Id)?>">
 												<input type="hidden" name="Id" id="Id" value="<?=$row->Id?>" >
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>

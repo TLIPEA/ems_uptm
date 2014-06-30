@@ -64,7 +64,7 @@ class Registration_Model extends CI_Model
 	
 	function get_all_registrations_with_participant()
 	{
-        $query = $this->db->select('Registration.*,Participant.*,Event.Name AS Event')
+        $query = $this->db->select('Registration.*,Participant.DNI,Participant.Name,Participant.Last_Name,Event.Name AS Event')
 					->join('Participant','Participant.Id = Registration.Participant_Id','INNER')
 					->join('Scheduled_Event','Scheduled_Event.Id = Registration.Scheduled_Event_Id','INNER')
 					->join('Event','Event.Id = Scheduled_Event.Event_Id','INNER')
@@ -86,10 +86,11 @@ class Registration_Model extends CI_Model
 	
 	function get_all_registrations_with_participant_by_scheduled_event($id)
 	{
-        $query = $this->db->select('Registration.*,Participant.*')
+        $query = $this->db->select('Registration.*,Participant.DNI,Participant.Name,Participant.Last_Name')
 					->join('Participant','Participant.Id = Registration.Participant_Id','INNER')
 					->join('Scheduled_Event','Scheduled_Event.Id = Registration.Scheduled_Event_Id','INNER')
 					->join('Event','Event.Id = Scheduled_Event.Event_Id','INNER')
+					->where('Registration.Status <>','Facilitator')
 					->where('Registration.Scheduled_Event_Id',$id)
 					->get('Registration');
         
