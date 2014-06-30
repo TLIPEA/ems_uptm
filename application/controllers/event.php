@@ -612,7 +612,7 @@ class Event extends Frontend {
 			}
 			else
 			{
-				$this->success_view('Éxito al Postularse','Puedes visualizar tus postulaciones por <a href="'.site_url('event/applications').'">aqui</a>, ademas puedes visualizar tu inscripción y realizar pagos a traves de <a href="'.site_url('event/my_list').'">Mis Eventos</a>');
+				$this->success_view('Éxito al Postularse','Puedes visualizar tus postulaciones por <a href="'.site_url('event/applications').'">aqui</a>, ademas puedes visualizar tu inscripción y realizar pagos a traves de <a href="'.site_url('event/my_events').'">Mis Eventos</a>');
 				(new Home())->index();
 			}
 		}
@@ -665,7 +665,7 @@ class Event extends Frontend {
 				}
 				else
 				{
-					$this->success_view('Éxito al Postularse','Puedes visualizar tus postulaciones por <a href="'.site_url('event/applications').'">aqui</a>, ademas puedes visualizar tu inscripción y realizar pagos a traves de <a href="'.site_url('event/my_list').'">Mis Eventos</a>');
+					$this->success_view('Éxito al Postularse','Puedes visualizar tus postulaciones por <a href="'.site_url('event/applications').'">aqui</a>, ademas puedes visualizar tu inscripción y realizar pagos a traves de <a href="'.site_url('event/applications').'">Mis Eventos</a>');
 				}
 			}
 			(new Home())->index();

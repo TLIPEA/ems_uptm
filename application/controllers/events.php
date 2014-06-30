@@ -67,8 +67,29 @@ class Events extends Backend {
 					$_POST['Event_Id'] = $this->db->insert_id();
 					if ($this->Scheduled_Event_Model->insert_scheduled_event($this->input))
 					{
-						$this->success_view('Éxito','El evento se ha guardado');
-						$this->index();
+						$this->load->helper('path');
+						$this->load->helper('string');
+						$this->load->library('image_lib');
+						$this->load->library('upload');
+						$base_dir = "./images/events/";
+						
+						$config['upload_path']   = $base_dir;
+						$config['file_name']     = $this->db->insert_id();
+						$config['allowed_types'] = 'gif|jpg|png';
+						$config['max_size']	     = '1000';
+						
+						$this->upload->initialize($config); 
+						
+						if ( ! $this->upload->do_upload('File'))
+						{
+							$this->error_view('Error al Cargar el Archivo',$this->upload->display_errors());
+							$this->new_banner();
+						}
+						else
+						{
+							$this->success_view('Éxito','El evento se ha guardado');
+							$this->index();
+						}
 					}
 					else
 					{
