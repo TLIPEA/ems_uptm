@@ -116,9 +116,9 @@
 								</ul>
 								<!-- /.nav-second-level -->
 							</li>							
-							<li>
+							<!--<li>
 								<a href="<?=site_url('reports')?>"><i class="fa fa-bar-chart-o fa-fw"></i> Reportes</span></a>
-							</li>
+							</li>-->
 							<li>
 								<a href="#"><i class="fa fa-user fa-fw"></i> Acceso<span class="fa arrow"></span></a>
 								<ul class="nav nav-second-level">

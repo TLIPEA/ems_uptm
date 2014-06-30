@@ -34,7 +34,7 @@
 									<th>Nombre</th>
 									<th>Apellido</th>
 									<?=(!isset($event))? '<th>Evento</th>' :''?>
-									<th>Acciones</th>
+									<th></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -51,7 +51,6 @@
 											<?php if(!isset($event)):?><td><?=$row->Event?></td><?php endif;?>
 											<td class="text-center">
 										<a class="text-success" href="<?=site_url('registration/view/'.$row->Id)?>"><i class="fa fa-search-plus" data-toggle="tooltip" data-placement="bottom" title="Ver"></i></a> &nbsp;&nbsp;
-										<a class="text-primary" title="Editar" href="<?=site_url('registration/edit/'.$row->Id.'/1')?>" ><i class="fa fa-pencil-square-o"></i></a>
 										<button class="btn-link btn-danger" style="color: #d2322d;" data-toggle="modal" title="Eliminar" data-target="#myModal<?=$band?>"><i class="fa fa-times-circle"></i>
 										</button>
                             <!-- Modal -->

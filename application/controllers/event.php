@@ -255,7 +255,7 @@ class Event extends Frontend {
 				
 				$data['knowledges']       = $this->Knowledge_Model->get_all_knowledges_by_scheduled_event($data['event']->Scheduled_Event_Id);
 				
-				$data['payments_raw']     = $this->Payment_Model->get_all_payments_by_registration($data['event']->Id);
+				$data['payments_raw']     = $this->Payment_Model->get_all_payments_by_registration($data['event']->Registration);
 				if($data['payments_raw']!=0)
 				{
 					foreach($data['payments_raw'] as $payment)
@@ -286,11 +286,11 @@ class Event extends Frontend {
 	
 	public function pay($phase = 1, $id)
 	{
+		$this->check_session();
 		$data['title'] = 'Registrar Pago';
 		$data['type']  = 'Menu';
 		$data['name']  = $this->session->userdata('public_ems_uptm')['Name']
 								  .' '.$this->session->userdata('public_ems_uptm')['Last_Name'];
-		$this->check_session();
 		
 		if($phase == 1)
 		{
@@ -311,13 +311,15 @@ class Event extends Frontend {
 				$this->admin($id);
 			}
 			
-			if($data['event'][0]->Status == 'Paid' OR $data['event'][0]->Status == 'Free' OR $data['event'][0]->Status == 'Exempt')
+			elseif($data['event'][0]->Status == 'Paid' OR $data['event'][0]->Status == 'Free' OR $data['event'][0]->Status == 'Exempt')
 			{
 				$this->error_view('No puedes Acceder al Área de Pago','Inferimos que ya pagaste o no debes realizar ningun pago');
 				$this->admin($id);
 			}
-			
-			$this->load_view('event/pay',$data,'event/script_pay');
+			else
+			{
+				$this->load_view('event/pay',$data,'event/script_pay');
+			}
 		}
 		if($phase == 2)
 		{

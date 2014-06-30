@@ -2,41 +2,38 @@
 
 include('backend.php');
 
-class Registration extends Backend {
+class Payment extends Backend {
 	
 	public function __construct()
     {
     	parent::__construct();
 		$this->load->library('form_validation');
-		$this->load->model('Event_Model');
 		$this->load->model('Scheduled_Event_Model');
 		$this->load->model('Participant_Model');
-		$this->load->model('Registration_Model');
 		$this->load->model('Payment_Model');
-		$this->load->model('Sale_Model');
     }
 	
 	public function index($id = '')
 	{
 		$this->check_session();
-		$data['title']      = "Inscritos";
+		$data['title']      = "Pagos";
 		$data['controller'] = 'List';
 		if($id == '')
 		{
-			$data['rows']  = $this->Registration_Model->get_all_registrations_with_participant();
+			$data['rows']  = $this->Payment_Model->get_all_payments();
 		}
 		else
 		{
 			$data['event'] = $this->Scheduled_Event_Model->get_by_id($id);
 			if(!($data['event']!=0))
 			{
-				$this->error_view('Error','Oh oh. Algo malo ha pasado con la carga de la data de los Inscritos del Evento');
+				$this->error_view('Error','Oh oh. Algo malo ha pasado con la carga de la data de los Pagos del Evento');
 				$this->index();
 			}
-			$data['rows']  = $this->Registration_Model->get_all_registrations_with_participant_by_scheduled_event($id);
+			$data['rows']  = $this->Payment_Model->get_all_payments_by_scheduled_event($id);
 		}
 		
-		$this->load_view('participant/index',$data);
+		$this->load_view('participant/payments',$data);
 	}
 	
 	public function view($id = '')

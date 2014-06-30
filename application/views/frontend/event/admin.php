@@ -6,6 +6,13 @@
 	<?php endif;?>
 </ol>
 
+<?php if(isset($typeError)):?>
+	<div class="alert alert-<?=($typeError == 1 )? 'success' : 'danger';?> <?=($typeError == 0 )? 'hide' : '';?> alert-dismissable">
+		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+		<strong><?=($typeError != 0 )? $titleError : '';?></strong> <?=$msg?>.
+	</div>
+<?php endif;?>
+
 <div class="row">
 	<div class="col-xs-12 col-sm-4 col-md-4">
 		<?php $route = base_url('images/events/'.$event->Scheduled_Event_Id.'.png');?>

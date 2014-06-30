@@ -94,6 +94,7 @@
 													  <li><a href="<?=site_url('events/knowledges/'.$row->Id)?>" title="Saberes"><i class="fa fa-tasks text-info"></i></a></li>
 													  <li><a href="<?=site_url('events/applicacions/'.$row->Id)?>" title="Ponentes"><i class="fa fa-rocket" style="color: #00a2cd;"></i></a></li>
 													  <li><a href="<?=site_url('registration/index/'.$row->Id)?>" title="Inscritos"><i class="fa fa-users text-primary"></i></a></li>
+													  <li><a href="<?=site_url('payment/index/'.$row->Id)?>" title="Pagos"><i class="fa fa-money text-success"></i></a></li>
 													  <li><a href="<?=site_url('events/planning/'.$row->Id)?>" title="Planificación"><i class="fa fa-calendar" style="color: #6f1167;"></i></a></li>
 													  <li><a href="<?=site_url('events/places/'.$row->Id)?>" title="Lugar"><i class="fa fa-map-marker" style="color: #ff3333;"></i></a></li>
 													  <li><a href="<?=site_url('sale/index/'.$row->Id)?>" title="Costos"><i class="fa fa-clock-o" style="color: #f88a00;"></i></a></li>

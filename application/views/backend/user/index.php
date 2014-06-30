@@ -27,7 +27,7 @@
 						<table class="table table-bordered table-hover" id="dataTables-example">
 							<thead>
 								<tr>
-									<th width="15%">Acciones</th>
+									<th width="15%"></th>
 									<th>Usuario</th>
 									<th>Nombre</th>
 									<th>Apellido</th>

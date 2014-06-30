@@ -129,7 +129,7 @@ class Registration_Model extends CI_Model
 	
 	function get_registration_with_cost_by_participant($Scheduled_Event_Id,$Participant_Id)
 	{
-        $query = $this->db->select('Event.Name,Event.Type,Event.Purpose,Scheduled_Event.*,Registration.*,Cost.Amount, Cost.Type AS Cost_Type,Sale.Start_Date AS Sale_Start_Date, Sale.End_Date AS Sale_End_Date, (SELECT COUNT(*) FROM Payment WHERE Registration_Id = Registration.Id AND Status = \'Validated\') AS Payment_Validated, (SELECT COUNT(*) FROM Payment WHERE Registration_Id = Registration.Id AND Status = \'No Validated\') AS Payment_No_Validated, (SELECT COUNT(*) FROM Payment WHERE Registration_Id = Registration.Id AND Status = \'Invalid\') AS Payment_Invalid, (SELECT SUM(Amount) FROM Payment WHERE Registration_Id = Registration.Id AND Status = \'Validated\') AS Total_Pay')
+        $query = $this->db->select('Registration.Id AS Registration, Event.Name,Event.Type,Event.Purpose,Scheduled_Event.*,Registration.*,Cost.Amount, Cost.Type AS Cost_Type,Sale.Start_Date AS Sale_Start_Date, Sale.End_Date AS Sale_End_Date, (SELECT COUNT(*) FROM Payment WHERE Registration_Id = Registration.Id AND Status = \'Validated\') AS Payment_Validated, (SELECT COUNT(*) FROM Payment WHERE Registration_Id = Registration.Id AND Status = \'No Validated\') AS Payment_No_Validated, (SELECT COUNT(*) FROM Payment WHERE Registration_Id = Registration.Id AND Status = \'Invalid\') AS Payment_Invalid, (SELECT SUM(Amount) FROM Payment WHERE Registration_Id = Registration.Id AND Status = \'Validated\') AS Total_Pay')
 					->join('Scheduled_Event','Scheduled_Event.Id = Registration.Scheduled_Event_Id','INNER')
 					->join('Event','Event.Id = Scheduled_Event.Event_Id','INNER')
 					->join('Cost','Cost.Id = Registration.Cost_Id','INNER')
@@ -138,6 +138,33 @@ class Registration_Model extends CI_Model
 					->where('Registration.Status <>','Facilitator')->where('Registration.Status <>','Organizer')
 					->where('Registration.Status <>','Collaborator')->where('Registration.Status <>','Cancel')
 					->where('Registration.Scheduled_Event_Id',$Scheduled_Event_Id)->where('Participant_Id',$Participant_Id)->get('Registration');
+        
+        if($query->num_rows() > 0)
+		{
+            foreach($query->result() as $row)
+			{
+                $data[] = $row;
+            }
+            return $data;
+        }
+        else
+		{
+            return 0;
+        }
+    }
+	
+	function get_registration_with_cost_by_id($id)
+	{
+        $query = $this->db->select('Participant.DNI,Participant.Name,Participant.Last_Name,Event.Name AS Event ,Event.Type AS Event_Type,Registration.*,Cost.Amount, Cost.Type AS Cost_Type,Sale.Start_Date AS Sale_Start_Date, Sale.End_Date AS Sale_End_Date, (SELECT COUNT(*) FROM Payment WHERE Registration_Id = Registration.Id AND Status = \'Validated\') AS Payment_Validated, (SELECT COUNT(*) FROM Payment WHERE Registration_Id = Registration.Id AND Status = \'No Validated\') AS Payment_No_Validated, (SELECT COUNT(*) FROM Payment WHERE Registration_Id = Registration.Id AND Status = \'Invalid\') AS Payment_Invalid, (SELECT SUM(Amount) FROM Payment WHERE Registration_Id = Registration.Id AND Status = \'Validated\') AS Total_Pay')
+					->join('Scheduled_Event','Scheduled_Event.Id = Registration.Scheduled_Event_Id','INNER')
+					->join('Event','Event.Id = Scheduled_Event.Event_Id','INNER')
+					->join('Cost','Cost.Id = Registration.Cost_Id','INNER')
+					->join('Sale','Sale.Id = Cost.Sale_Id','INNER')
+					->join('Participant','Participant.Id = Registration.Participant_Id','INNER')
+					->where('Cost.Type <>','Speaker')
+					->where('Registration.Status <>','Facilitator')
+					->where('Registration.Id',$id)
+					->get('Registration');
         
         if($query->num_rows() > 0)
 		{
