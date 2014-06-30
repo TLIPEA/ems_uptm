@@ -36,7 +36,7 @@
                                             <label class="col-md-2">Cédula / Rif</label>
 											<div class="col-md-10">
 												<input class="form-control" name="DNI" id="DNI" value="<?=set_value('DNI')?>" maxlength="50" required="">
-												<p class="help-block">La Cedula debe tener formato V-18964136 y en caso de RIF G-20007733-6 sin puntos.</p>
+												<p class="help-block">La Cédula debe tener formato V-18964136 y en caso de RIF G-20007733-6 sin puntos.</p>
 											</div>
                                         </div>
 										<div class="form-group">

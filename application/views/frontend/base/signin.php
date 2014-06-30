@@ -127,7 +127,7 @@
 											<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><strong>Error!</strong> ',
 											'.</div>'); ?>
 					<div class="form-group">
-						<input type="text" class="form-control" name="DNI" placeholder="Cedula" required="" />
+						<input type="text" class="form-control" name="DNI" placeholder="Cédula" required="" />
 					</div>
 					<?php echo form_error('Name','<div class="alert alert-danger alert-dismissable">
 											<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><strong>Error!</strong> ',

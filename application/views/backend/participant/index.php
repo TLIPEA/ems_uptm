@@ -30,7 +30,7 @@
 						<table class="table table-bordered table-hover" id="dataTables-example">
 							<thead>
 								<tr>
-									<th width="10%">Cedula</th>
+									<th width="10%">Cédula</th>
 									<th>Nombre</th>
 									<th>Apellido</th>
 									<?=(!isset($event))? '<th>Evento</th>' :''?>

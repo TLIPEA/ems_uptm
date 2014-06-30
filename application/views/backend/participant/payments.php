@@ -33,7 +33,7 @@
 							<thead>
 								<tr>
 									<th></th>
-									<th width="10%">Cedula</th>
+									<th width="10%">Cédula</th>
 									<th>Banco</th>
 									<th>Referencia</th>
 									<th>Monto</th>
@@ -58,7 +58,7 @@
 												<i class="fa fa-spinner text-warning" title="No Validado"></i>
 												<?php endif;?>
 												<?php if($row->Status == 'Invalid'):?>
-												<i class="fa fa-minus-circle text-danger" title="Invalido"></i>
+												<i class="fa fa-minus-circle text-danger" title="Inválido"></i>
 												<?php endif;?>
 											</td>
 											<td><?=$row->DNI?></td>

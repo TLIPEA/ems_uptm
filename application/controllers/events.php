@@ -723,7 +723,7 @@ class Events extends Backend {
 			{
 				if($this->Activity_Model->update_status($this->input))
 				{
-					$this->success_view('Exito al Realizar la Actualización','Ya cambio de Estatus');
+					$this->success_view('Éxito al Realizar la Actualización','Ya cambio de Estatus');
 				}
 				else{
 					$this->error_view('Error','Algo va mal, intentalo de nuevo, si el error persiste comunicate con soporte');

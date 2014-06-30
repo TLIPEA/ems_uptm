@@ -47,7 +47,7 @@
 							<thead>
 								<tr>
 									<th></th>
-									<th>Cedula</th>
+									<th>Cédula</th>
 									<th>Nombre</th>
 									<?=(!isset($event))? '<th>Evento</th>':''?>
 									<th>Titulo</th>

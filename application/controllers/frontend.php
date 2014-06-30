@@ -68,7 +68,7 @@ class Frontend extends CI_Controller {
 					$subject = 'Registro Exitoso en el Sistema de Eventos de la UPTM';
 					if($this->send_mail($this->input->post('Email'),$name,$message,$subject))
 					{
-						$this->success_view('Exito en el Registro','Hemos enviado un correo con todos los datos necesarios para poder verificar tu cuenta y usar nuestro sistema');
+						$this->success_view('Éxito en el Registro','Hemos enviado un correo con todos los datos necesarios para poder verificar tu cuenta y usar nuestro sistema');
 						(new Home())->index();
 					}
 					else
@@ -187,7 +187,7 @@ class Frontend extends CI_Controller {
 			{
 				if($this->Participant_Model->update_user_password($this->input))
 				{
-					$this->success_view('Exito','Se ha actualizado correctamente la clave');
+					$this->success_view('Éxito','Se ha actualizado correctamente la clave');
 					$this->users();
 				}
 				else
@@ -262,7 +262,7 @@ class Frontend extends CI_Controller {
                         
                         if($this->Participant_Model->update_status(array('Id' => $data[0]->Id, 'Status' => 'Active')))
 						{
-							$this->success_view('Exito!','Tu cuenta ya se encuentra activa, ahora puedes iniciar sesión');
+							$this->success_view('Éxito!','Tu cuenta ya se encuentra activa, ahora puedes iniciar sesión');
                         }
 						else
 						{
@@ -341,7 +341,7 @@ class Frontend extends CI_Controller {
 		$data['Facilitator']                     = 'Facilitador';
 		$data['Validated']                       = 'Validado';
 		$data['No Validated']                    = 'Sin Validar';
-		$data['Invalid']                         = 'Invalido';
+		$data['Invalid']                         = 'Inválido';
 		$data['Off']                             = 'Desactivado';
 		
 		return $data[$key];

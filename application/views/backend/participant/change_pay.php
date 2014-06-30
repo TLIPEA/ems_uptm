@@ -28,7 +28,7 @@
 										<div class="form-group">
                                             <label class="col-md-2">Estatus</label>
 											<div class="col-md-10">
-												<?php $options = array(''=>'- Seleccione -','Validated'=>'Validado', 'No Validated'=>'Sin Validar','Invalid'=>'Invalido'); ?>
+												<?php $options = array(''=>'- Seleccione -','Validated'=>'Validado', 'No Validated'=>'Sin Validar','Invalid'=>'Inválido'); ?>
 												<?php $settings = 'class = "form-control" required=""'; ?>
 												<?=form_dropdown('Status', $options,set_value('Status'),$settings);?>
 											</div>

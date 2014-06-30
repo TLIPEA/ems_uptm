@@ -208,7 +208,7 @@ function translate($key)
 	$data['Facilitator']                     = 'Facilitador';
 	$data['Validated']                       = 'Validado';
 	$data['No Validated']                    = 'Sin Validar';
-	$data['Invalid']                         = 'Invalido';
+	$data['Invalid']                         = 'Inválido';
 	$data['Off']                             = 'Desactivado';
 	
 	return $data[$key];

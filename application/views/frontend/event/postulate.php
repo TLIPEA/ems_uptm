@@ -189,9 +189,9 @@ else
 			<?php echo form_error('DNI','<div class="alert alert-danger alert-dismissable">
 									<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><strong>Error!</strong> ','.</div>'); ?>
 			<div class="form-group">
-				<label class="col-sm-2 hidden-xs" for="">Cedula</label>
+				<label class="col-sm-2 hidden-xs" for="">Cédula</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" name="DNI" placeholder="Cedula" required="" />
+					<input type="text" class="form-control" name="DNI" placeholder="Cédula" required="" />
 				</div>
 			</div>
 			<?php echo form_error('Name','<div class="alert alert-danger alert-dismissable">

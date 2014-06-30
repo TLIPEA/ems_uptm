@@ -54,7 +54,7 @@ else
 									<?php echo form_error('DNI','<div class="alert alert-danger alert-dismissable">
 															<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><strong>Error!</strong> ','.</div>'); ?>
 									<div class="form-group">
-										<label class="col-md-2" for="">Cedula</label>
+										<label class="col-md-2" for="">Cédula</label>
 										<div class="col-md-10">
 											<input type="text" class="form-control" name="DNI" readonly="readonly" required="" value="<?=$participant[0]->DNI?>" />
 										</div>

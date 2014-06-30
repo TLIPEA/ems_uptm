@@ -137,7 +137,7 @@ class Event extends Frontend {
 			{
 				if($this->Registration_Model->insert_registration($this->input))
 				{
-					$this->success_view('Exito al Realizar la Inscripción','Puedes administrar tu evento, ver detalles o realizar pagos a traves de <a href="'.site_url('event/my_list').'">Mis Eventos</a>');
+					$this->success_view('Éxito al Realizar la Inscripción','Puedes administrar tu evento, ver detalles o realizar pagos a traves de <a href="'.site_url('event/my_events').'">Mis Eventos</a>');
 					(new Home())->index();
 				}
 				else{
@@ -198,7 +198,7 @@ class Event extends Frontend {
 						$_POST['Participant_Id'] = $this->db->insert_id();
 						if($this->Registration_Model->insert_registration($this->input))
 						{
-							$this->success_view('Exito al Realizar la Inscripción','Debes revisar tu correo electronico para Verificar tu cuenta y posterior podrás administrar tu evento, ver detalles o realizar pagos a traves de la sección Mis Eventos');
+							$this->success_view('Éxito al Realizar la Inscripción','Debes revisar tu correo electronico para Verificar tu cuenta y posterior podrás administrar tu evento, ver detalles o realizar pagos a traves de la sección Mis Eventos');
 							(new Home())->index();
 						}
 						else{
@@ -340,7 +340,7 @@ class Event extends Frontend {
 			{
 				if($this->Payment_Model->insert_payment($this->input))
 				{
-					$this->success_view('Exito al Registrar','Tu pago sera aprobado en las proximas 48 horas');
+					$this->success_view('Éxito al Registrar','Tu pago sera aprobado en las proximas 48 horas');
 				}
 				else
 				{
@@ -602,7 +602,7 @@ class Event extends Frontend {
 			}
 			else
 			{
-				$this->success_view('Exito al Postularse','Puedes visualizar tus postulaciones por <a href="'.site_url('event/applications').'">aqui</a>, ademas puedes visualizar tu inscripción y realizar pagos a traves de <a href="'.site_url('event/my_list').'">Mis Eventos</a>');
+				$this->success_view('Éxito al Postularse','Puedes visualizar tus postulaciones por <a href="'.site_url('event/applications').'">aqui</a>, ademas puedes visualizar tu inscripción y realizar pagos a traves de <a href="'.site_url('event/my_list').'">Mis Eventos</a>');
 				(new Home())->index();
 			}
 		}
@@ -655,7 +655,7 @@ class Event extends Frontend {
 				}
 				else
 				{
-					$this->success_view('Exito al Postularse','Puedes visualizar tus postulaciones por <a href="'.site_url('event/applications').'">aqui</a>, ademas puedes visualizar tu inscripción y realizar pagos a traves de <a href="'.site_url('event/my_list').'">Mis Eventos</a>');
+					$this->success_view('Éxito al Postularse','Puedes visualizar tus postulaciones por <a href="'.site_url('event/applications').'">aqui</a>, ademas puedes visualizar tu inscripción y realizar pagos a traves de <a href="'.site_url('event/my_list').'">Mis Eventos</a>');
 				}
 			}
 			(new Home())->index();
@@ -732,7 +732,7 @@ class Event extends Frontend {
 	{
 		if($this->Registration_Model->delete_registration($_id))
 		{
-			$this->success_view('Exito al Eliminar Inscripción','Solo puedes realizar esta operación si no haz realizado ningun pago');
+			$this->success_view('Éxito al Eliminar Inscripción','Solo puedes realizar esta operación si no haz realizado ningun pago');
 		}
 		else
 		{
@@ -832,7 +832,7 @@ class Event extends Frontend {
 		$salida .= ' 	<label for="Author" class="col-lg-4">CoAutor '.$this->input->get('num').' <a onclick="remove_input_author(divAuthor'.$this->input->get('num').')" href="javascript:;" class="btn btn-md btn-danger pull-right ui-tooltip" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete this Author"><i class="btn-icon-only fa fa-minus"></i></a></label>';
 		$salida .= ' 		<div class="col-lg-8">';
 		$salida .=  			form_input(array('name'=>'Author[]','id'=>'Author'.$this->input->get('num'),
-										'class'=>'form-control','required'=>'','placeholder'=>'Cedula del CoAutor '.$this->input->get('num')));
+										'class'=>'form-control','required'=>'','placeholder'=>'Cédula del CoAutor '.$this->input->get('num')));
 		$salida .= '		</div>';
 		$salida .= '</div>';
 		

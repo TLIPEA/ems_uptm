@@ -89,7 +89,7 @@ class Payment extends Backend {
 			{
 				if($this->Payment_Model->insert_payment($this->input))
 				{
-					$this->success_view('Exito al Registrar','Tu pago sera aprobado en las proximas 48 horas');
+					$this->success_view('Éxito al Registrar','Tu pago sera aprobado en las proximas 48 horas');
 				}
 				else
 				{
@@ -136,7 +136,7 @@ class Payment extends Backend {
 			{
 				if($this->Payment_Model->update_status($this->input))
 				{
-					$this->success_view('Exito al Realizar la Actualización','Ya cambio de Estatus');
+					$this->success_view('Éxito al Realizar la Actualización','Ya cambio de Estatus');
 					$this->index();
 				}
 				else{

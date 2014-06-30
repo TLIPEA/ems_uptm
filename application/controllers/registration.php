@@ -81,7 +81,7 @@ class Registration extends Backend {
 			
 			if ($this->form_validation->run() == FALSE)
 			{
-				$this->error_view('Error','Debes Seleccionar un evento valido e Introducir una Cedula Valida');
+				$this->error_view('Error','Debes Seleccionar un evento valido e Introducir una Cédula Valida');
 				$this->search(1);
 			}
 			else
@@ -195,7 +195,7 @@ class Registration extends Backend {
 							$_POST['Participant_Id'] = $this->db->insert_id();
 							if($this->Registration_Model->insert_registration($this->input))
 							{
-								$this->success_view('Exito al Realizar la Inscripción','Debes revisar tu correo electronico para Verificar tu cuenta y posterior podrás administrar tu evento, ver detalles o realizar pagos a traves de la sección Mis Eventos');
+								$this->success_view('Éxito al Realizar la Inscripción','Debes revisar tu correo electronico para Verificar tu cuenta y posterior podrás administrar tu evento, ver detalles o realizar pagos a traves de la sección Mis Eventos');
 								$this->index($this->input->post('Scheduled_Event_Id'));
 							}
 							else{
@@ -230,7 +230,7 @@ class Registration extends Backend {
 					{
 						if($this->Registration_Model->insert_registration($this->input))
 						{
-							$this->success_view('Exito al Realizar la Inscripción','El usuario ya puede administrar su evento');
+							$this->success_view('Éxito al Realizar la Inscripción','El usuario ya puede administrar su evento');
 							$this->index();
 						}
 						else{

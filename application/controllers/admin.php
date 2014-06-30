@@ -34,7 +34,7 @@ class Admin extends Backend {
 		else
 		{
 		    $this->form_validation->set_rules('Holder', 'Titular', 'trim|required|xss_clean');
-			$this->form_validation->set_rules('DNI', 'Cedula / Rif', 'trim|required|xss_clean');
+			$this->form_validation->set_rules('DNI', 'Cédula / Rif', 'trim|required|xss_clean');
 			$this->form_validation->set_rules('Type', 'Tipo de Cuenta', 'trim|required|xss_clean');
 			$this->form_validation->set_rules('Bank', 'Banco', 'trim|required|xss_clean');
 			$this->form_validation->set_rules('Number', 'Número', 'trim|required|xss_clean');
@@ -78,7 +78,7 @@ class Admin extends Backend {
 		  else
 		  {
 			$this->form_validation->set_rules('Holder', 'Titular', 'trim|required|xss_clean');
-			$this->form_validation->set_rules('DNI', 'Cedula / Rif', 'trim|required|xss_clean');
+			$this->form_validation->set_rules('DNI', 'Cédula / Rif', 'trim|required|xss_clean');
 			$this->form_validation->set_rules('Type', 'Tipo de Cuenta', 'trim|required|xss_clean');
 			$this->form_validation->set_rules('Bank', 'Banco', 'trim|required|xss_clean');
 			$this->form_validation->set_rules('Number', 'Número', 'trim|required|xss_clean');

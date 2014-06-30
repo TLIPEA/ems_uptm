@@ -29,7 +29,7 @@
 									    </div>
 									<?php endif;?>
 										<div class="form-group">
-                                            <label class="col-md-5">Cedula</label>
+                                            <label class="col-md-5">Cédula</label>
 											<div class="col-md-7">
 												<span class="form-control-static text-primary"><?=$registration[0]->DNI?></span>
 											</div>
