@@ -87,6 +87,7 @@
                                 </div>
                                 <!-- /.col-lg-6 (nested) -->
                                 <div class="col-md-6 col-xs-12">
+									<div class="pull-left"><a title="Ponentes" class="btn btn-primary btn-md" href="<?=site_url('events/applications/'.$event[0]->Id)?>" style="background: #00a2cd;"><i class="fa fa-rocket"></i></a></div>
 									<div class="pull-right"><a title="Administrar Saberes" class="btn btn-primary btn-md" href="<?=site_url('events/knowledges/'.$event[0]->Id)?>"><i class="fa fa-tasks"></i></a></div>
 									<div class="page-header">
 										<h4>Áreas del Saber</h4>
@@ -195,6 +196,11 @@
 									  <?php else:?>
 									  <h5>No hay Costos Asociados</h5>
 									  <?php endif;?>
+									<div class="page-header">
+										<hr>
+										<div class="pull-right"><a title="Pagos" class="btn btn-md btn-success" href="<?=site_url('sale/index/'.$event[0]->Id)?>" ><i class="fa fa-money"></i></a></div>
+										<h4>Pagos</h4>
+									</div>
 								</div>
 								<div class="col-md-6 text-center">
 									<button type="submit" class="btn btn-success pull-right">Editar</button>

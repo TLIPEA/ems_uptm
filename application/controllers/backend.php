@@ -90,6 +90,31 @@ class Backend extends CI_Controller {
 		redirect('/backend/', 'refresh');
     }
 	
+	public function send_mail($email,$name,$message,$subject)
+	{
+        $this->load->library('email');
+		
+		$configGmail = array(
+			'protocol' => 'smtp',
+			'smtp_host' => 'ssl://smtp.gmail.com',
+			'smtp_port' => 465,
+			'smtp_user' => 'info@sanchezsolutions.com.ve',
+			'smtp_pass' => '',
+			'mailtype' => 'html',
+			'charset' => 'utf-8',
+			'newline' => "\r\n",
+		);
+		
+		$this->email->initialize($configGmail);
+		
+		$this->email->from($email, 'Contacto: '.$name);
+		$this->email->to($email);
+		$this->email->subject($subject);               
+		$this->email->message($message);
+		
+		return $this->email->send();
+	}
+	
 	protected function load_view( $view, $data = '', $script = '')
 	{
 		$this->load->view('backend/base/header',$data);

@@ -145,7 +145,71 @@ class Registration extends Backend {
 		{
 			if($id == 0)
 			{
+				$this->form_validation->set_rules('Name','Nombre del Participante','trim|required|xss_clean');
+				$this->form_validation->set_rules('Last_Name','Apellido del Participante','trim|required|xss_clean');
+				$this->form_validation->set_rules('DNI','Cédula del Participante','trim|required|is_unique[Participant.DNI]|xss_clean');
+				//$this->form_validation->set_rules('City_Id','Ubicación del Participante','trim|required|xss_clean');
+				$this->form_validation->set_rules('Email','Correo del Participante','trim|required|valid_email|is_unique[Participant.Email]|xss_clean');
+				//$this->form_validation->set_rules('Gender','Genero del Participante','trim|required|xss_clean');
+				$this->form_validation->set_rules('Username', 'Usuario'   , 'trim|required|xss_clean');
+				$this->form_validation->set_rules('Password', 'Contraseña', 'trim|required|min_length[6]|matches[Password2]|xss_clean');
+				$this->form_validation->set_rules('Scheduled_Event_Id','Seleccionar Evento','trim|required|xss_clean');
+				$this->form_validation->set_rules('Cost_Id'           ,'Seleccionar Categoria','trim|required|xss_clean');
 				
+				$this->form_validation->set_message('required'     ,'%s es necesario para el Registro');
+				$this->form_validation->set_message('is_unique'    ,'%s es unico, verifica este dato para Continuar');
+				$this->form_validation->set_message('valid_email'  ,'El %s no posee una estructura Válida');
+				$this->form_validation->set_message('matches'      ,'No coincide el campo %s');
+				$this->form_validation->set_message('min_length'   ,'%s debe cumplir con una longitud minima de caracteres');
+				
+				if ($this->form_validation->run()==FALSE)
+				{
+					$this->error_view('Error al Registrar el Participante','Algo va mal, revisa los datos señalados e intentalo de nuevo, si el error persiste comunicate con soporte');
+					$this->new_registration($id,$dni,$Scheduled_Event_Id,1);
+				}
+				else
+				{
+					if($this->Participant_Model->insert_participant($this->input))
+					{
+						$name    = $this->input->post('Name').' '.$this->input->post('Last_Name');
+						$message     = "<br><br>Saludos {$name}, <br><br>";
+						$message    .= "Éste es un mensaje automático para notificarte que tu registro en el Sistema de Eventos de la UPTM Kléber Ramirez<br><br>";
+						$message    .= "Tu datos de acceso son:<br><br>";
+						$message    .= "Usuario = {$this->input->post('Username')}<br>";
+						$message    .= "Clave   = {$this->input->post('Password')}<br><br>";
+						$message    .= "Debes Visitar ".site_url('frontend/verify')."/{$this->db->insert_id()}/{$this->input->post('Username')} para validar tu registro en nuestro sistema<br><br>";
+						$message    .= "Para participar en cualquiera de nuestro eventos academicos debes ir a la sección de Inscripción y escoger el evento de tu agrado y realizar la serie de pasos para formalizar tu inscripción.<br><br>";
+						$message    .= "Si tu no realizaste conmunicate con nosotros para solventar cualquier inconveniente.<br><br>";
+						$message    .= "--<br>";
+						$message    .= "Atte:<br>";
+						$message    .= "UPTM Kleber Ramirez.<br>";
+						
+						$subject = 'Registro Exitoso en el Sistema de Eventos de la UPTM';
+						//if(!$this->send_mail($this->input->post('Email'),$name,$message,$subject))
+						//{
+						//	$this->error_view('Error en el Envio de Correo','Algo va mal, al momento de realizar el envio, pero el usuario si se registro pero no se completo la inscripción');
+						//	$this->index($this->input->post('Scheduled_Event_Id'));
+						//}
+						//else
+						//{
+							$_POST['Participant_Id'] = $this->db->insert_id();
+							if($this->Registration_Model->insert_registration($this->input))
+							{
+								$this->success_view('Exito al Realizar la Inscripción','Debes revisar tu correo electronico para Verificar tu cuenta y posterior podrás administrar tu evento, ver detalles o realizar pagos a traves de la sección Mis Eventos');
+								$this->index($this->input->post('Scheduled_Event_Id'));
+							}
+							else{
+								$this->error_view('Error al Registrar la Inscripción','Algo va mal, intentalo de nuevo, si el error persiste comunicate con soporte');
+								$this->new_registration($id,$dni,$Scheduled_Event_Id,1);
+							}
+						//}
+					}
+					else
+					{
+						$this->error_view('Error en el Registro','Algo va mal, al momento de registrar los datos');
+						$this->new_registration($id,$dni,$Scheduled_Event_Id,1);
+					}
+				}
 			}
 			else
 			{

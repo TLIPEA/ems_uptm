@@ -10,7 +10,8 @@
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Lista de Eventos
+                    Lista de Ponentes <?=(isset($event)? ' de '.$event[0]->Name : '')?>
+					<?php if(isset($event)):?>
 					<div class="pull-right">
 						<div class="btn-group">
 							<button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown">
@@ -19,14 +20,16 @@
 							</button>
 							<ul class="dropdown-menu pull-right" role="menu">
 								<li>
-									<a title="Añadir un Nuevo Evento" href="<?=site_url('events/new_event')?>"> <i class="fa fa-plus text-info"></i> Añadir Nuevo Evento</a>
+									<a title="Añadir Nuevo Ponente" href="<?=site_url('events/new_application')?>"> <i class="fa fa-plus text-info"></i> Añadir Nuevo Ponente</a>
 								</li>
+								<li class="divider"></li>
 								<li>
-									<a title="Nueva Edición de un Evento" href="<?=site_url('events/scheduled')?>"> <i class="fa fa-calendar text-primary"></i> Programar Evento</a>
+									<a title="Ir a los Detalles del Evento" href="<?=site_url('events/view/'.$event[0]->Id)?>"> <i class="fa fa-reply text-info"></i> Regresar</a>
 								</li>
 							</ul>
 						</div>
 					</div>
+					<?php endif;?>
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
@@ -44,13 +47,11 @@
 							<thead>
 								<tr>
 									<th></th>
-									<th>Tipo</th>
+									<th>Cedula</th>
 									<th>Nombre</th>
-									<th>Fecha Inicio</th>
-									<th>Fecha Fin</th>
-									<th>Hora Inicio</th>
-									<th>Hora Fin</th>
-									<th>Horas</th>
+									<?=(!isset($event))? '<th>Evento</th>':''?>
+									<th>Titulo</th>
+									<th>Participación</th>
 									<th></th>
 								</tr>
 							</thead>
@@ -63,10 +64,17 @@
 										<tr class="even gradeC">
 									<?php endif; ?>
 											<td>
-												<?php if($row->Status == 'Active'):?>
-												<i class="fa fa-check text-success" title="Activo"></i>
-												<?php else:?>
-												<i class="fa fa-minus-circle text-danger" title="Inactivo"></i>
+												<?php if($row->Status == 'Accepted'):?>
+												<i class="fa fa-check text-success" title="Aceptada"></i>
+												<?php endif;?>
+												<?php if($row->Status == 'Amend'):?>
+												<i class="fa fa-exchange text-info" title="Con Correcciones"></i>
+												<?php endif;?>
+												<?php if($row->Status == 'Proposal'):?>
+												<i class="fa fa-spinner text-warning" title="Propuesta"></i>
+												<?php endif;?>
+												<?php if($row->Status == 'Rejected'):?>
+												<i class="fa fa-minus-o text-warning" title="No Aceptada"></i>
 												<?php endif;?>
 												<?php if($row->Mode == 'Online'):?>
 												<i class="fa fa-cloud text-primary" title="En Linea"></i>
@@ -74,30 +82,21 @@
 												<i class="fa fa-user text-info" title="Presencial"></i>
 												<?php endif;?>
 											</td>
-											<td><?=typeEvent($row->Type)?></td>
-											<td><?=$row->Name?></td>
-											<td><?=date('d/m/Y',strtotime($row->Start_Date))?></td>
-											<td><?=date('d/m/Y',strtotime($row->End_Date))?></td>
-											<td><?=date('h:i A',strtotime($row->Start_Date))?></td>
-											<td><?=date('h:i A',strtotime($row->End_Date))?></td>
-											<td><?=$row->Hours?></td>
+											<td><?=$row->DNI?></td>
+											<td><?=$row->Name.' '.$row->Last_Name?></td>
+											<?php if(!isset($event)):?> <td><?=$row->Event?></td><?php endif;?>
+											<td><?=$row->Title?></td>
+											<td><?=translate($row->Mode)?></td>
 											<td class="text-center">
 												<div class="btn-group">
 													<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" title="¿Que Acción desea realizar?">
 														<i class="fa fa-hand-o-up"></i>
 													</button>
 													<ul class="dropdown-menu text-center" role="menu"  style="min-width:40px;">
-													  <li><a href="<?=site_url('events/view/'.$row->Id)?>" title="Ver"><i class="fa fa-search-plus text-success"></i></a></li>
-													  <li><a href="<?=site_url('events/edit/'.$row->Id.'/1')?>" title="Editar"><i class="fa fa-pencil-square-o text-warning"></i></a></li>
-													  <li><a href="<?=site_url('events/delete/'.$row->Id)?>" title="Eliminar"><i class="fa fa-times-circle text-danger"></i></a></li>
-													  <li class="divider"></li>
-													  <li><a href="<?=site_url('events/knowledges/'.$row->Id)?>" title="Saberes"><i class="fa fa-tasks text-info"></i></a></li>
-													  <li><a href="<?=site_url('events/applications/'.$row->Id)?>" title="Ponentes"><i class="fa fa-rocket" style="color: #00a2cd;"></i></a></li>
-													  <li><a href="<?=site_url('registration/index/'.$row->Id)?>" title="Inscritos"><i class="fa fa-users text-primary"></i></a></li>
-													  <li><a href="<?=site_url('payment/index/'.$row->Id)?>" title="Pagos"><i class="fa fa-money text-success"></i></a></li>
-													  <li><a href="<?=site_url('events/planning/'.$row->Id)?>" title="Planificación"><i class="fa fa-calendar" style="color: #6f1167;"></i></a></li>
-													  <li><a href="<?=site_url('events/places/'.$row->Id)?>" title="Lugar"><i class="fa fa-map-marker" style="color: #ff3333;"></i></a></li>
-													  <li><a href="<?=site_url('sale/index/'.$row->Id)?>" title="Costos"><i class="fa fa-clock-o" style="color: #f88a00;"></i></a></li>
+													  <li><a href="<?=site_url('events/view_application/'.$row->Id)?>" title="Ver"><i class="fa fa-search-plus text-success"></i></a></li>
+													  <li><a href="<?=site_url('events/edit_application/'.$row->Id.'/1')?>" title="Editar"><i class="fa fa-pencil-square-o text-warning"></i></a></li>
+													  <li><a href="<?=site_url('events/change_status_application/'.$row->Id.'/1')?>" title="Cambiar Estado"><i class="fa fa-exchange text-info"></i></a></li>
+													  <li><a href="<?=site_url('events/delete_application/'.$row->Id)?>" title="Eliminar"><i class="fa fa-times-circle text-danger"></i></a></li>
 													</ul>
 												</div>
 											</td>    
@@ -108,7 +107,7 @@
                                 </table>
                             </div>
 							<?php else: ?>
-								<div class="text-danger">No hay eventos registrados.</div>
+								<div class="text-danger">No hay Ponentes Registrados.</div>
 							<?php endif; ?>
                             <!-- /.table-responsive -->
                         </div>

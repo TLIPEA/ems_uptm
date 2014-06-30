@@ -167,7 +167,7 @@ class Event extends Frontend {
 			
 			if ($this->form_validation->run()==FALSE)
 			{
-				$this->error_view('Error al Registrar el Participante','Algo va mal, revisa los datos señalados e intentalo de nuevo, si el error persiste comunicate con soporte');
+				$this->error_view('Error en el Envio de Correo','Algo va mal, al momento de realizar el envio, pero el usuario si se registro pero no se completo la inscripción');
 				$this->registration(1,$id);
 			}
 			else
@@ -191,6 +191,7 @@ class Event extends Frontend {
 					if(!$this->send_mail($this->input->post('Email'),$name,$message,$subject))
 					{
 						$this->error_view('Error en el Envio de Correo','Algo va mal, al momento de realizar el envio');
+						(new Home())->index();
 					}
 					else
 					{

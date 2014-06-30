@@ -8,6 +8,7 @@ class Events extends Backend {
     {
     	parent::__construct();
 		$this->load->library('form_validation');
+		$this->load->model('Activity_Model');
 		$this->load->model('Event_Model');
 		$this->load->model('Scheduled_Event_Model');
 		$this->load->model('Knowledge_Model');
@@ -658,5 +659,31 @@ class Events extends Backend {
 			$this->index();
 		}
 		
+	}
+	
+    public function applications($id = '')
+	{
+		$this->check_session();
+		$data['controller'] = 'List';
+		
+		if($id=='')
+		{
+			$data['rows']  = $this->Activity_Model->get_all_activities();
+		}
+        else
+        {
+            $data['event'] = $this->Scheduled_Event_Model->get_by_id($id);
+		
+            if($data['event']!=0)
+            {
+                $data['rows'] = $this->Activity_Model->get_all_full_activities_by_scheduled_event($id);
+            }
+            else
+            {
+                $this->error_view('Error','Oh oh. Algo malo ha pasado con la carga de la data del evento');
+                $this->index();
+            }
+        }
+		$this->load_view('event/applications',$data);
 	}
 }
