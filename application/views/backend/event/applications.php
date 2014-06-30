@@ -88,17 +88,7 @@
 											<td><?=$row->Title?></td>
 											<td><?=translate($row->Mode)?></td>
 											<td class="text-center">
-												<div class="btn-group">
-													<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" title="¿Que Acción desea realizar?">
-														<i class="fa fa-hand-o-up"></i>
-													</button>
-													<ul class="dropdown-menu text-center" role="menu"  style="min-width:40px;">
-													  <li><a href="<?=site_url('events/view_application/'.$row->Id)?>" title="Ver"><i class="fa fa-search-plus text-success"></i></a></li>
-													  <li><a href="<?=site_url('events/edit_application/'.$row->Id.'/1')?>" title="Editar"><i class="fa fa-pencil-square-o text-warning"></i></a></li>
-													  <li><a href="<?=site_url('events/change_status_application/'.$row->Id.'/1')?>" title="Cambiar Estado"><i class="fa fa-exchange text-info"></i></a></li>
-													  <li><a href="<?=site_url('events/delete_application/'.$row->Id)?>" title="Eliminar"><i class="fa fa-times-circle text-danger"></i></a></li>
-													</ul>
-												</div>
+												<a href="<?=site_url('events/change_status_application/'.$row->Id.'/1')?>" title="Cambiar Estado"><i class="fa fa-exchange text-info"></i></a>
 											</td>    
                                         </tr>
 											<?php $band++; ?>

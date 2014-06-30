@@ -103,7 +103,7 @@ class Payment extends Backend {
 	public function change_state($id = '', $phase = 1)
 	{
 		$this->check_session();
-		$data['controller'] = 'Search';
+		$data['controller'] = 'Change_State';
 		
 		if ($phase == 1)
 		{
@@ -136,7 +136,7 @@ class Payment extends Backend {
 			{
 				if($this->Payment_Model->update_status($this->input))
 				{
-					$this->success_view('Exito al Realizar la Actualización','El ya cambio de Estatus');
+					$this->success_view('Exito al Realizar la Actualización','Ya cambio de Estatus');
 					$this->index();
 				}
 				else{

@@ -686,4 +686,50 @@ class Events extends Backend {
         }
 		$this->load_view('event/applications',$data);
 	}
+	
+	public function change_status_application($id = '',$phase = 1)
+	{
+		$this->check_session();
+		$data['controller'] = 'Change_State';
+		
+		if ($phase == 1)
+		{
+			if($id == '')
+			{
+				$this->error_view('Error','Debes Seleccionar un Evento');
+				$this->applications();
+			}
+			
+			$data['activity'] = $this->Activity_Model->get_by_id($id);
+			if(!($data['activity']!=0))
+			{
+				$this->error_view('Error','Oh oh. Algo malo ha pasado con la carga de la data de los Datos del Ponente');
+				$this->index();
+			}
+			$this->load_view('event/change_application',$data);
+		}
+		else
+		{
+			$this->form_validation->set_rules('Status'  , 'Estado', 'trim|required|xss_clean');
+			
+			$this->form_validation->set_message('required', '%s es requerido');
+				
+			if ($this->form_validation->run() == FALSE)
+			{
+				$this->error_view('Error','Debes Verificar los Datos');
+				$this->index();
+			}
+			else
+			{
+				if($this->Activity_Model->update_status($this->input))
+				{
+					$this->success_view('Exito al Realizar la Actualización','Ya cambio de Estatus');
+				}
+				else{
+					$this->error_view('Error','Algo va mal, intentalo de nuevo, si el error persiste comunicate con soporte');
+				}
+				$this->applications();
+			}
+		}
+	}
 }

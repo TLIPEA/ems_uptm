@@ -148,6 +148,19 @@ class Activity_Model extends CI_Model
             return FALSE;
         }
     }
+	
+	function update_status($_data){
+        
+        $data = array(
+			'Status' => $_data->post('Status')
+        );
+        
+        if($this->db->where('Id',$_data->post('Id'))->update('Activity',$data)){
+            return TRUE;
+        }else{
+            return FALSE;
+        }
+    }
     
     /**
      * TODO: Al eliminar se debe eliminar las referencias a Author, Knowledge_Activity primero.
