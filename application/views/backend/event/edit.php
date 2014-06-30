@@ -1,17 +1,3 @@
-<?php
-if($rows!=0)
-{
-	$options[] = 'Seleccione';
-	foreach($rows as $row)
-	{
-		$options[$row->Id] = typeEvent($row->Type).' - '.$row->Name;
-	}
-}
-else
-{
-	$options[] = 'No hay Eventos disponibles';
-}
-?>
 <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
@@ -46,8 +32,8 @@ else
 										<div class="form-group">
                                             <label class="col-md-2">Evento</label>
 											<div class="col-md-10">
-												<?php $settings = 'class="form-control" required=""'; ?>
-												<?=form_dropdown('Event_Id', $options,(set_value('Event_Id')!=0)?set_value('Event_Id'):$event[0]->Event_Id,$settings);?>
+												<input type="hidden" name="Event_Id" value="<?=$event[0]->Event_Id?>" />
+												<input type="text" class="form-control" id="Event" name="Event" readonly="readonly" required="" value="<?=(set_value('Event_Id')!=0)?set_value('Event_Id'):$event[0]->Name?>">
 											</div>
                                         </div>
 										<?php echo form_error('Start_Date','<div class="alert alert-danger alert-dismissable">
