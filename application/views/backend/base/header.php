@@ -45,7 +45,7 @@
 							<i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
 						</a>
 						<ul class="dropdown-menu dropdown-user">
-							<li><a href="<?=site_url('user/view/'.$this->session->unset_userdata('manager_ems_uptm')['Participant_Id'])?>"><i class="fa fa-user fa-fw"></i> Perfil de Usuario</a>
+							<li><a href="<?=site_url('user/view/'.$this->session->userdata('manager_ems_uptm')['Participant_Id'])?>"><i class="fa fa-user fa-fw"></i> Perfil de Usuario</a>
 							</li>
 							<li class="divider"></li>
 							<li><a href="<?=site_url('backend/logout')?>"><i class="fa fa-sign-out fa-fw"></i> Cerrar Sesión</a>
