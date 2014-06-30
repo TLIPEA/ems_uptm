@@ -56,7 +56,7 @@ else
 									<div class="form-group">
 										<label class="col-sm-2 hidden-xs" for="">Participante</label>
 										<div class="col-sm-10">
-											<?=form_dropdown('Registration_Id', $options, (set_value('Registration_Id')),'required="" class="form-control"');?>
+											<?=form_dropdown('Registration_Id', $options, (set_value('Registration_Id')),'required class="form-control"');?>
 										</div>
 									</div>
 									<?php else:?>
@@ -66,7 +66,7 @@ else
 										<label class="col-sm-2 hidden-xs" for="">Banco</label>
 										<div class="col-sm-10">
 											<?=form_dropdown('Account_Id', $options2, (set_value('Account_Id')),
-																	   'required="" class="form-control"');?>
+																	   'required class="form-control"');?>
 										</div>
 									</div>
 									<?php echo form_error('Payment_Date','<div class="alert alert-danger alert-dismissable">
