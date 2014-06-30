@@ -198,7 +198,7 @@
 									  <?php endif;?>
 									<div class="page-header">
 										<hr>
-										<div class="pull-right"><a title="Pagos" class="btn btn-md btn-success" href="<?=site_url('sale/index/'.$event[0]->Id)?>" ><i class="fa fa-money"></i></a></div>
+										<div class="pull-right"><a title="Pagos" class="btn btn-md btn-success" href="<?=site_url('payment/index/'.$event[0]->Id)?>" ><i class="fa fa-money"></i></a></div>
 										<h4>Pagos</h4>
 									</div>
 								</div>

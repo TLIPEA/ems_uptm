@@ -186,7 +186,7 @@ class Sale extends Backend {
 			if($this->input->post('General')!=0 or $this->input->post('Speaker')!=0 or $this->input->post('Student')!=0)
 			{
 			//******************************* Insertar *******************************
-			if($this->input->post('General')!=0 and $this->input->post('General_Id')==0)
+			if($this->input->post('General')!=0 and $this->input->post('General_Id')==0 and $this->input->post('General')!=-1)
 			{
 				$_POST['Type']   = 'Professionals & General Public';
 				$_POST['Amount'] = (($this->input->post('General'))==-2)? 0 : $this->input->post('General');
@@ -228,7 +228,7 @@ class Sale extends Backend {
 				
 			}
 			//******************************* Insertar *******************************
-			if($this->input->post('Speaker')!=0 and $this->input->post('Speaker_Id')==0)
+			if($this->input->post('Speaker')!=0 and $this->input->post('Speaker_Id')==0 and $this->input->post('Speaker')!=-1)
 			{
 				$_POST['Type']   = 'Speaker';
 				$_POST['Amount'] = (($this->input->post('Speaker'))==-2)? 0 : $this->input->post('Speaker');
@@ -270,7 +270,7 @@ class Sale extends Backend {
 				
 			}
 			//******************************* Insertar *******************************
-			if($this->input->post('Student')!=0 and $this->input->post('Student_Id')==0)
+			if($this->input->post('Student')!=0 and $this->input->post('Student_Id')==0 and $this->input->post('Student')!=-1)
 			{
 				$_POST['Type']   = 'Student';
 				$_POST['Amount'] = (($this->input->post('Student'))==-2)? 0 : $this->input->post('Student');
