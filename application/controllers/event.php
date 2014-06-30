@@ -351,9 +351,10 @@ class Event extends Frontend {
 		}
 		if($phase == 3)
 		{
-			$data['accounts']        = $this->Account_Model->get_by_scheduled_event_id($id);
 			$data['id']              = $id;
-			$data['Registration_Id'] = $this->Registration_Model->get_registration_id_by_participant($id,$this->session->userdata('public_ems_uptm')['Participant_Id'])[0]->Id;
+			$data['Registration_Id'] = $this->Registration_Model->get_by_id($id);
+			$data['accounts']        = $this->Account_Model->get_by_scheduled_event_id($data['Registration_Id'][0]->Scheduled_Event_Id);
+			$data['Registration_Id'] = $this->Registration_Model->get_by_id($id)[0]->Id;
 			$this->load_view('event/pay',$data,'event/script_pay');
 		}
 	}
@@ -785,7 +786,7 @@ class Event extends Frontend {
 				{
 					$cost->Type      = $this->type_event($cost->Type);
 					if($cost->Type=='Ponentes')
-					$options[$cost->Id] = $cost->Type.' - '.$cost->Amount;
+					$options[$cost->Id] = $cost->Type.' - '.(($cost->Amount==0)?'Exonerado':$cost->Amount.'Bs');
 				}
 			}
 			else

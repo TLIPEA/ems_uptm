@@ -94,7 +94,8 @@ class Activity_Model extends CI_Model
 	
 	function get_all_activities_by_author($id)
 	{
-		$query = $this->db->select('Event.Name,Author.*,Activity.*')
+		$query = $this->db->select('Registration.Id AS Registration_Id,Event.Name,Author.*,Activity.*')
+						->join('Registration','Registration.Activity_Id = Activity.Id','INNER')
 						->join('Author','Author.Activity_Id = Activity.Id','INNER')
 						->join('Scheduled_Event','Scheduled_Event.Id = Activity.Scheduled_Event_Id','INNER')
 						->join('Event','Event.Id = Scheduled_Event.Event_Id','INNER')

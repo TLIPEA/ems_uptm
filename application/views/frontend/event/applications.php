@@ -45,15 +45,20 @@
 						<b class="fa fa-university" title="Ver Autores" onclick="load_coauthors(<?=$activity->Id?>)"></b>
 						<?php if($this->session->userdata('public_ems_uptm')):
 								if($activity->Status=='Aceptada'):
-									if($this->Registration_Model->get_registration_with_cost_by_activity($activity->Id)!=0):
-										if(!($this->Registration_Model->get_payment_status_by_activity($activity->Id)!=0)):?>
-						<a href="<?=site_url('event/pay/3/'.$activity->Scheduled_Event_Id)?>" class="btn btn-success fa fa-money" title="Pagar"></a>
-						<?php 			else:?>
-						<b class="fa fa-check" title="<?=($this->Registration_Model->get_payment_status_by_activity($activity->Id)[0]->Amount == 0)? 'Exonerado': 'Pagado'?>"></b>
+									$aux = $this->Registration_Model->get_registration_with_cost_by_activity($activity->Id);
+									if($aux!=0):
+										if(!($this->Registration_Model->get_payment_status_by_activity($activity->Id)!=0)):
+										if($aux[0]->Amount==0):?>
+										<b class="fa fa-check" title="Exonerado"></b>
+						<?php 			else:?>				
+						<a href="<?=site_url('event/pay/3/'.$activity->Registration_Id)?>" class="btn btn-success fa fa-money" title="Pagar"></a>
+						<?php 			endif;
+										else:?>
+						<b class="fa fa-check" title="Pagado"></b>
 						<?php 			endif;
 									endif;
 								endif;
-							endif;?>				
+							endif;?>
 					</td>
 				</tr>
 				<?php endforeach;?>

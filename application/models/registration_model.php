@@ -210,18 +210,19 @@ class Registration_Model extends CI_Model
 	
 	function get_payment_status_by_activity($Activity_Id)
 	{
-        $query = $this->db->select('Cost.Amount')
-					->join('Scheduled_Event','Scheduled_Event.Id = Registration.Scheduled_Event_Id','INNER')
-					->join('Event','Event.Id = Scheduled_Event.Event_Id','INNER')
-					->join('Cost','Cost.Id = Registration.Cost_Id','INNER')
-					->join('Sale','Sale.Id = Cost.Sale_Id','INNER')
-					->where('Cost.Type','Speaker')
-					->where('Cost.Amount','(SELECT SUM(Amount) FROM Payment WHERE Registration_Id = Registration.Id AND Status = \'Validated\')')
-					->where('Registration.Status <>','Paid')->where('Registration.Status <>','Organizer')
-					->where('Registration.Status <>','Exempt')->where('Registration.Status <>','Collaborator')
-					->where('Registration.Status <>','Free')->where('Registration.Status <>','Cancel')
-					->where('Registration.Activity_Id',$Activity_Id)
-					->get('Registration');
+		$query = $this->db->query("SELECT Cost.Amount FROM (`Registration`) INNER JOIN `Scheduled_Event` ON `Scheduled_Event`.`Id` = `Registration`.`Scheduled_Event_Id`INNER JOIN `Event` ON `Event`.`Id` = `Scheduled_Event`.`Event_Id` INNER JOIN `Cost` ON `Cost`.`Id` = `Registration`.`Cost_Id` INNER JOIN `Sale` ON `Sale`.`Id` = `Cost`.`Sale_Id` WHERE `Cost`.`Type` = 'Speaker'  AND `Registration`.`Status` <> 'Paid' AND `Registration`.`Status` <> 'Organizer' AND `Registration`.`Status` <> 'Exempt' AND `Registration`.`Status` <> 'Collaborator' AND `Registration`.`Status` <> 'Free' AND `Registration`.`Status` <> 'Cancel' AND `Cost`.`Amount` = (SELECT SUM(Amount) FROM Payment WHERE Registration_Id = Registration.Id AND Status = 'Validated')  AND `Registration`.`Activity_Id` = '$Activity_Id'");
+//        $query = $this->db->select('Cost.Amount')
+//					->join('Scheduled_Event','Scheduled_Event.Id = Registration.Scheduled_Event_Id','INNER')
+//					->join('Event','Event.Id = Scheduled_Event.Event_Id','INNER')
+//					->join('Cost','Cost.Id = Registration.Cost_Id','INNER')
+//					->join('Sale','Sale.Id = Cost.Sale_Id','INNER')
+//					->where('Cost.Type','Speaker')
+//					->where('Cost.Amount','(SELECT SUM(Amount) FROM Payment WHERE Registration_Id = Registration.Id AND Status = \'Validated\')')
+//					->where('Registration.Status <>','Paid')->where('Registration.Status <>','Organizer')
+//					->where('Registration.Status <>','Exempt')->where('Registration.Status <>','Collaborator')
+//					->where('Registration.Status <>','Free')->where('Registration.Status <>','Cancel')
+//					->where('Registration.Activity_Id',$Activity_Id)
+//					->get('Registration');
         
         if($query->num_rows() > 0)
 		{
