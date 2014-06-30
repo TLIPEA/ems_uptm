@@ -192,7 +192,7 @@ class Admin extends Backend {
 			  );
 		$backup =& $this->dbutil->backup($prefs);
 		
-		if(force_download('repaldo'.date('Y_m_d_H_i_s',time()).'.gzip', $backup))
+		if(force_download('repaldo'.date('Y_m_d_H_i_s',time()).'.zip', $backup))
 		{}
 		else
 		{
