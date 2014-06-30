@@ -126,6 +126,19 @@ class Payment_Model extends CI_Model
             return FALSE;
         }
     }
+	
+	function update_status($_data){
+        
+        $data = array(
+			'Status'          => $_data->post('Status'),
+        );
+        
+        if($this->db->where('Id',$_data->post('Id'))->update('Payment',$data)){
+            return TRUE;
+        }else{
+            return FALSE;
+        }
+    }
     
     function delete_payment($id){
         

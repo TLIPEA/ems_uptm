@@ -130,7 +130,7 @@
 									<hr>
 									
 									<div class="page-header">
-										<div class="pull-right"><a title="Registrar Pago" class="btn btn-md btn-success" href="<?=site_url('payment/new_pay/'.$registration[0]->Id)?>"><i class="fa fa-money"></i></a></div>
+										<div class="pull-right"><a title="Registrar Pago" class="btn btn-md btn-success" href="<?=site_url('payment/new_pay/'.$registration[0]->Id.'/'.$registration[0]->Scheduled_Event_Id)?>"><i class="fa fa-money"></i></a></div>
 										<h3>Pagos Registrados</h3>
 									</div>
 								  <?php if($payments!=0):?>
@@ -149,7 +149,7 @@
 										<td><?=$payment->Voucher_Number?></td>
 										<td><?=$payment->Amount?> Bs</td>
 										<td><?=date('d-m-Y',strtotime($payment->Payment_Date))?></td>
-										<td><?=$payment->Status?></td>
+										<td><?=translate($payment->Status)?></td>
 									  </tr>
 									  <?php endforeach;?>
 									</table>

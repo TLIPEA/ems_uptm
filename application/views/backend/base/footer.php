@@ -135,7 +135,7 @@
 			$('#End_Date').datetimepicker({pickTime: true,minDate:'Hoy'});
 		});
 	</script>
-	<?php elseif ($controller == 'New_Planning' or $controller == 'Edit_Planning' or $controller == 'New_Sale' or $controller == 'Edit_Sale'): ?>
+	<?php elseif ($controller == 'New_Planning' or $controller == 'Edit_Planning' or $controller == 'New_Sale' or $controller == 'Edit_Sale' ): ?>
 	<link rel="stylesheet" type="text/css" media="screen" href="<?=base_url('backend/css/plugins/datetimepicker/bootstrap-datetimepicker.min.css');?>" />
 	<script type="text/javascript" src="<?=base_url('backend/js/plugins/datetimepicker/moment.js');?>"></script>
 	<script type="text/javascript" src="<?=base_url('backend/js/plugins/datetimepicker/bootstrap-datetimepicker.js');?>"></script>
@@ -145,6 +145,16 @@
 			$('#End_Date').datetimepicker({pickTime: false,minDate:'Hoy'});
 		});
 	</script>
+	<?php elseif($controller == 'New_Pay'): ?>
+	<link rel="stylesheet" type="text/css" media="screen" href="<?=base_url('backend/css/plugins/datetimepicker/bootstrap-datetimepicker.min.css');?>" />
+	<script type="text/javascript" src="<?=base_url('backend/js/plugins/datetimepicker/moment.js');?>"></script>
+	<script type="text/javascript" src="<?=base_url('backend/js/plugins/datetimepicker/bootstrap-datetimepicker.js');?>"></script>
+	<script type="text/javascript">
+	    $(function () {
+	        $('#Payment_Date').datetimepicker({pickTime: false,minDate:'Hoy'});
+		});
+	</script>
+		
 	<?php endif;?>
 	
 </body>

@@ -13,7 +13,7 @@
                     Pagos <?=(isset($event))? ' en '.$event[0]->Name:''?>
 					<?php if(isset($event)):?>
 					<div class="pull-right">
-						<a title="Añadir Nuevo Pago" class="btn btn-info btn-xs" href="<?=site_url('registration/search')?>"> <i class="fa fa-plus"></i> Añadir Nuevo Pago</a>
+						<a title="Añadir Nuevo Pago" class="btn btn-info btn-xs" href="<?=site_url('payment/new_pay/0/'.$event[0]->Id)?>"> <i class="fa fa-plus"></i> Añadir Nuevo Pago</a>
 					</div>
 					<?php endif;?>
                 </div>
