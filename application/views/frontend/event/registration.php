@@ -82,8 +82,13 @@ else
 					<?=form_dropdown('Cost_Id', $options, (set_value('Cost_Id')),
                                                'required="" class="form-control"');?>
 					<?php else:?>
+					<?php if(isset($events)):?>
 					<?=form_dropdown('Cost_Id', array(''=>'Seleccione el Evento Primero'), (set_value('Cost_Id')),
                                                'required="" class="form-control"');?>
+					<?php else:?>
+					<?=form_dropdown('Cost_Id', array(''=>'No hay Categorias Disponibles'), (set_value('Cost_Id')),
+                                               'required="" class="form-control"');?>
+					<?php endif;?>
 					<?php endif;?>
 				</div>
 			</div>

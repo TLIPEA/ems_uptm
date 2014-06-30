@@ -103,12 +103,13 @@ class Registration extends Backend {
 			$this->search();
 		}
 		
-		$data['costs'] = $this->Sale_Model->get_sale_active_with_cost_by_scheduled_event($id);
+		$data['costs'] = $this->Sale_Model->get_sale_active_with_cost_by_scheduled_event($Scheduled_Event_Id);
 		
 		if ($phase == 1)
 		{
 			if($id == 0)
 			{
+				$data['dni'] = $dni;
 				$this->load_view('participant/new',$data);
 			}
 			else

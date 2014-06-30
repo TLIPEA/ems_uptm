@@ -46,6 +46,25 @@ class Sale_Model extends CI_Model
         }
     }
 	
+	function get_all_sales_by_scheduled_event($id)
+	{
+        $query = $this->db->where('Scheduled_Event_Id',$id)->order_by('Start_Date','ASC')
+						->get('Sale');
+        
+        if($query->num_rows() > 0)
+		{
+            foreach($query->result() as $row)
+			{
+                $data[] = $row;
+            }
+            return $data;
+        }
+        else
+		{
+            return 0;
+        }
+    }
+	
 	function get_all_sales_with_cost_by_scheduled_event($id)
 	{
         $query = $this->db->where('Scheduled_Event_Id',$id)->order_by('Start_Date','ASC')
@@ -83,6 +102,24 @@ class Sale_Model extends CI_Model
             return 0;
         }
     }
+	
+	function get_all_cost_by_sale_id($id)
+	{
+		$query = $this->db->where('Sale.Id',$id)->join('Cost','Cost.Sale_Id = Sale.Id','INNER')->get('Sale');
+        
+        if($query->num_rows() > 0)
+		{
+            foreach($query->result() as $row)
+			{
+                $data[] = $row;
+            }
+            return $data;
+        }
+        else
+		{
+            return 0;
+        }
+	}
     
     function get_by_id($_id)
     {
@@ -111,6 +148,19 @@ class Sale_Model extends CI_Model
         );
         
         if($this->db->where('Id',$_data->post('Id'))->update('Sale',$data)){
+            return TRUE;
+        }else{
+            return FALSE;
+        }
+    }
+	
+	function update_sale_status_by_scheduled_event($Scheduled_Event_Id,$Status){
+        
+        $data = array(
+			'Status'             => $Status,
+        );
+        
+        if($this->db->where('Scheduled_Event_Id',$Scheduled_Event_Id)->update('Sale',$data)){
             return TRUE;
         }else{
             return FALSE;

@@ -36,6 +36,7 @@
 											</div>
                                         </div>
 										<input type="hidden" name="Scheduled_Event_Id" value="<?=$event[0]->Id?>" />
+										<input type="hidden" name="Order" value="<?=$count?>" />
 										<div class="col-md-1 pull-right text-center">
 											<a href="<?=site_url('events/knowledges/'.$event[0]->Id)?>" class="btn btn-info pull-right">Regresar</a>
 										</div>

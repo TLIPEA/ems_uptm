@@ -122,7 +122,7 @@
 												    <input type="radio" name="Status" id="Status1" value="Active" <?=set_value('Status')=='Active' ? 'checked=""':''?>>Activo
 												</label>
 												<label class="radio-inline col-md-3">
-												    <input type="radio" name="Mode" id="Status2" value="Off" <?=set_value('Status')=='Off' ? 'checked=""':''?>> Inactivo
+												    <input type="radio" name="Status" id="Status2" value="Off" <?=set_value('Status')=='Off' ? 'checked=""':''?>> Inactivo
 												</label>
 											</div>
                                         </div>

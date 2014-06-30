@@ -252,6 +252,7 @@ class Events extends Backend {
 		
 			if($data['event']!=0)
 			{
+				$data['count'] = $this->Knowledge_Model->get_count_by_scheduled_event($data['event'][0]->Id)[0]->Count +1;
 				$this->load_view('event/new_knowledge',$data);
 			}
 			else

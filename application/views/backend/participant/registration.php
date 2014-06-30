@@ -5,7 +5,7 @@ if($costs!=0)
 	foreach($costs as $cost)
 	{
 		if($cost->Type!='Ponentes')
-		$options[$cost->Id] = $cost->Type.' - '.(($cost->Amount==0)?'Exonerado':$cost->Amount.'Bs');
+		$options[$cost->Id] = translate($cost->Type).' - '.(($cost->Amount==0)?'Exonerado':$cost->Amount.'Bs');
 	}
 }
 else

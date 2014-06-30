@@ -2,7 +2,7 @@
 if($count!=0)
 {
 	$options[] = 'Seleccione';
-	for($i=1;$i<=$count[0]->Orden;$i++)
+	for($i=1;$i<=$count[0]->Count;$i++)
 	{
 		$options[] = $i;
 	}

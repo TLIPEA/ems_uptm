@@ -1,3 +1,18 @@
+<?php
+if($costs!=0)
+{
+	$options[] = 'Seleccione';
+	foreach($costs as $cost)
+	{
+		if($cost->Type!='Ponentes')
+		$options[$cost->Id] = translate($cost->Type).' - '.(($cost->Amount==0)?'Exonerado':$cost->Amount.'Bs');
+	}
+}
+else
+{
+	$options[] = 'No hay Costos disponibles';
+}
+?>
 <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
@@ -11,12 +26,12 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             Nuevo Participante
-							<div class="pull-right"><a class="btn btn-warning btn-xs" href="<?=site_url('events')?>">Eventos</a></div>
+							<div class="pull-right"><a class="btn btn-warning btn-xs" href="<?=site_url('registration/index/'.$event[0]->Id)?>">Inscripciones en el Evento</a></div>
                         </div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-12">
-									<?=form_open('events/new_event/2', array('role'=>'form','autocomplet'=>'off','class'=>'form-horizontal'))?>
+									<?=form_open('registration/new_registration/0/'.$dni.'/'.$event[0]->Id.'/2', array('role'=>'form','autocomplet'=>'off','class'=>'form-horizontal'))?>
 									<?=validation_errors('<div class="alert-danger input-sm"><p><strong>','</strong> </div><br />')?>
 									<?php if(isset($typeError)):?>
 									<div class="col-md-12">
@@ -26,13 +41,22 @@
 												</div>
 									</div>
 									<?php endif;?>
+									<input type="hidden" name="Scheduled_Event_Id" value="<?=$event[0]->Id?>" />
+									<?php echo form_error('Cost_Id','<div class="alert alert-danger alert-dismissable">
+															<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><strong>Error!</strong> ','.</div>'); ?>
+									<div class="form-group">
+										<label class="col-md-2" for="">Categoria</label>
+										<div class="col-md-10">
+											<?=form_dropdown('Cost_Id', $options, (set_value('Cost_Id')),
+																	   'class="form-control" required');?>
+										</div>
+									</div>
 									<?php echo form_error('DNI','<div class="alert alert-danger alert-dismissable">
 										<button type="button" class="close" data-dismiss="alert" aria-hidden="true"> ×</button><strong>Error!</strong> ','.</div>'); ?>
 									<div class="form-group">
 										<label class="col-sm-2 hidden-xs" for="">Cedula</label>
 										<div class="col-sm-10">
-											<input type="text" class="form-control" name="DNI" placeholder="Cedula: V-18964136" required="" value="<?=set_value('DNI')?>" />
-											<p class="help-block">El formato de la Cedula es V-18964136 Sin Puntos.</p>
+											<input type="text" class="form-control" name="DNI" placeholder="Cedula: V-18964136" required="" value="<?=(set_value('DNI')!='')? set_value('DNI') : $dni?>" readonly="readonly" />
 										</div>
 									</div>
 									<?php echo form_error('Name','<div class="alert alert-danger alert-dismissable">

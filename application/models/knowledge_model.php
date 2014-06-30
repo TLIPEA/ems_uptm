@@ -73,7 +73,7 @@ class Knowledge_Model extends CI_Model
 	
 	function get_count_by_scheduled_event($id)
     {
-        $query = $this->db->select('COUNT(*) AS Orden')->where('Scheduled_Event_Id',$id)->get('Knowledge');
+        $query = $this->db->select('COUNT(*) AS Count')->where('Scheduled_Event_Id',$id)->get('Knowledge');
         
         if($query->num_rows() > 0){
             foreach($query->result() as $row){
