@@ -73,7 +73,20 @@ class Payment extends Backend {
 		}
 		else
 		{
+			if($this->input->post('Account_Id')==0)
+			{
+				$this->error_view('Error al Realizar el Pago','Algo va mal, intentalo de nuevo, si el error persiste comunicate con soporte');
+				$this->new_pay($id,$Scheduled_Event_Id,1);
+			}
+			
+			if($this->input->post('Registration_Id')==0)
+			{
+				$this->error_view('Error al Realizar el Pago','Algo va mal, intentalo de nuevo, si el error persiste comunicate con soporte');
+				$this->new_pay($id,$Scheduled_Event_Id,1);
+			}
+			
 			$this->form_validation->set_rules('Account_Id','Seleccionar Evento','trim|required|xss_clean');
+			$this->form_validation->set_rules('Registration_Id','Seleccionar Evento','trim|required|xss_clean');
 			$this->form_validation->set_rules('Payment_Date','Seleccionar Evento','trim|required|xss_clean');
 			$this->form_validation->set_rules('Voucher_Number','Seleccionar Evento','trim|required|xss_clean');
 			$this->form_validation->set_rules('Amount','Seleccionar Evento','trim|required|xss_clean');
