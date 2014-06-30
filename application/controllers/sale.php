@@ -227,7 +227,6 @@ class Sale extends Backend {
 				}
 				
 			}
-			echo $this->db->last_query().'<br>';
 			//******************************* Insertar *******************************
 			if($this->input->post('Speaker')!=0 and $this->input->post('Speaker_Id')==0)
 			{
@@ -312,6 +311,11 @@ class Sale extends Backend {
 				}
 				
 			}
+			?>
+			<script type="text/javascript">
+				alert('Ya se Actualizaron todos los Costos');
+			</script>
+			<?php
 			redirect('/sale/costs/'.$id,'refresh');
 			}
 			else
