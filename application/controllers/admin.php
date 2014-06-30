@@ -9,6 +9,8 @@ class Admin extends Backend {
     	parent::__construct();
 		$this->load->library('form_validation');
 		$this->load->model('Account_Model');
+		$this->load->model('Scheduled_Event_Model');
+		$this->load->model('Scheduled_Event_Account_Model');
     }
 
 	public function accounts_index()
@@ -60,105 +62,115 @@ class Admin extends Backend {
 		}
 	}
 	
-	function edit_account($id,$phase = 1)
+	function account_edit($id,$phase = 1)
 	{
 		$this->check_session();
-		$head['controller'] = 'Edit_User';
-		$data['user'] = $this->Participant_Model->get_by_id_with_user($id);
-		if ($data['user'] != 0){
-		  
-		  $data['countries'] = $this->Country_Model->get_all_countries();
-		  $data['states']    = $this->State_Model->get_by_id_country($data['user'][0]->Country_Id);
-		  $data['cities']    = $this->City_Model->get_by_id_state($data['user'][0]->State_Id);
+		$head['controller'] = 'Edit_Account';
+		$data['account'] = $this->Account_Model->get_by_id($id);
+		if ($data['account'] != 0){
 		  
 		  if ($phase == 1)
 		  {
 			  $this->load->view('backend/base/header',$head);
-			  $this->load->view('backend/user/edit',$data);
+			  $this->load->view('backend/admin/edit_account',$data);
 			  $this->load->view('backend/base/footer');	
 		  }
 		  else
 		  {
-			   $this->form_validation->set_rules('Name', 'Nombre', 'trim|required|xss_clean');
-			   $this->form_validation->set_rules('Last_Name', 'Apellido', 'trim|required|xss_clean');
-			   $this->form_validation->set_rules('Email', 'Correo Electrónico', 'trim|required|xss_clean|valid_email');
-			   $this->form_validation->set_rules('Gender', 'Sexo', 'trim|required|xss_clean');
-			   $this->form_validation->set_rules('Country', 'País', 'trim|required|xss_clean');
-			   $this->form_validation->set_rules('State', 'Estado', 'trim|required|xss_clean');
-			   $this->form_validation->set_rules('City', 'Ciudad', 'trim|required|xss_clean');
-			   $this->form_validation->set_rules('Type', 'Tipo de Usuario', 'trim|required|xss_clean');
-	 			
-			   $this->form_validation->set_message('required', '%s es requerido');
-			   $this->form_validation->set_message('valid_email', '%s no es válido');
-			   $this->form_validation->set_message('is_unique', 'El %s no se encuentra disponible');
+			$this->form_validation->set_rules('Holder', 'Titular', 'trim|required|xss_clean');
+			$this->form_validation->set_rules('DNI', 'Cedula / Rif', 'trim|required|xss_clean');
+			$this->form_validation->set_rules('Type', 'Tipo de Cuenta', 'trim|required|xss_clean');
+			$this->form_validation->set_rules('Bank', 'Banco', 'trim|required|xss_clean');
+			$this->form_validation->set_rules('Number', 'Número', 'trim|required|xss_clean');
+			$this->form_validation->set_rules('Status', 'Estatus', 'trim|required|xss_clean');
+			
+			$this->form_validation->set_message('required', '%s es requerido');	 			
 			  
 			   if ($this->form_validation->run() == FALSE)
 			   {
-					$this->edit($id,1);
+					$this->account_edit($id,1);
 			   }
 			   else
 			   {
-				  if ($this->Participant_Model->update_participant($this->input))
+				  if ($this->Account_Model->update_account($this->input))
 				  {
-					if ($data['user'][0]->Type == 'NULL' or $data['user'][0]->Type == '')
-					{
-						 $user1 = array(
-								  'Type'           => $this->input->post('Type'),
-								  'Participant_Id' => $id
-								  );
-						 if ($this->User_Model->insert_user_array($user1))
-						 {
-							  $this->success_view('Éxito','El usuario se ha modicado');
-							  $this->index();
-						 }
-						 else
-						 {
-							  $this->error_view('Error','Oh oh. Algo malo ha pasado con la modificación del usuario');
-							  $this->edit($id,1);
-						 }
-					}
-					else
-					{
-						 if ($this->User_Model->update_user($this->input))
-						 {
-							  $this->success_view('Éxito','El usuario se ha modicado');
-							  $this->index();
-						 }
-						 else
-						 {
-							  $this->error_view('Error','Oh oh. Algo malo ha pasado con la modificación del usuario');
-							  $this->edit($id,1);
-						 }
-					}
+					   $this->success_view('Éxito','La cuenta se ha modicado');
+					   $this->accounts_index();
 				  }
 				  else
 				  {
-					  $this->error_view('Error','Oh oh. Algo malo ha pasado con la nueva categoría');
-					  $this->edit($id,1);
+						$this->error_view('Error','Oh oh. Algo malo ha pasado con la modificación de la cuenta');
+						$this->account_edit($id,1);
 				  }
 			  }
 		  }
 		}
 		else
 		{
-		  redirect('/user/index','refresh');
+		  redirect('/admin/accounts_index','refresh');
 		}
 	}
 	
-	function view_account($id)
+	function account_view($id)
 	{
 		$this->check_session();
-		$head['controller'] = 'View_User';
-		$data['user'] = $this->Participant_Model->get_by_id_with_user($id);
-		if ($data['user'] != 0)
+		$head['controller'] = 'View_Account';
+		$data['account'] = $this->Account_Model->get_by_id($id);
+		$data['events'] = $this->Account_Model->get_all_events_asociated($id);
+		if ($data['account'] != 0)
 		{
 		  $this->load->view('backend/base/header',$head);
-		  $this->load->view('backend/user/view',$data);
+		  $this->load->view('backend/admin/view_account',$data);
 		  $this->load->view('backend/base/footer');	
 		}
 		else
 		{
-		  redirect('/user/index','refresh');
+		  redirect('/admin/accounts_index','refresh');
+		}
+	}
+
+	function account_event($id,$phase = 1)
+	{
+		$this->check_session();
+		$head['controller'] = 'Account_Event';
+		$data['events'] = $this->Scheduled_Event_Model->get_all_scheduled_events_actives();
+		$data['account'] = $this->Account_Model->get_by_id($id);
+		if ($data['account'] != 0)
+		{
+			if ($phase == 1)
+			{
+			  $this->load->view('backend/base/header',$head);
+			  $this->load->view('backend/admin/account_event',$data);
+			  $this->load->view('backend/base/footer');	
+			}
+			else
+			{
+				$this->form_validation->set_rules('Scheduled_Event_Id', 'Evento', 'trim|required|xss_clean');
+			
+				$this->form_validation->set_message('required', '%s es requerido');	 			
+			  
+				   if ($this->form_validation->run() == FALSE)
+				   {
+						$this->account_event($id,1);
+				   }
+				   else
+				   {
+					  if ($this->Scheduled_Event_Account_Model->insert_scheduled_event_account($this->input))
+					  {
+						   $this->success_view('Éxito','La cuenta ha sido asociada');
+						   $this->account_view($id);
+					  }
+					  else
+					  {
+							$this->error_view('Error','Oh oh. Algo malo ha pasado con la modificación de la cuenta');
+							$this->account_event($id,1);
+					  }
+				  }
+			}
+		}
+		else
+		{
+		  redirect('/admin/accounts_index','refresh');
 		}
 	}
 	
