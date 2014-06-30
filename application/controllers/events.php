@@ -37,6 +37,12 @@ class Events extends Backend {
 		}
 		else
 		{
+			if ($_FILES['File']['name'] == '')
+			{
+				$this->error_view('Error','Oh oh. Algo malo ha pasado con el archivo del banner.');
+				$this->scheduled(1);
+			}
+			
 			$this->form_validation->set_rules('Type'       , 'Tipo Evento', 'trim|required|xss_clean');
 			$this->form_validation->set_rules('Name'       , 'Nombre', 'trim|required|xss_clean');
 			$this->form_validation->set_rules('Purpose'    , 'Propuesta', 'trim|required|xss_clean');
@@ -91,6 +97,12 @@ class Events extends Backend {
 		}
 		else
 		{
+			if ($_FILES['File']['name'] == '')
+			{
+				$this->error_view('Error','Oh oh. Algo malo ha pasado con el archivo del banner.');
+				$this->scheduled(1);
+			}
+			
 			$this->form_validation->set_rules('Event_Id'   , 'Evento', 'trim|required|xss_clean');
 			$this->form_validation->set_rules('Start_Date' , 'Fecha Inicio', 'trim|required|xss_clean');
 			$this->form_validation->set_rules('End_Date'   , 'Fecha Fin', 'trim|required|xss_clean');
@@ -110,8 +122,29 @@ class Events extends Backend {
 			{
 				if ($this->Scheduled_Event_Model->insert_scheduled_event($this->input))
 				{
-					$this->success_view('Éxito','El evento se ha programado');
-					$this->index();
+					$this->load->helper('path');
+					$this->load->helper('string');
+					$this->load->library('image_lib');
+					$this->load->library('upload');
+					$base_dir = "./images/events/";
+					
+					$config['upload_path']   = $base_dir;
+					$config['file_name']     = $this->db->insert_id();
+					$config['allowed_types'] = 'gif|jpg|png';
+					$config['max_size']	     = '1000';
+					
+					$this->upload->initialize($config); 
+					
+					if ( ! $this->upload->do_upload('File'))
+					{
+						$this->error_view('Error al Cargar el Archivo',$this->upload->display_errors());
+						$this->new_banner();
+					}
+					else
+					{
+						$this->success_view('Éxito','El evento se ha programado');
+						$this->index();
+					}
 				}
 				else
 				{
@@ -150,7 +183,6 @@ class Events extends Backend {
 		
 		if ($phase == 1)
 		{
-			$data['rows']  = $this->Event_Model->get_all_events();
 			$data['event'] = $this->Scheduled_Event_Model->get_by_id($id);
 		
 			if($data['event']!=0)
