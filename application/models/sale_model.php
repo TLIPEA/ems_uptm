@@ -30,7 +30,10 @@ class Sale_Model extends CI_Model
     
     function get_all_sales()
 	{
-        $query = $this->db->get('Sale');
+        $query = $this->db->select('Sale.*,Event.Name')
+					->join('Scheduled_Event','Scheduled_Event.Id = Sale.Scheduled_Event_Id','INNER')
+					->join('Event','Event.Id = Scheduled_Event.Event_Id','INNER')
+					->get('Sale');
         
         if($query->num_rows() > 0)
 		{

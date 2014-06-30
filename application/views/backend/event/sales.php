@@ -10,7 +10,8 @@
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Preventas de <?=$event[0]->Name?>
+                    Preventas <?=(isset($event)? ' de '.$event[0]->Name : '')?>
+					<?php if(isset($event)):?>
 					<div class="pull-right">
 						<div class="btn-group">
 							<button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown">
@@ -32,6 +33,7 @@
 							</ul>
 						</div>
 					</div>
+					<?php endif;?>
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
@@ -45,14 +47,15 @@
 					<?php endif;?>
 					<?php if ($rows != 0): ?>
 					<div class="table-responsive">
-						<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+						<table class="table table-bordered table-hover" id="dataTables-example">
 							<thead>
 								<tr>
 									<th></th>
 									<th>Preventa</th>
 									<th>Fecha Inicio</th>
 									<th>Fecha Fin</th>
-									<th></th>
+									<?php if(!isset($event)):?><th>Evento</th><?php endif;?>
+									<th style="width: 10%;"></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -73,6 +76,7 @@
 											<td><?=$row->Description?></td>
 											<td><?=date('d/m/Y',strtotime($row->Start_Date))?></td>
 											<td><?=date('d/m/Y',strtotime($row->End_Date))?></td>
+											<?php if(!isset($event)):?><td><?=$row->Name?></td><?php endif;?>
 											<td class="text-center">
 												<div class="btn-group">
 													<a href="<?=site_url('sale/costs/'.$row->Id.'/1')?>" title="Costos"><i class="fa fa-money text-success"></i></a>

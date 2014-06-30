@@ -40,7 +40,7 @@
 					<?php endif;?>
 					<?php if ($rows != 0): ?>
 					<div class="table-responsive">
-						<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+						<table class="table table-bordered table-hover" id="dataTables-example">
 							<thead>
 								<tr>
 									<th></th>

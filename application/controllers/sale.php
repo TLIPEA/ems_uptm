@@ -19,13 +19,20 @@ class Sale extends Backend {
 		$data['title']      = "Preventas";
 		$data['controller'] = 'List';
 		
-		$data['event'] = $this->Scheduled_Event_Model->get_by_id($id);
-		if(!($data['event']!=0))
+		if($id == '')
 		{
-			$this->error_view('Error','Oh oh. Algo malo ha pasado con la carga de la data de los Inscritos del Evento');
-			(new Events)->index();
+			$data['rows']  = $this->Sale_Model->get_all_sales();
 		}
-		$data['rows']  = $this->Sale_Model->get_all_sales_by_scheduled_event($id);
+		else
+		{
+			$data['event'] = $this->Scheduled_Event_Model->get_by_id($id);
+			if(!($data['event']!=0))
+			{
+				$this->error_view('Error','Oh oh. Algo malo ha pasado con la carga de la data de los Inscritos del Evento');
+				$this->index();
+			}
+			$data['rows']  = $this->Sale_Model->get_all_sales_by_scheduled_event($id);
+		}
 		
 		$this->load_view('event/sales',$data);
 	}
