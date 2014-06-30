@@ -340,10 +340,20 @@ class Event extends Frontend {
 			{
 				if($this->Payment_Model->insert_payment($this->input))
 				{
+					?>
+					<script type="text/javascript">
+						alert('Éxito al Registrar, Tu pago sera aprobado en las proximas 48 horas');
+					</script>
+					<?php
 					$this->success_view('Éxito al Registrar','Tu pago sera aprobado en las proximas 48 horas');
 				}
 				else
 				{
+					?>
+					<script type="text/javascript">
+						alert('Error al Registrar el Pago','Algo va mal, intentalo de nuevo, si el error persiste comunicate con soporte');
+					</script>
+					<?php
 					$this->error_view('Error al Registrar el Pago','Algo va mal, intentalo de nuevo, si el error persiste comunicate con soporte');
 				}
 				$this->admin($id);

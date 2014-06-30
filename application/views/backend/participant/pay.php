@@ -1,7 +1,7 @@
 <?php
 if($participants!=0)
 {
-	$options[] = 'Seleccione';
+	$options[-1] = 'Seleccione';
 	foreach($participants as $participant)
 	{
 		$options[$participant->Id] = $participant->DNI.' - '.$participant->Name.' '.$participant->Last_Name;
@@ -9,11 +9,11 @@ if($participants!=0)
 }
 else
 {
-	$options[] = 'No hay Participantes disponibles';
+	$options[-1] = 'No hay Participantes disponibles';
 }
 if($accounts!=0)
 {
-	$options2[] = 'Seleccione';
+	$options2[-1] = 'Seleccione';
 	foreach($accounts as $account)
 	{
 		$options2[$account->Id] = $account->Bank.' - '.$account->Number;
@@ -21,7 +21,7 @@ if($accounts!=0)
 }
 else
 {
-	$options2[] = 'No hay Cuentas disponibles';
+	$options2[-1] = 'No hay Cuentas disponibles';
 }
 ?>
 <div id="page-wrapper">

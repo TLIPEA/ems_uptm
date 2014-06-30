@@ -111,7 +111,7 @@
 										<a href="<?=site_url('certified/design')?>"><i class="fa fa-picture-o fa-fw"></i> Diseño</a>
 									</li>
 									<li>
-										<a href="<?=site_url('certified/print')?>"><i class="fa fa-print fa-fw"></i> Impresión</a>
+										<a href="<?=site_url('certified/prints')?>"><i class="fa fa-print fa-fw"></i> Impresión</a>
 									</li>
 								</ul>
 								<!-- /.nav-second-level -->

@@ -30,7 +30,7 @@
 		</form>
 	</div>
 	<div class="col-xs-12 col-sm-6">
-		Colocar Mapita
+		<img class="img-responsive" src="<?=base_url('images/mapa.png')?>" alt="Mapa de Ubicación a la UPTM" />
 		<!-- TODO Mapa 8.5506911,-71.2330431 -->
 	</div>
 </div>
