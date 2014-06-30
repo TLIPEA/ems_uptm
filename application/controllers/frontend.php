@@ -155,59 +155,76 @@ class Frontend extends CI_Controller {
 	
 	public function change_password($phase=1)
 	{
-		$this->check_session();
-		$data['type'] = 'Menu';
-		
-		if($phase==1)
-		{
-			$data['title'] = "Cambiar Clave";
-			$data['row']   = $this->Participant_Model->get_by_id($this->session->userdata('public_ems_uptm')['Participant_Id']);
-			
-            if (!($data['row']!=0))
-            {
-				$this->error_view('Error','Oh oh, algo va mal con la carga de tu usuario');
-                (new Home())->index();
-            }
-            else
-			{
-				$this->load_view('user/change_password',$data);
-			}
-		}
-		else
-		{
-			$this->form_validation->set_rules('OldPassword', 'Contraseña', 'trim|required|!is_unique[Participant.Password]|xss_clean');
-			$this->form_validation->set_rules('Password', 'Contraseña', 'trim|required|min_length[6]|matches[Password2]|xss_clean');
-			
-			if ($this->form_validation->run()==false)
-			{
-				$this->error_view('Error','Oh oh, algo va mal con el cambio de clave, verifica los datos');
-                (new Home())->index();
-			}
-			else
-			{
-				if($this->Participant_Model->update_user_password($this->input))
-				{
-					$this->success_view('Éxito','Se ha actualizado correctamente la clave');
-					$this->users();
-				}
-				else
-				{
-					$this->error_view('Error','Oh oh, algo va mal con el cambio de clave');
-					$this->insert_user();
-				}
-			}
-		}
+		?>
+		<script type="text/javascript">
+			alert('Funcionalidad en Construcción');
+		</script>
+		<?php
+		$this->index();
+//		$this->check_session();
+//		$data['type'] = 'Menu';
+//		
+//		if($phase==1)
+//		{
+//			$data['title'] = "Cambiar Clave";
+//			$data['row']   = $this->Participant_Model->get_by_id($this->session->userdata('public_ems_uptm')['Participant_Id']);
+//			
+//            if (!($data['row']!=0))
+//            {
+//				$this->error_view('Error','Oh oh, algo va mal con la carga de tu usuario');
+//                (new Home())->index();
+//            }
+//            else
+//			{
+//				$this->load_view('user/change_password',$data);
+//			}
+//		}
+//		else
+//		{
+//			$this->form_validation->set_rules('OldPassword', 'Contraseña', 'trim|required|!is_unique[Participant.Password]|xss_clean');
+//			$this->form_validation->set_rules('Password', 'Contraseña', 'trim|required|min_length[6]|matches[Password2]|xss_clean');
+//			
+//			if ($this->form_validation->run()==false)
+//			{
+//				$this->error_view('Error','Oh oh, algo va mal con el cambio de clave, verifica los datos');
+//                (new Home())->index();
+//			}
+//			else
+//			{
+//				if($this->Participant_Model->update_user_password($this->input))
+//				{
+//					$this->success_view('Éxito','Se ha actualizado correctamente la clave');
+//					$this->users();
+//				}
+//				else
+//				{
+//					$this->error_view('Error','Oh oh, algo va mal con el cambio de clave');
+//					$this->insert_user();
+//				}
+//			}
+//		}
 		
 	}
 	
 	public function recovery()
 	{
-		
+		?>
+		<script type="text/javascript">
+			alert('Funcionalidad en Construcción');
+		</script>
+		<?php
+		$this->index();
 	}
 	
 	public function update_data()
 	{
-		$this->check_session();
+		//$this->check_session();
+		?>
+		<script type="text/javascript">
+			alert('Funcionalidad en Construcción');
+		</script>
+		<?php
+		$this->index();
 	}
 	
 	protected function error_view($titleError,$msg)

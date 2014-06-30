@@ -67,7 +67,8 @@ class Backend extends CI_Controller {
 					'Username'        => $user[0]->Username,
 					'Name'            => $user[0]->Name,
 					'Last_Name'       => $user[0]->Last_Name,
-					'Participant_Id'  => $user[0]->Id
+					'Participant_Id'  => $user[0]->Id,
+					'User_Id'  		  => $user[0]->User_Id
 				);
 				$this->session->set_userdata('manager_ems_uptm', $sess_array);
 				redirect('/backend/','refresh');	
