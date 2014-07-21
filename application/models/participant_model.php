@@ -31,6 +31,30 @@ class Participant_Model extends CI_Model
         }
     }
 	
+	function insert_participant_active($_data)
+    {
+        $data = array(
+            'DNI'           => $_data->post('DNI'),
+			'Name'          => $_data->post('Name'),
+			'Last_Name'     => $_data->post('Last_Name'),
+			'Email'         => $_data->post('Email'),
+			'Gender'        => $_data->post('Gender'),
+			'Username'      => $_data->post('Username'),
+			'Password'      => $this->encrypt->sha1($_data->post('Password')),
+			'City_Id'       => ($_data->post('City') == 0)? NULL : $_data->post('City'),
+			'Status'        => 'Active'
+        );
+		
+        if($this->db->insert('Participant',$data))
+        {
+            return TRUE;
+        }
+        else
+        {
+            return FALSE;
+        }
+    }
+	
 	function insert_participant_coauthor($_data)
 	{
 		$data = array(

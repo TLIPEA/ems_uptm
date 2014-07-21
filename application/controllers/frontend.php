@@ -260,12 +260,10 @@ class Frontend extends CI_Controller {
 		if(!($code == 0 and $username == 0)){
             
             $data = $this->Participant_Model->verify($code,$username);
-            
-			echo $this->db->last_query();
 			
             if($data == 0)
 			{
-				$this->error_view('1Error!','Algo va mal, Estas intentando validar un registro con las credenciales erroneas');
+				$this->error_view('Error!','Algo va mal, Estas intentando validar un registro con las credenciales erroneas');
             }
 			else
 			{

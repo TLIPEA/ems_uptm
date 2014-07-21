@@ -169,7 +169,7 @@ class Registration extends Backend {
 				}
 				else
 				{
-					if($this->Participant_Model->insert_participant($this->input))
+					if($this->Participant_Model->insert_participant_active($this->input))
 					{
 						$name    = $this->input->post('Name').' '.$this->input->post('Last_Name');
 						$message     = "<br><br>Saludos {$name}, <br><br>";
@@ -177,32 +177,41 @@ class Registration extends Backend {
 						$message    .= "Tu datos de acceso son:<br><br>";
 						$message    .= "Usuario = {$this->input->post('Username')}<br>";
 						$message    .= "Clave   = {$this->input->post('Password')}<br><br>";
-						$message    .= "Debes Visitar ".site_url('frontend/verify')."/{$this->db->insert_id()}/{$this->input->post('Username')} para validar tu registro en nuestro sistema<br><br>";
+						$message    .= "<br><br>";
 						$message    .= "Para participar en cualquiera de nuestro eventos academicos debes ir a la sección de Inscripción y escoger el evento de tu agrado y realizar la serie de pasos para formalizar tu inscripción.<br><br>";
-						$message    .= "Si tu no realizaste conmunicate con nosotros para solventar cualquier inconveniente.<br><br>";
+						$message    .= "Si tu no solicitaste este registro conmunicate con nosotros para solventar cualquier inconveniente.<br><br>";
 						$message    .= "--<br>";
 						$message    .= "Atte:<br>";
 						$message    .= "UPTM Kleber Ramirez.<br>";
 						
 						$subject = 'Registro Exitoso en el Sistema de Eventos de la UPTM';
-						//if(!$this->send_mail($this->input->post('Email'),$name,$message,$subject))
-						//{
-						//	$this->error_view('Error en el Envio de Correo','Algo va mal, al momento de realizar el envio, pero el usuario si se registro pero no se completo la inscripción');
-						//	$this->index($this->input->post('Scheduled_Event_Id'));
-						//}
-						//else
-						//{
-							$_POST['Participant_Id'] = $this->db->insert_id();
+						
+						$_POST['Participant_Id'] = $this->db->insert_id();
+						
+						if(!$this->send_mail($this->input->post('Email'),$name,$message,$subject))
+						{
 							if($this->Registration_Model->insert_registration($this->input))
 							{
-								$this->success_view('Éxito al Realizar la Inscripción','Debes revisar tu correo electronico para Verificar tu cuenta y posterior podrás administrar tu evento, ver detalles o realizar pagos a traves de la sección Mis Eventos');
+								$this->success_view('Éxito al Realizar la Inscripción','Pero algo va mal con el envio del correo');
 								$this->index($this->input->post('Scheduled_Event_Id'));
 							}
 							else{
 								$this->error_view('Error al Registrar la Inscripción','Algo va mal, intentalo de nuevo, si el error persiste comunicate con soporte');
 								$this->new_registration($id,$dni,$Scheduled_Event_Id,1);
 							}
-						//}
+						}
+						else
+						{
+							if($this->Registration_Model->insert_registration($this->input))
+							{
+								$this->success_view('Éxito al Realizar la Inscripción','En tu correo tienes los detalles de acceso y ya puedes administrar tu evento, ver detalles o realizar pagos a traves de la sección Mis Eventos');
+								$this->index($this->input->post('Scheduled_Event_Id'));
+							}
+							else{
+								$this->error_view('Error al Registrar la Inscripción','Algo va mal, intentalo de nuevo, si el error persiste comunicate con soporte');
+								$this->new_registration($id,$dni,$Scheduled_Event_Id,1);
+							}
+						}
 					}
 					else
 					{

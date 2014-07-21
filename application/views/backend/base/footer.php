@@ -96,6 +96,8 @@
 			$("#Country").change(function() {
                 $("#Country option:selected").each(function() {
                     country = $('#Country').val();
+					$("#State").html("<option value='0'>- Seleccione -</option>");
+					$("#City").html("<option value='0'>- Seleccione -</option>");
                     $.post("<?=site_url('user/load_states')?>", {
                         country : country
                     }, function(data) {
@@ -103,6 +105,7 @@
 						    $("#State").html(data);
                     }else{
                         $("#State").html("<option value='0'>- Seleccione -</option>");
+						$("#City").html("<option value='0'>- Seleccione -</option>");
                     }
                         
                     });

@@ -28,6 +28,7 @@
 		<h5><?=$event->Hours?> Horas Academicas</h5>
 	</div>
 	<div class="col-xs-12 col-sm-3 col-md-2">
+		<?php if($event->Amount!=0):?>
 		<?php if($event->Status != 'Paid' OR $event->Status != 'Free' OR $event->Status != 'Exempt'):?>
 		<div class="row">
 			<div class="col-xs-12 pull-right">
@@ -37,6 +38,7 @@
 			</div>
 		</div>
 		<br>
+		<?php endif;?>
 		<?php endif;?>
 		<?php if($event->Type=='Meeting' or $event->Type=='Conference' or $event->Type=='Congress'):?>
 		<div class="row">

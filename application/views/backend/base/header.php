@@ -94,6 +94,9 @@
 								<a href="#"><i class="fa fa-users fa-fw"></i> Participantes<span class="fa arrow"></span></a>
 								<ul class="nav nav-second-level">
 									<li>
+										<a href="<?=site_url('participant/index')?>"><i class="fa fa-th-list fa-fw"></i>Lista</a>
+									</li>
+									<li>
 										<a href="<?=site_url('registration/index')?>"><i class="fa fa-ticket fa-fw"></i>Inscripción</a>
 									</li>
 									<li>
