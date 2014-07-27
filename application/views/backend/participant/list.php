@@ -52,7 +52,7 @@
 														<i class="fa fa-hand-o-up"></i>
 													</button>
 													<ul class="dropdown-menu text-center" role="menu"  style="min-width:40px;">
-													  <li><a href="<?=site_url('participant/verify/'.$row->Id.'/'.$row->Username)?>" title="Verificar"><i class="fa fa-check text-success"></i></a></li>
+													  <li><a href="<?=site_url('participant/verify/'.$row->Id.'/'.$row->Username)?>" title="Validar"><i class="fa fa-check text-success"></i></a></li>
 													  <li><button class="btn-link btn-danger" style="color: #d2322d;" data-toggle="modal" title="Bloquear" data-target="#myModal<?=$band?>"><i class="fa fa-times-circle"></i></button></li>
 													</ul>
 												</div>
